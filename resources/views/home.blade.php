@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('status'))  
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
@@ -24,7 +24,7 @@
             <img src="https://cdn-images-1.medium.com/max/1200/1*VtM1PIgAXaE8zcRdT5n6qw.png" class="rounded-circle" style="max-height:150px">
         </div>
         <div class="col-9 pt-5">
-            <div><h1>freecodecamp</h1></div>
+            <div><h1> {{ $user->username}}</h1></div>
             <div class="d-flex">
                 <div class="px-1"><strong>533</strong> posts</div>
                 <div class="px-5"><strong>132K</strong> followers</div>
@@ -39,13 +39,13 @@
 
     <div class="row pt-5">
         <div class="col-4">
-            <img src= "images/image1.jpg" alt="" class="w-100">
+            <img src= "https://wallpapercave.com/wp/wp5085057.jpg" alt="" class="w-100">
         </div>
         <div class="col-4">
-            <img src= "images/image2.jpg" alt="" class="w-100">
+            <img src= "https://www.wallpapertip.com/wmimgs/136-1369543_laptop-coding.jpg" alt="" class="w-100">
         </div>
         <div class="col-4">
-            <img src= "images/image3.jpg" alt="" class="w-100" style="height: 412px;">
+            <img src= "https://wallpaperaccess.com/thumb/3617099.jpg" alt="" class="w-100" style="max-height:412px" >
         </div>
 
     </div>
