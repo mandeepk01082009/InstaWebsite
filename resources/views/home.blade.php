@@ -30,9 +30,9 @@
                 <div class="px-5"><strong>132K</strong> followers</div>
                 <div class="px-3"><strong>386</strong> following</div>
             </div>
-            <div class="pt-4" style="font-weight: bold;">freeCodeCamp.org</div>
-            <div>We're a global community of millions of people learning to code together.Our mission: to help people learn to code for free. We accomplish this by creating thousands of videos, articles, and interactive coding lessons - all freely available to the public. 
-            <div><a href="#">www.freecodecamp.org</a></div>
+            <div class="pt-4"><b>{{ $user->profile->title }}</b></div>
+            <div>{{ $user->profile->description }}
+            <div><a href="#">{{ $user->profile->url }}</a></div>
             </div>
         </div>
     </div>
