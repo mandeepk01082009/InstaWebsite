@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 
 class ProfilesController extends Controller  
 {
     public function index(User $user)
     {
-        return view('profiles.index', compact('user'));
+        return view('profiles.index', compact('user'));  
         
     }
 
@@ -38,11 +39,12 @@ class ProfilesController extends Controller
             if (request('image')){
                 $imagePath = (request('image')->store('uploads', 'public'));
 
-        $image = Image::make(public_path("profile/{$imagePath}"))->fit(800, 800);
-        $image->save();
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(800, 800);
+            $image->save();
 
             }
 
+            
             auth()->user()->profile->update(array_merge($data, [
                 'image' => $imagePath,
             ]));
