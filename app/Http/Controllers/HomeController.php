@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
@@ -21,13 +22,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    
+    public function index(User $user)
     {
-        $user = User::find($user);
-
-        return view('home', [
-            'user' => $user,
-
-        ]);
+        return view('home', compact('user'));  
+        
     }
 }

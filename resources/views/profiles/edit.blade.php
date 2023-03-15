@@ -5,7 +5,7 @@
      <form action="/profile/{{ $user->id }}" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PATCH')
-        <div class="row">
+        <div class="row">  
              <div class="col-8 offset-2">
 
                 <div class="row">
@@ -31,7 +31,7 @@
 
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">
-                            url       <strong>{{ $message }}</strong>
+                                  <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             
