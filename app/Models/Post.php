@@ -14,4 +14,7 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $table = 'posts';
+    protected $fillable = ['caption','image'];
 }

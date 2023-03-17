@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
-class PostController extends Controller
+
+class PostController extends Controller   
 {
     public function __construct()
     {
@@ -14,7 +17,7 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create'); 
     }
 
     public function store()
@@ -31,7 +34,7 @@ class PostController extends Controller
 
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
-            'image' => $imagePath,
+            'image' => $imagePath,  
         ]);
 
 
@@ -42,4 +45,44 @@ class PostController extends Controller
     {
         return view('posts.show', compact('post'));
     }
+
+    public function edit($id)
+        {
+            $posts = Post::find($id);
+            return view('posts.postupdate')->with('posts',$posts);
+
+        }
+    
+    public function update(Request $request, $id)
+    {
+        $posts = Post::find($id);
+
+        $posts->caption = $request->input('caption');
+
+        if($request->has('image')) {
+            $file = $request->file('image');
+            $extention = $file->getClientOriginalName();
+            $filename = time(). '.' . $extention;
+            $file->move('storage/',$filename);
+            $posts->image = $filename;
+    }
+
+    $posts->update();
+
+    return redirect('/profile/'. auth()->user()->id );
+
+    }
+
+
+        
+
+        public function delete($id)
+        {
+            $posts = Post::find($id);
+            $posts->delete();
+            return redirect('/profile/'. auth()->user()->id );
+    
+        }
+        
+
 }

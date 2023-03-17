@@ -12,7 +12,7 @@
                 
                  @can ('update', $user->profile)
                 <a href="/p/create">Add New Post</a>
-                @endcan   
+                @endcan    
             </div>
 
                 @can ('update', $user->profile)
@@ -35,7 +35,7 @@
         @foreach($user->posts as $post)
         <div class="col-4 pb-4">
             <a href="/p/{{$post->id}}">
-                <img src = "{{asset('storage/' . $post->image) }}" class="w-100" >  
+                <img src = "{{asset('storage/' . $post->image) }}" class="w-100" style="max-width:400; height:400px;" >  
             </a>
         </div>
         @endforeach
