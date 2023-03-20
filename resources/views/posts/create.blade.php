@@ -31,9 +31,10 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror 
                             
                         </div>
+
 
                         <div class="pt-4">
                             <button type="submit" class="btn btn-primary"> Add New Post</button>
