@@ -6,44 +6,59 @@ use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;   
 
 
-class PostController extends Controller     
+class PostController extends Controller         
 {
-    public function __construct() 
+    public function __construct()     
     {
-        $this->middleware('auth');
+        $this->middleware('auth');          
+    }    
+
+    public function create()  
+    {
+        dd(ini_get('post_max_size'));
+        return view('posts.create');         
     }
 
-    public function create()
-    {
-        return view('posts.create'); 
-    }
+   public function store(Request $request)
+   {
+     $request->validate([
+    'caption'=> 'required',
+    'image' => 'required|image',
+    'video' => 'required|mimes:mp4'
+]);
 
-    public function store()
-    {
-        $data = request()->validate([
-            'caption' => 'required',
-            'image' => 'required|image',
+$post = Post::create([
+    'caption' => $request->input('caption'),
+]);
 
-        ]);
+if($request->file('image')) {
+    $file_name = time().'_'.$request->file->getClientOriginalName();
+    $file_path = $request->file('image')->storeAs('uploads', $file_name, 'public');
 
-        $imagePath = (request('image')->store('uploads', 'public'));
+    $post->update([
+        'image' => $file_name,
+        'path' => $file_path
+    ]);
+}
 
-        $image = Image::make(public_path("storage/{$imagePath}"))->fit(800, 800);
-        $image->save();   
+if ($request->file('video')){
+    $file_name = time().'_'.$request->video->getClientOriginalName(); 
+    $file_path = $request->file('video')->storeAs('uploads', $file_name, 'public');
 
-        
+    $post->update([
+        'video' => $file_name,
+        'videoPath' => $file_path
+    ]);
+}
 
-        auth()->user()->posts()->create([
-            'caption' => $data['caption'],
-            'image' => $imagePath,
-        ]);
-
-
-        return redirect('/profile/'. auth()->user()->id );
-    }
+return response()->json(['success'=>'Files uploaded successfully.']);
+}
+ 
+ //    return redirect('/profile/'. auth()->user()->id );      
+ // }
 
     public function show(\App\Models\Post $post)
     {

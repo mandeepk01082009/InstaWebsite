@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Intervention\Image\Facades\Image;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;   
   
 class ProfilesController extends Controller   
 {
