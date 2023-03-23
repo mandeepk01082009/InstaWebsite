@@ -16,5 +16,5 @@ class Post extends Model
     }
 
     protected $table = 'posts';
-    protected $fillable = ['caption','image'];
+    protected $fillable = ['user_id','caption','image','video'];
 }

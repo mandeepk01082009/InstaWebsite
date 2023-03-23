@@ -25,6 +25,13 @@
                             
                         </div>
 
+                        <div class="row">
+                            <label for="video" class="col-md-4 col-form-label custom-file-label ">Video</label>
+                            <input type="file" name="video" id="video" class="custom-file-input" value="{{$posts->video}}">
+                            
+                        </div>
+
+
                         <div class="pt-4">
                             <button type="submit" class="btn btn-primary">Save Post</button>
                         </div>

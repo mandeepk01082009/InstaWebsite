@@ -5,6 +5,8 @@
     <div class="row">
         <div class="col-6">
             <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:550px; height:500px;">
+            <hr>
+            <video controls src="/storage/{{ $post->video }}" alt=""  style="max-width:550px; height:500px;"></video>
         </div>
         <div class="col-6">
             <div>
@@ -12,7 +14,7 @@
                     <div class="px-3">
                         <img src="/storage/{{ $post->user->profile->image }}" class="rounded-circle w-100" style="max-width: 40px;">
                     </div>
-                    <div>
+                    <div>   
                         <div>
                             <b>
                                 <a href="/profile/{{ $post->user->id }}"><span class="text-dark">{{ $post->user->username }}</span>
