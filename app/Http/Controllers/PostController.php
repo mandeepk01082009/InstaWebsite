@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;     
+use Illuminate\Support\Facades\Storage;         
 
 
-class PostController extends Controller         
+class PostController extends Controller           
 {
     public function __construct()     
     {
-        $this->middleware('auth');          
+        $this->middleware('auth');           
     }    
 
     public function create()  
@@ -78,9 +79,10 @@ if($request->has('video')) {
     
     public function update(Request $request, $id)
     {
+        $this->authorize('store', $request->post);
         $posts = Post::find($id);
 
-        $posts->caption = $request->input('caption');
+        auth()->$posts->caption = $request->input('caption');
 
         if($request->has('image')) {
             $file = $request->file('image');
@@ -98,7 +100,7 @@ if($request->has('video')) {
             $posts->image = $filename;       
     }
 
-    $posts->update();
+    auth()->$posts->update();
 
     return redirect('/profile/'. auth()->user()->id );
 
