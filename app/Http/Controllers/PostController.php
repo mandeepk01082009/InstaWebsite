@@ -10,7 +10,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;         
 
 
-class PostController extends Controller           
+class PostController extends Controller              
 {
     public function __construct()     
     {
@@ -28,7 +28,8 @@ class PostController extends Controller
     $data = $request->validate([
     'caption'=> 'required',
     'image' => 'required|image',
-    'video' => 'required|mimes:mp4'
+    'video' => 'required|mimes:mp4',
+    'status' => 'nullable'
 ]);
 
 $post = Post::create([
@@ -36,6 +37,7 @@ $post = Post::create([
      'user_id' => auth()->id(),
      'image' => '',
      'video' => '',
+     'status' => $request->status == true ? '1': '0',
 ]);
 
 if($request->has('image')) {

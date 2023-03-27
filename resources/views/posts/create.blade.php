@@ -11,7 +11,7 @@
                     <h1>Add New Post</h1>
                 </div>
                    <div class="form-group row">
-                            <label for="caption" class="col-md-4 col-form-label ">Post Caption</label>   
+                            <label for="caption" class="col-md-4 col-form-label ">Post Caption</label>      
 
                                 <input id="caption" type="text" class="form-control @error('caption') is-invalid @enderror" name="caption" value="{{ old('caption') }}"  autocomplete="caption" autofocus>
 
@@ -46,6 +46,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror 
+                            
+                        </div>
+
+                        <h3 class="mt-3">Status</h3>
+                        <div class="row ">
+                            <div class="mb-3">
+                                <label for="status">Status</label>
+                                <input type="checkbox" name="status">
+                            </div>
                             
                         </div>
 

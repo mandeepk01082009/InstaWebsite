@@ -15,7 +15,7 @@ use App\Http\Controllers\PostController;
 */
 
 // Route::get('/', function () {   
-//     return view('welcome');
+//     return view('welcome');  
 // }); 
 Route::get('/', function () {
     return view('layouts.app');
@@ -35,6 +35,7 @@ Route::get('deletepost/{id}',[App\Http\Controllers\PostController::class, 'delet
 
 //Comment System 
 Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
+Route::post('delete-comment',[App\Http\Controllers\CommentController::class, 'destroy']);
 
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');

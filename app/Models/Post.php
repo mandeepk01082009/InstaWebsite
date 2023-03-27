@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +13,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 class Post extends Model
 {
     use HasFactory;
-    use Sluggable;
+    use Sluggable;  
 
     protected $guarded = [];
     public function user()
@@ -29,5 +31,10 @@ class Post extends Model
     }
 
     protected $table = 'posts';
-    protected $fillable = ['user_id','caption','image','video'];
+    protected $fillable = ['user_id','caption','image','video','status'];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
 }
