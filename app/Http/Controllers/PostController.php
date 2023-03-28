@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Like;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Facades\Image;  
 use Illuminate\Support\Facades\Storage;         
 
 
-class PostController extends Controller              
+class PostController extends Controller                 
 {
     public function __construct()     
     {
@@ -81,18 +83,19 @@ if($request->has('video')) {
     
     public function update(Request $request, $id)
     {
-        $this->authorize('store', $request->post);
         $posts = Post::find($id);
 
-        auth()->$posts->caption = $request->input('caption');
+        $posts->caption = $request->input('caption');
 
         if($request->has('image')) {
             $file = $request->file('image');
             $extention = $file->getClientOriginalName();
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
-            $posts->image = $filename;       
+            $posts->image = $filename; 
+
     }
+        $posts->update();
 
          if($request->has('video')) {
             $file = $request->file('video');
@@ -102,7 +105,7 @@ if($request->has('video')) {
             $posts->image = $filename;       
     }
 
-    auth()->$posts->update();
+    $posts->update();  
 
     return redirect('/profile/'. auth()->user()->id );
 
@@ -115,6 +118,18 @@ if($request->has('video')) {
             return redirect('/profile/'. auth()->user()->id );
     
         }
+
+        public function like($id){
+            $post_id = $id;
+            $user_id = Auth::user()->id;
+            $like = new like();
+            $like->post_id = $post_id;
+            $like->user_id = $user_id;
+            $like->like = 1;
+            $like->save();
+            return back()->with('mess','You liked this post');
+        }
+
         
 
 }

@@ -15,7 +15,7 @@
                    <div class="form-group row">
                             <label for="caption"  class="col-md-4 col-form-label ">Caption</label>
 
-                                <input id="caption" type="text" class="form-control" name="caption" value="{{ $posts->caption }}" placeholder="Caption">
+                                <textarea id="caption" type="text" class="form-control" name="caption"  placeholder="Caption">{{ $posts->caption }}</textarea>
                     </div>
 
                     

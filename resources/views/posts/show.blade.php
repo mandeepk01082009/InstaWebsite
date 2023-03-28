@@ -3,10 +3,25 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-6">
-            <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:550px; height:500px;">
+         <div class="col-6">
+            @if(session('mess'))
+                <h6 class="alert alert-success mb-3">{{ session('mess') }}</h6>
+                @endif
+
+                @if(session('del'))
+                <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>
+                @endif
+            <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:400px; height:400px;">
+            <div>
+                <a href="/likepost/{{$post->id }}"><span class="like">Like</span></a>
+                <a href="/disliked/{{$post->id }}"><span class="dislike">Disike</span></a>
+            </div>
             <hr>
-            <video controls src="/storage/{{ $post->video }}" alt=""  style="max-width:550px; height:500px;"></video>
+            <video controls src="/storage/{{ $post->video }}" alt=""  style="max-width:500px; height:400px;"></video>
+            <div>
+                <a href="/likepost/{{$post->id }}"><span class="like">Like</span></a>
+                <a href="/disliked/{{$post->id }}"><span class="dislike">Disike</span></a>
+            </div>
         </div>
         <div class="col-6">
             <div>       
@@ -23,10 +38,11 @@
                            
                             <!-- <a href="#" class="px-3">Follow</a> -->
 
-                            
+                             @if(Auth::check() && Auth::id() == $post->user_id)
                             <a href="/editpost/{{$post->id }}" class="px-3"><span class="text-dark">Edit Post</span></a>
                             
                             <a href="/deletepost/{{$post->id }}" class="px-3"><span class="text-dark">Delete Post</span></a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -74,7 +90,7 @@
                   </div>
                   @if(Auth::check() && Auth::id() == $comment->user_id)
                   <div>
-                      <button type="button" value="{{ $comment->user_id}}"  class="deleteComment btn btn-danger btn-sm me-2">Delete</button>
+                      <a href="/delete-comment/{{$comment->id }}" class="btn btn-success"><span class="text-dark">Delete Comment</span></a>
                   </div> 
                   @endif                 
               </div>
@@ -86,7 +102,7 @@
     </div>
         </div>
 </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).ready(function(){
 
         $.ajaxSetup({
@@ -100,6 +116,7 @@
             {
                 var thisClicked = $(this);
                 var comment_id = thisClicked.val();
+                //alert(comment_id);
 
                 $.ajax({
                     type: "POST",
@@ -122,7 +139,7 @@
 
         });
     });
-</script>
+</script> -->
 @endsection
 
 

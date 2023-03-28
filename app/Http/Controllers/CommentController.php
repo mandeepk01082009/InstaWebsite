@@ -45,25 +45,32 @@ class CommentController extends Controller
         }
     }
 
-    public function destroy(Request $request)
-    {
-        if (Auth::check()) {
-            $comment = Comment::where('id',$request->comment_id)->where('user_id',Auth::user()->id)->first();
-            $comment->delete();
+    // public function destroy(Request $request)
+    // {
+    //     if (Auth::check()) {
+    //         $comment = Comment::where('id',$request->comment_id)->where('user_id',Auth::user()->id)->first();
+    //         $comment->delete();
 
-            return response()->json([
-                'status' => 200,
-                'message' => 'Comment Deleted Successfully'
+    //         return response()->json([
+    //             'status' => 200,
+    //             'message' => 'Comment Deleted Successfully'
 
-            ]);
-        }
-        else
+    //         ]);
+    //     }
+    //     else
+    //     {
+    //         return response()->json([
+    //             'status' => 401,
+    //             'message' => 'Login to Delete this content'
+
+    //         ]);
+    //     }
+    // }
+    public function destroy($id)
         {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Login to Delete this content'
-
-            ]);
+            $comment = Comment::find($id);
+            $comment->delete();
+            return redirect()->back()->with('message','Comment Deleted Successfully');
+    
         }
-    }
 }
