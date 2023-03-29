@@ -12,15 +12,21 @@
                 <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>
                 @endif
             <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:400px; height:400px;">
-            <div>
-                <a href="/likepost/{{$post->id }}"><span class="like">Like</span></a>
-                <a href="/disliked/{{$post->id }}"><span class="dislike">Disike</span></a>
+            <!-- <div class="mt-2"><h6>Posted on  {{$post->created_at}} by {{$post->user->name}}</h6></div>
+            <div> -->
+            <div class="mt-2">
+                <!-- <a href="/likepost/{{$post->id }}"><span class="like">Like</span></a> |
+                <a href="/disliked/{{$post->id }}"><span class="dislike">Disike</span></a> -->
+                <a href="#"><span class="like">{{ Auth::user()->where('post_id', $post->id)->first() ? Auth::user()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'}}</span></a> |
+                <a href="#"><span class="like">{{ Auth::user()->where('post_id', $post->id)->first() ? Auth::user()->where('post_id', $post->id)->first()->like == 0 ? 'You dont like this post' : 'Dislike' : 'Dislike'}}</span></a>
             </div>
             <hr>
             <video controls src="/storage/{{ $post->video }}" alt=""  style="max-width:500px; height:400px;"></video>
             <div>
-                <a href="/likepost/{{$post->id }}"><span class="like">Like</span></a>
-                <a href="/disliked/{{$post->id }}"><span class="dislike">Disike</span></a>
+                <!-- <a href="/likepost/{{$post->id }}"><span class="like">Like</span></a> |
+                <a href="/disliked/{{$post->id }}"><span class="dislike">Disike</span></a> -->
+                <a href=""><span class="like">Like</span></a> |
+                <a href=""><span class="dislike">Disike</span></a>
             </div>
         </div>
         <div class="col-6">
@@ -34,7 +40,7 @@
                             <b>
                                 <a href="/profile/{{ $post->user->id }}"><span class="text-dark">{{ $post->user->username }}</span>
                                 </a>
-                            </b> |
+                            </b> 
                            
                             <!-- <a href="#" class="px-3">Follow</a> -->
 
@@ -102,6 +108,10 @@
     </div>
         </div>
 </div>
+<script type="text/javascript">
+    var token = '{{ Session::token() }}';
+    var unlike = '{{ route('like')}}';
+</script>
 <!-- <script type="text/javascript">
     $(document).ready(function(){
 

@@ -5,8 +5,12 @@
      <form action="/profile/{{ $user->id }}" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PATCH')  
-        <div class="row">  
+        <div class="row"> 
+        <div>
+                    <a href="/profile/{{ $user->id }}" class="btn btn-light" style="float: right; color: black; font: bold;">Back to Profile</a>
+                </div> 
              <div class="col-8 offset-2">
+
 
                 <div class="row">
                     <h1>Edit Profile</h1>

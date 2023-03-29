@@ -18,6 +18,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="{{asset('assets/like.js')}}"></script>
 </head>
 <body>
     <div id="app">
@@ -62,6 +63,11 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                                    @if($id = Auth::user()->id)
+                                    <a  class="dropdown-item" href=" /profile/{{ $id}}">Profile</a>
+                                    @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

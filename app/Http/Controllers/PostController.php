@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Intervention\Image\Facades\Image;  
-use Illuminate\Support\Facades\Storage;         
+use Illuminate\Support\Facades\Storage;           
 
 
 class PostController extends Controller                 
@@ -80,8 +80,8 @@ if($request->has('video')) {
             return view('posts.postupdate')->with('posts',$posts);
 
         }
-    
-    public function update(Request $request, $id)
+
+     public function update(Request $request, $id)
     {
         $posts = Post::find($id);
 
@@ -92,25 +92,23 @@ if($request->has('video')) {
             $extention = $file->getClientOriginalName();
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
-            $posts->image = $filename; 
-
+            $posts->image = $filename;
     }
-        $posts->update();
-
+    
          if($request->has('video')) {
             $file = $request->file('video');
             $extention = $file->getClientOriginalName();
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
-            $posts->image = $filename;       
+            $posts->video = $filename;       
     }
 
-    $posts->update();  
+    $posts->update();
 
     return redirect('/profile/'. auth()->user()->id );
 
-    }
-  
+    }    
+    
         public function delete($id)
         {
             $posts = Post::find($id);
@@ -119,15 +117,52 @@ if($request->has('video')) {
     
         }
 
-        public function like($id){
-            $post_id = $id;
-            $user_id = Auth::user()->id;
-            $like = new like();
-            $like->post_id = $post_id;
+        // public function like($id){
+        //     $post_id = $id;
+        //     $user_id = Auth::user()->id;
+        //     $like = new like();
+        //     $like->post_id = $post_id;
+        //     $like->user_id = $user_id;
+        //     $like->like = 1;
+        //     $like->save();
+        //     return back()->with('mess','You liked this post');
+        // }
+
+        public function likePost(Request $request)
+        {
+            $post_id = $request['post_id'];
+            $is_like = $request['like'] === true;
+            $update = false;
+            $post = Post::find($post_id);
+
+            if(!$post){
+                return null;
+            }
+
+            $user = Auth::user();
+            $like = $user->post()->where('post_id', $post_id)->first();
+            if($like) {
+                $already_like = $like->like;
+                $update = true;
+                if($already_like == $is_like){
+                    $like->delete();
+                    return null;
+                }
+            } else{
+                $like = new Like();
+            }
+
+            $like->like = $is_like;
             $like->user_id = $user_id;
-            $like->like = 1;
-            $like->save();
-            return back()->with('mess','You liked this post');
+            $like->post_id = $post_id;
+
+            if ($update) {
+                $like->update();
+            } else {
+                $like->save();
+            }
+
+            return null;
         }
 
         
