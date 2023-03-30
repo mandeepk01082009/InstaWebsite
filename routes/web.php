@@ -37,16 +37,13 @@ Route::get('deletepost/{id}',[App\Http\Controllers\PostController::class, 'delet
 Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
 Route::get('delete-comment/{id}',[App\Http\Controllers\CommentController::class, 'destroy']);
 
-//like system
-// Route::get('likepost/{id}',[App\Http\Controllers\PostController::class, 'like']);
-// Route::get('disliked/{id}',function($id){
-//     $post = DB::table('likes')->where('post_id',$id)->delete();
-//     return back()->with('del','You dont like this post');
-// });
 
 //like system
-Route::post('/like',[App\Http\Controllers\PostController::class, 'postLike'])->name('like');
-
+Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->name('like');
+// Route::post('/like', [
+//     'uses' => 'PostController@postLike',
+//     'as' => 'like'
+// ]);
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');

@@ -18,7 +18,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="{{asset('assets/like.js')}}"></script>
+    <script src="{{asset('js/like.js')}}"></script>
 </head>
 <body>
     <div id="app">

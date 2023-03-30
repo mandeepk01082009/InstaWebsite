@@ -7,9 +7,10 @@ use App\Models\Post;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Intervention\Image\Facades\Image;  
-use Illuminate\Support\Facades\Storage;           
+use Illuminate\Support\Facades\Storage;             
 
 
 class PostController extends Controller                 
@@ -117,54 +118,40 @@ if($request->has('video')) {
     
         }
 
-        // public function like($id){
-        //     $post_id = $id;
-        //     $user_id = Auth::user()->id;
-        //     $like = new like();
-        //     $like->post_id = $post_id;
-        //     $like->user_id = $user_id;
-        //     $like->like = 1;
-        //     $like->save();
-        //     return back()->with('mess','You liked this post');
-        // }
-
-        public function likePost(Request $request)
+        public function postLike(Request $request)
         {
-            $post_id = $request['post_id'];
-            $is_like = $request['like'] === true;
+            $post_id = $request['postId'];
+            $is_like = $request['isLike'] === 'true';
             $update = false;
             $post = Post::find($post_id);
-
-            if(!$post){
+            // if (!$post){
+            //     return response()->json(['status' => false, 'message' => 'No post found!']);
+            // }
+            if (!$post){
                 return null;
             }
-
             $user = Auth::user();
-            $like = $user->post()->where('post_id', $post_id)->first();
-            if($like) {
+            $like = $user->likes()->where('post_id', $post_id)->first();
+            if($like){
                 $already_like = $like->like;
                 $update = true;
-                if($already_like == $is_like){
+                if ($already_like == $is_like){
                     $like->delete();
                     return null;
                 }
-            } else{
+            }else {
                 $like = new Like();
             }
-
             $like->like = $is_like;
-            $like->user_id = $user_id;
-            $like->post_id = $post_id;
-
+            $like->user_id = $user->id;
+            $like->post_id = $post->id;
             if ($update) {
                 $like->update();
             } else {
                 $like->save();
             }
-
             return null;
         }
+}      
 
         
-
-}

@@ -15,10 +15,8 @@
             <!-- <div class="mt-2"><h6>Posted on  {{$post->created_at}} by {{$post->user->name}}</h6></div>
             <div> -->
             <div class="mt-2">
-                <!-- <a href="/likepost/{{$post->id }}"><span class="like">Like</span></a> |
-                <a href="/disliked/{{$post->id }}"><span class="dislike">Disike</span></a> -->
-                <a href="#"><span class="like">{{ Auth::user()->where('post_id', $post->id)->first() ? Auth::user()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'}}</span></a> |
-                <a href="#"><span class="like">{{ Auth::user()->where('post_id', $post->id)->first() ? Auth::user()->where('post_id', $post->id)->first()->like == 0 ? 'You dont like this post' : 'Dislike' : 'Dislike'}}</span></a>
+                <a href="#" class="like">Like</a> |
+                <a href="#" class="like">Dislike</a>
             </div>
             <hr>
             <video controls src="/storage/{{ $post->video }}" alt=""  style="max-width:500px; height:400px;"></video>
@@ -110,46 +108,8 @@
 </div>
 <script type="text/javascript">
     var token = '{{ Session::token() }}';
-    var unlike = '{{ route('like')}}';
+    var urlLike = '{{ route('like')}}';
 </script>
-<!-- <script type="text/javascript">
-    $(document).ready(function(){
-
-        $.ajaxSetup({
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        });
-
-        $(document).on('click','.deleteComment', function(){
-            if(confirm('Are you sure you want to delete this comment? '))
-            {
-                var thisClicked = $(this);
-                var comment_id = thisClicked.val();
-                //alert(comment_id);
-
-                $.ajax({
-                    type: "POST",
-                    url: "/delete-comment",
-                    data: {
-                        'comment_id': comment_id
-                    },
-                    success: function(res){
-                        if (res.status == 200) {
-                            thisClicked.closest('.comment-container').remove();
-                            alert(res.message);
-                        }
-                         else{
-                            alert(res.message);
-                        }
-
-                    }
-                });
-            }    
-
-        });
-    });
-</script> -->
 @endsection
 
 
