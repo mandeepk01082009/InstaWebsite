@@ -70,4 +70,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class, 'post_id', 'id');
     }
+
+    
 }

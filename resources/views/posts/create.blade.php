@@ -11,7 +11,9 @@
                     <h1>Add New Post</h1>
                 </div>
                    <div class="form-group row">
-                            <label for="caption" class="col-md-4 col-form-label ">Post Caption</label>      
+                            <label for="caption" class="col-md-4 col-form-label ">Post Caption</label>
+
+                            <input type="hidden" name="post_id" value="{{$post->id}}">      
 
                                 <textarea id="caption" type="text" class="form-control @error('caption') is-invalid @enderror" name="caption"   autocomplete="caption" autofocus>{{ old('caption') }} </textarea>
 
@@ -58,10 +60,10 @@
                             
                         </div>
 
-
                         <div class="pt-4">
                             <button type="submit" class="btn btn-primary"> Add Post</button>
                         </div>
+                        <input type="hidden" name="_token" value="{{ Session::token() }}">
                 </div>
             </div>    
 
@@ -70,4 +72,8 @@
     
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script type="text/javascript">
+    var token = '{{ Session::token() }}';
+    var urlLike = '{{ route('like')}}';
+</script>
 @endsection

@@ -43,7 +43,7 @@ Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->
 // Route::post('/like', [
 //     'uses' => 'PostController@postLike',
 //     'as' => 'like'
-// ]);
+// ]);   
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');

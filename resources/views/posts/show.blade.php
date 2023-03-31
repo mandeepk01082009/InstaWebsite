@@ -2,19 +2,18 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row" data-post="{{$post->id}}">
          <div class="col-6">
             @if(session('mess'))
                 <h6 class="alert alert-success mb-3">{{ session('mess') }}</h6>
                 @endif
 
                 @if(session('del'))
-                <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>
-                @endif
+                <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>  
+                @endif   
             <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:400px; height:400px;">
-            <!-- <div class="mt-2"><h6>Posted on  {{$post->created_at}} by {{$post->user->name}}</h6></div>
-            <div> -->
             <div class="mt-2">
+
                 <a href="#" class="like">Like</a> |
                 <a href="#" class="like">Dislike</a>
             </div>
@@ -41,7 +40,7 @@
                             </b> 
                            
                             <!-- <a href="#" class="px-3">Follow</a> -->
-
+                            <h1 style="display: none;">{{$post->id}}</h1>
                              @if(Auth::check() && Auth::id() == $post->user_id)
                             <a href="/editpost/{{$post->id }}" class="px-3"><span class="text-dark">Edit Post</span></a>
                             
@@ -84,7 +83,7 @@
                       <h6 class="user-name mb-1">
                           @if ($comment->user)
                               {{$comment->user->name}}
-                          @endif
+                          @endif  
                           <small class="ms-3 text-primary">Commented on: {{ $comment->created_at->format('d-m-Y') }}</small>
                       </h6>
                       <p class="user-comment mb-1">
