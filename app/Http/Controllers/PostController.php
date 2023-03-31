@@ -13,7 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;                   
 
 
-class PostController extends Controller                 
+class PostController extends Controller                    
 {
     public function __construct()     
     {
@@ -120,18 +120,18 @@ if($request->has('video')) {
 
         public function postLike(Request $request)
         {
-            $post_id = $request['postId'];
+            $post_id = $request['post_id'];
             $is_like = $request['isLike'] === 'true';
             $update = false;
             $post = Post::find($post_id);
-            // if (!$post){
-            //     return response()->json(['status' => false, 'message' => 'No post found!']);
-            // }
             if (!$post){
-                return null;
+                return response()->json(['status' => false, 'message' => 'No post found!']);
             }
+            // if (!$post){
+            //     return null;
+            // }
             $user = Auth::user();
-            //dd($user);
+            //dd($user );
             $like = $user->likes()->where('post_id', $post_id)->first();
             if($like){
                 $already_like = $like->like;
@@ -144,7 +144,7 @@ if($request->has('video')) {
                 $like = new Like();
             }
             $like->like = $is_like;
-            $like->user_id = Auth::user();
+            $like->user_id = $user->id;
             $like->post_id = $post->id;
             if ($update) {
                 $like->update();   
