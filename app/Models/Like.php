@@ -14,13 +14,26 @@ class Like extends Model
         'user_id','like','post_id',
     ];
 
+    public function user()   
+     {
+      return $this->belongsTO(User::class, 'user_id','id');
+     }
+
     public function post()
      {
       return $this->belongsTO(Post::class, 'post_id','id');
      }
 
-     public function user()
-     {
-      return $this->belongsTO(User::class, 'user_id','id');
-     }
+    // public function user()   
+    //  {
+    //   return $this->belongsTO('App\Models\User');
+    //  }
+
+    // public function post()
+    //  {
+    //   return $this->belongsTO('App\Models\Post');
+    //  }
+
+
+     
 }

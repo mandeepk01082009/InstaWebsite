@@ -5,7 +5,7 @@ $(document).ready(function(){
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-        });  
+        });         
 
 $('.like').on('click', function(event) {     
         event.preventDefault();
@@ -13,19 +13,22 @@ $('.like').on('click', function(event) {
         var postId = event.target.parentNode.parentNode.parentNode.dataset['post'];
         var isLike = event.target.previousElementSibling == null ;
         $.ajax({
-                method: 'POST',
+                method: 'POST',   
                 url: urlLike,
-                data: {isLike: isLike, post_id: postId, _token:token},
-                success: function (data) {
-                        console.log(postId);
-        } 
-                // success: (res) => {
-                //         alert(res.message)
-                // }   
+                data: {isLike: isLike, postId: postId, _token:token}
+        //         success: function (data) {
+        //                 console.log(postId);     
+        // } 
+                  
         })
 
         .done(function(){
-                //change the page
+                event.target.innerHTML = isLike ? event.target.innerText == 'Like' ? 'You like this post' : 'Like' : event.target.innerText === 'Dislike' ? 'You don\'t like this post' : 'Dislike';
+                if(isLike) {
+                        event.target.nextElementSibling.innerText = 'Dislike';
+                }else {
+                        event.target.previousElementSibling.innerText = 'Like';
+                }
         });
 });
 });

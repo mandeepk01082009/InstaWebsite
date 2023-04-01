@@ -68,8 +68,13 @@ class User extends Authenticatable
 
     public function like()
     {
-        return $this->hasMany(Like::class, 'post_id', 'id');
+        return $this->hasMany(Like::class, 'user_id', 'id');
     }
+
+    //  public function like()
+    // {
+    //     return $this->hasMany('App\Models\Like');
+    // }
 
     
 }

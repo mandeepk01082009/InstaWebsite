@@ -10,7 +10,9 @@
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="d-flex align-items-center pb-3">
                     <div class="h4"> {{ $user->username}}</div>
-                <!-- <button class="btn btn-primary ms-4">Follow</button> -->
+                    @if(Auth::check() && Auth::id() !== $user->id)
+                    <button class="btn btn-primary ms-4">Follow</button>
+                    @endif
                 </div>   
                 
                  @can ('update', $user->profile)
