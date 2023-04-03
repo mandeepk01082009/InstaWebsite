@@ -12,8 +12,7 @@
                 </div>
                    <div class="form-group row">
                             <label for="caption" class="col-md-4 col-form-label ">Post Caption</label>
-
-                            <input type="hidden" name="post_id" value="{{$post->id}}">      
+    
 
                                 <textarea id="caption" type="text" class="form-control @error('caption') is-invalid @enderror" name="caption"   autocomplete="caption" autofocus>{{ old('caption') }} </textarea>
 

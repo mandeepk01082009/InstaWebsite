@@ -10,8 +10,19 @@
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="d-flex align-items-center pb-3">
                     <div class="h4"> {{ $user->username}}</div>
-                    @if(Auth::check() && Auth::id() !== $user->id)
-                    <button class="btn btn-primary ms-4">Follow</button>
+                    <!-- <button class="btn btn-primary ms-4">Follow</button> -->
+                    @if(auth()->user()->id !== $user->id)
+                    <!-- <a href="#" class="btn btn-primary ms-4" >Follow</a> -->
+                        @if($user->followers->contains(auth()->user()->id))
+                            <a href="{{route('follow', $user->id)}}"  class="btn btn-danger ms-4" >
+                                Unfollow   
+                            </a>   
+                        @else
+                            <a href="{{route('follow', $user->id)}}"  class="btn btn-primary ms-4" >
+                                Follow
+                            </a>
+                        @endif
+
                     @endif
                 </div>   
                 
@@ -26,8 +37,8 @@
 
             <div class="d-flex">
                 <div class="px-1"><strong>{{ $user->posts->count() }}</strong> posts</div>
-                <div class="px-5"><strong>132K</strong> followers</div>
-                <div class="px-3"><strong>386</strong> following</div>
+                <div class="px-5"><strong>{{ $user->followers()->count() }}</strong> followers</div>
+                <div class="px-3"><strong>{{ $user->followings()->count() }}</strong> following</div>
             </div>
             <div class="pt-4"><b>{{ $user->profile->title }}</b></div>
             <div>{{ $user->profile->description }}

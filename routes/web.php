@@ -18,7 +18,7 @@ use App\Http\Controllers\PostController;
 //     return view('welcome');  
 // }); 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('layouts.app');   
 });  
 
 
@@ -43,8 +43,11 @@ Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->
 // Route::post('/like', [
 //     'uses' => 'PostController@postLike',
 //     'as' => 'like'
-// ]);   
+// ]);  
 
-Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
+//follow unfollow
+Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');  
+
+Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show')->middleware(['auth']);
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
-Route::patch('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'update'])->name('profile.update');
+Route::patch('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'update'])->name('profile.update');     

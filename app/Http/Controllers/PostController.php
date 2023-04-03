@@ -13,7 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;                   
 
 
-class PostController extends Controller                       
+class PostController extends Controller                           
 {
     public function __construct()     
     {
@@ -51,7 +51,7 @@ if($request->has('image')) {
             $post->image = $filename;       
     }
 
-    $post->save();
+    $post->save();    
 
 
 if($request->has('video')) {
@@ -149,6 +149,20 @@ if($request->has('video')) {
             }
             return null;   
         }
+
+        public function follow($following_id){
+            $following = User::find($following_id);
+            if(auth()->user()->followings->contains($following_id)){
+                auth()->user()->followings()->detach($following);
+            }
+            else
+            {
+                auth()->user()->followings()->attach($following);
+            }
+            return redirect()->back();
+            
+        }
+
 }  
 
         

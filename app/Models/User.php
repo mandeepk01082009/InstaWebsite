@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
+
 
 class User extends Authenticatable 
 {
@@ -75,6 +77,14 @@ class User extends Authenticatable
     // {
     //     return $this->hasMany('App\Models\Like');
     // }
+
+    public function followings(){
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');   
+    }
+
+    public function followers(){
+        return $this->belongsToMany(User::class, 'followers', 'follower_id','following_id',);       
+    }  
 
     
 }
