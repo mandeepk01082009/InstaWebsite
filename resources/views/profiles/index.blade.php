@@ -49,8 +49,6 @@
 
     <div class="row pt-5">
         @foreach($user->posts as $post)
-        <!-- <div id="post_container_{{$post->id}}" data-id="{{$post->id}}" class="row waypoint">
-    </div> -->
         <div class="col-4 pb-4">
             <a href="/p/{{$post->id}}">
                 <img src = "{{asset('storage/' . $post->image) }}" class="w-100" style="max-width:400; height:400px;"> 

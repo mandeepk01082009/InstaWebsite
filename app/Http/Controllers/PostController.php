@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-use Intervention\Image\Facades\Image;  
+use Intervention\Image\Facades\Image;    
 use Illuminate\Support\Facades\Storage;                   
 
 
-class PostController extends Controller                           
+class PostController extends Controller                             
 {
     public function __construct()     
     {
