@@ -42,7 +42,6 @@
                             </b> 
                            
                             <!-- <a href="#" class="px-3">Follow</a> -->
-                            <h1 style="display: none;">{{$post->id}}</h1>
                              @if(Auth::check() && Auth::id() == $post->user_id)
                             <a href="/editpost/{{$post->id }}" class="px-3"><span class="text-dark">Edit Post</span></a>
                             

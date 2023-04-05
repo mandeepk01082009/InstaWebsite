@@ -41,10 +41,7 @@ Route::get('delete-comment/{id}',[App\Http\Controllers\CommentController::class,
 
 //like system
 Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->name('like');
-// Route::post('/like', [
-//     'uses' => 'PostController@postLike',
-//     'as' => 'like'
-// ]);  
+Route::post('/like', [App\Http\Controllers\HomeController::class, 'likePost'])->name('like'); 
 
 //follow unfollow
 Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');  
