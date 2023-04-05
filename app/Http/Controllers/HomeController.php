@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Intervention\Image\Facades\Image;  
-use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\Storage;   
 
 
 class HomeController extends Controller  

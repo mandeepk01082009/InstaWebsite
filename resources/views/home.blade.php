@@ -17,9 +17,9 @@
     <title>Home</title>
 </head>
 <body class="bg-light">
-<div class="container">
+<div class="container">  
         <div class="row py-5" style="width: 100%;">
-            <div class="col-2" style="position: fixed; border-right: 1px solid black;" >
+            <div class="col-2 bg-white" style="position: fixed; border-right: 1px solid black;" >
                 <div class="nav">
                     <img src="{{asset('images/Instagram_logo.png')}}"  class="w-100" style="max-height:100px; max-width:120px">
                     <ul style="list-style: none;" class="px-1">
@@ -74,7 +74,7 @@
                     @foreach($user->posts as $post)
                     <div class="px-3">
                         <img src="/storage/{{ $post->user->profile->image }}" class="rounded-circle w-100" style="max-width: 40px;"> 
-                    <span> 
+                    <span class="px-2"> 
                         <b>
                             <a href="/profile/{{ $post->user->id }}"><span class="text-dark">{{ $post->user->username }}</span>
                             </a>
@@ -144,7 +144,7 @@
                     @foreach($user->posts as $post)
                     <div class="px-3">
                         <img src="/storage/{{ $post->user->profile->image }}" class="rounded-circle w-100" style="max-width: 40px;"> 
-                    <span> 
+                    <span class="px-2"> 
                         <b>
                             <a href="/profile/{{ $post->user->id }}"><span class="text-dark">{{ $post->user->username }}</span>
                             </a>
@@ -213,7 +213,26 @@
         </div>
         <div class="col-4 mt-2">
             <div>
-                <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100" style="max-width: 30px;">
+                <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100" style="max-width: 50px;">
+                <span class="px-2"> 
+                        <b>
+                            <a href="/profile/{{ $post->user->id }}"><span class="text-dark">{{ $post->user->username }}</span>
+                            </a>
+                        </b>
+                </span>
+
+                <span class= "mt-1" style="float: right">
+                    <a  href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Switch') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                </span>
+
             </div>
             
         </div>
