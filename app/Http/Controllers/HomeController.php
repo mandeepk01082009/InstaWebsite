@@ -13,7 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;   
 
 
-class HomeController extends Controller  
+class HomeController extends Controller   
 {
     /**
      * Create a new controller instance.
@@ -31,10 +31,14 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(User $user)
-    {  
-        return view('home', compact('user'));    
-        
-    }
+    {   
+        // $posts = Post::where('status', 1)->first();
+        // $posts = Post::whereIn('user_id', User::find($user_id)->followers->pluck('id'))->get();
+        $posts = User::with('posts')->get();  
+         //dd($post);
+         return view('home', compact('user','posts')); 
+    }  
+
 
     public function likePost(Request $request)
         {
@@ -52,7 +56,7 @@ class HomeController extends Controller
                 $update = true;
                 if ($already_like == $is_like){
                     $like->delete();
-                    return null;    
+                    return null;      
                 }
             }else {
                 $like = new Like();

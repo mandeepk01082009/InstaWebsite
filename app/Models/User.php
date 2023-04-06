@@ -33,7 +33,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token',   
     ];
 
     /**
@@ -83,7 +83,7 @@ class User extends Authenticatable
     }
 
     public function followers(){
-        return $this->belongsToMany(User::class, 'followers', 'follower_id','following_id',);       
+        return $this->belongsToMany(User::class, 'followers', 'follower_id','following_id',);          
     }  
 
     

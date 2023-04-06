@@ -14,17 +14,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{asset('js/like.js')}}"></script>
     <script src="{{asset('css/style.css')}}"></script>
-    <title>Home</title>
+    <title>Home</title>   
 </head>
 <body class="bg-light">
-<div class="container">  
-        <div class="row py-5" style="width: 100%;">
-            <div class="col-2 bg-white" style="position: fixed; border-right: 1px solid black;" >
-                <div class="nav">
+<div class="container-fluid">    
+        <div class="row" style="width: 100%;">
+            <div class="col-2 bg-white py-5" style="position: fixed; border-right: 1px solid lightgray; padding-top: 50;" >
+                <div class="nav py-3">
                     <img src="{{asset('images/Instagram_logo.png')}}"  class="w-100" style="max-height:100px; max-width:120px">
-                    <ul style="list-style: none;" class="px-1">
+                    <ul style="list-style: none;" class="px-1 py-5">
                         <li class="nav-item px-1">
-                          <a class="nav-link active" href="#" style="color:black; font-size: 18px; font-weight: bold;">
+                          <a class="nav-link active" href="/home/{{ $user->id }}" style="color:black; font-size: 18px; font-weight: bold;">
                           <i class="fa fa-home" aria-hidden="true" style="font-size:28px"></i>
                          <span class="px-1">Home</span></a>
                        </li> 
@@ -59,15 +59,15 @@
                          <span class="px-1">Create</span></a>
                        </li>
                        <li class="nav-item">
-                          <a class="nav-link" href="#" style="color:black; font-size: 18px;">
+                          <a class="nav-link" href="/profile/{{ $user->id }}" style="color:black; font-size: 18px;">
                          <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100" style="max-width: 30px;"> 
                          <span class="px-1">Profile</span></a>
                        </li>
                     </ul>
             </div>
         </div>
-        <div class="col-1 p-3" style="position: relative; margin-left:100px;"></div>
-        <div class="col-5 p-3" style="position: relative; margin-left:100px;">
+        <div class="col-2 p-3" style="position: relative; margin-left:100px;"></div>
+        <div class="col-4 p-3" style="position: relative; margin-left:100px;">
                         <div class="card">
                       <div class="row pt-2">
                     
@@ -211,9 +211,9 @@
     </div>
             </div>
         </div>
-        <div class="col-4 mt-2">
+        <div class="col-4 mt-5">
             <div>
-                <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100" style="max-width: 50px;">
+                <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100" style="max-width: 55px;">
                 <span class="px-2"> 
                         <b>
                             <a href="/profile/{{ $post->user->id }}"><span class="text-dark">{{ $post->user->username }}</span>

@@ -17,15 +17,16 @@ use App\Http\Controllers\PostController;
 // Route::get('/', function () {   
 //     return view('welcome');  
 // }); 
-Route::get('/', function () {
-    return view('layouts.app');   
-});  
+// Route::get('/', function () {
+//     return view('layouts.app');      
+// });  
 
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home/{user}', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');
+Route::get('/home/{user}', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');  
+
 
 Route::get('/p/create', [App\Http\Controllers\PostController::class, 'create']);
 Route::post('/p', [App\Http\Controllers\PostController::class, 'store']);
