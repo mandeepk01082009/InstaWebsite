@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Intervention\Image\Facades\Image;  
-use Illuminate\Support\Facades\Storage;   
+use Illuminate\Support\Facades\Storage;     
 
 
 class HomeController extends Controller        
@@ -32,11 +32,9 @@ class HomeController extends Controller
      */
     public function index(User $user)
     {   
-        // $posts = Post::where('status', 1)->first();
-        // $posts = Post::whereIn('user_id', User::find($user_id)->followers->pluck('id'))->get();
         // $posts = User::with('posts')->get();  
          //dd($post);
-         return view('home', compact('user','posts'));     
+         return view('home', compact('user'));     
     }  
 
 
