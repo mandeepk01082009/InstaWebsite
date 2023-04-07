@@ -17,9 +17,9 @@ use App\Http\Controllers\PostController;
 // Route::get('/', function () {   
 //     return view('welcome');  
 // }); 
-// Route::get('/', function () {
-//     return view('layouts.app');      
-// });  
+Route::get('/', function () {
+    return view('layouts.app');                
+});  
 
 
 Auth::routes();
@@ -45,7 +45,7 @@ Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->
 Route::post('/like', [App\Http\Controllers\HomeController::class, 'likePost'])->name('like'); 
 
 //follow unfollow
-Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');  
+Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');     
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');

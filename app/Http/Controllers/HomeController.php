@@ -13,7 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;   
 
 
-class HomeController extends Controller   
+class HomeController extends Controller        
 {
     /**
      * Create a new controller instance.
@@ -34,9 +34,9 @@ class HomeController extends Controller
     {   
         // $posts = Post::where('status', 1)->first();
         // $posts = Post::whereIn('user_id', User::find($user_id)->followers->pluck('id'))->get();
-        $posts = User::with('posts')->get();  
+        // $posts = User::with('posts')->get();  
          //dd($post);
-         return view('home', compact('user','posts')); 
+         return view('home', compact('user','posts'));     
     }  
 
 
