@@ -22,10 +22,10 @@ Route::get('/', function () {
 });  
 
 
-Auth::routes();
+Auth::routes();  
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home/{user}', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');  
+Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');  
 
 
 Route::get('/p/create', [App\Http\Controllers\PostController::class, 'create']);

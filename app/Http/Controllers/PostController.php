@@ -13,7 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;                   
 
 
-class PostController extends Controller                             
+class PostController extends Controller                               
 {
     public function __construct()     
     {
@@ -125,7 +125,7 @@ if($request->has('video')) {
             $update = false;  
             $post = Post::find($post_id);
             if (!$post){
-                return null;   
+                return null;      
             }
             $user = Auth::user();
             $like = $user->like()->where('post_id', $post_id)->first();   
@@ -133,7 +133,7 @@ if($request->has('video')) {
                 $already_like = $like->like;
                 $update = true;
                 if ($already_like == $is_like){
-                    $like->delete();
+                    $like->delete();   
                     return null;    
                 }
             }else {
