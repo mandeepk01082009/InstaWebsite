@@ -45,40 +45,32 @@ class HomeController extends Controller
             ->orderBy('updated_at', 'DESC')->get();
 
         return view('home',compact('user','posts'));   
-    }   
- 
+    } 
 
-
-    public function likePost(Request $request)
-        {
-            $post_id = $request['postId'];
-            $is_like = $request['isLike'] === 'true';
-            $update = false;  
-            $post = Post::find($post_id);
-            if (!$post){
-                return null;   
-            }
-            $user = Auth::user();
-            $like = $user->like()->where('post_id', $post_id)->first();   
-            if($like){
-                $already_like = $like->like;
-                $update = true;
-                if ($already_like == $is_like){
-                    $like->delete();
-                    return null;      
-                }
-            }else {
-                $like = new Like();
-            }
-            $like->like = $is_like;
-            $like->user_id = $user->id;
-            $like->post_id = $post->id;
-            if ($update) {
-                $like->update();   
-            } else {
-                $like->save();
-            }
-            return null;   
+    function save_likedislike(Request $request){
+        $data=new LikeDislike;
+        $data->post_id=$request->post;
+        if($request->type=='like'){
+            $data->like=1;
+        }else{
+            $data->dislike=1;
         }
+        $data->save();
+        return response()->json([
+            'bool'=>true
+        ]);
+    }
 
+    // public function pressLike(Request $request)
+    // {
+    //     $post = Post::find($request->post_id);
+    //     dd($post);
+    //     if($post->like->contains('user_id',auth()->id())){
+    //         $post->like()->where('user_id',auth()->id()->delete());                          
+    //     }else{
+    //         $post->like()->create(['user_id'=>auth()->id()]);
+    //     }
+    //     return response()->json(['like'=>$post->like()->count()]);
+    // }  
+ 
 }

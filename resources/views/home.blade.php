@@ -14,12 +14,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{asset('js/like.js')}}"></script>
     <script src="{{asset('css/style.css')}}"></script>
+    <!-- <style type="text/css">
+          .heart{
+            color: red;
+        }
+    </style> -->
     <title>Home</title>   
 </head>
-<body class="bg-light">   
-<div class="container-fluid">    
-        <div class="row" style="width: 100%;">
-            <div class="col-2 bg-white py-5" style="position: fixed; border-right: 1px solid lightgray; padding-top: 50;" >
+<body class="bg-light">          
+<div class="container-fluid">              
+        <div class="row" style="width: 100%;">    
+            <div class="col-2 bg-white py-5" style="position: fixed; border-right: 1px solid lightgray; padding-top: 50;">
                 <div class="nav py-3">
                     <img src="{{asset('images/Instagram_logo.png')}}"  class="w-100" style="max-height:100px; max-width:120px">
                     <ul style="list-style: none;" class="px-1 py-5">
@@ -68,7 +73,7 @@
         </div>
         <div class="col-2 p-3" style="position: relative; margin-left:100px;"></div>
         <div class="col-4 p-3" style="position: relative; margin-left:100px;">
-                        <div class="card">
+                        <div class="card" data-post="{{$user->id}}">
                             <div class="mt-2">
                                 @if ($posts->count()>0)
                                 @foreach ($posts as $post)
@@ -80,21 +85,38 @@
                             </a>
                         </b>
                     </span>
-                    <!-- {{ $post->caption}} -->
+                    {{ $post->caption}}
                 
                     </div>
-                   <div class="pt-2">
+                   <div class="pt-2 ">
                         <div class="col-12 pb-4">
                         <a href="/p/{{$post->id}}">
                             <img src = "{{asset('storage/' . $post->image) }}" class="w-100" style="max-width:400; height:400px;"> 
                         </a>
-                         
-                 <div class="comment-area p-2 mt-4">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                @auth
+                                
+                                    <i class="fa fa-heart heart {{$post->like->contains('user_id',auth()->id()) ? 'redHeart' : ''}}" aria-hidden="false">  {{$post->like->count()}}</i>
+                                
+                                @else
+                                <i class="fa fa-heart heart" aria-hidden="false">  {{$post->like->count()}}</i>
+                                @endauth
+
+                                <footer class="blockquote-footer mt-2">
+                                    <span>
+                                        {{\Carbon\Carbon::parse($post->created_at)->diffForHumans()}}
+                                    </span>
+                                    
+                                </footer>
+                            </blockquote>
+                        </div>
+                        <div class="comment-area mt-4 px-3">
 
                 @if(session('message'))
                 <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>
                 @endif
-              <div class="card card-body ">
+              <div class="card card-body">
                   <h6 class="card-title">Leave a comment</h6>
                   <form action="{{ url('comments')}}" method="POST">
                     @csrf
@@ -106,7 +128,7 @@
 
 
               @forelse($post->comments as $comment)
-              <div class="comment-container card card-body shadow-sm mt-2">
+              <div class="comment-container card card-body shadow-sm mt-3">
                   <div class="detail-area">
                       <h6 class="user-name mb-1">
                           @if ($comment->user)
@@ -128,8 +150,12 @@
               @empty
               <h6>No Comments Yet.</h6>
               @endforelse 
+
                 </div>
-                    </div>
+
+                         
+                 
+                        </div>
                    </div>
                                 @endforeach
                             @endif
@@ -167,9 +193,70 @@
     
 </div>
 <script type="text/javascript">
-    var token = '{{ Session::token() }}';
-    var urlLike = '{{ route('like')}}';
+    // Save Like Or Dislike
+$(document).on('click','#saveLikeDislike',function(){
+    var _post=$(this).data('post');
+    var _type=$(this).data('type');
+    var vm=$(this);
+    // Run Ajax
+    $.ajax({
+        url:"{{ url('save-likedislike') }}",
+        type:"post",
+        dataType:'json',
+        data:{
+            post:_post,
+            type:_type,
+            _token:"{{ csrf_token() }}"
+        },
+        beforeSend:function(){
+            vm.addClass('disabled');
+        },
+        success:function(res){
+            if(res.bool==true){
+                vm.removeClass('disabled').addClass('active');
+                vm.removeAttr('id');
+                var _prevCount=$("."+_type+"-count").text();
+                _prevCount++;
+                $("."+_type+"-count").text(_prevCount);
+            }
+        }   
+    });
+});
+// End
 </script>
+<!-- <script type="text/javascript">
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });  
+    #('.heart').click(function(){
+        if(meta_data.data('user') == 0){
+            toastr.error('Login First');
+            return;
+        }
+        var elem = $(this).parents('card');
+        var data = {};
+        data.post_id = elem.data('post');
+        $ajax({
+            url : 'postlike',
+            data,
+            success : function(data){
+                elem.find('.heart').text(data.like);
+                if(elem.find('.heart').hasClass('.redHeart')){
+                    elem.find('.heart').removeClass('.redHeart');
+                }else{
+                    elem.find('.heart').addClass('redHeart');
+                }
+
+            }
+        });
+
+    });
+</script>
+ -->
 </body>
 </html>
 

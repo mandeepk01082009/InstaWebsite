@@ -25,7 +25,9 @@ Route::get('/', function () {
 Auth::routes();  
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');  
+Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');
+Route::post('save-likedislike', [App\Http\Controllers\HomeController::class, 'save_likedislike'])->name('save_likedislike');
+
 
 
 Route::get('/p/create', [App\Http\Controllers\PostController::class, 'create']);
@@ -39,13 +41,12 @@ Route::get('deletepost/{id}',[App\Http\Controllers\PostController::class, 'delet
 Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
 Route::get('delete-comment/{id}',[App\Http\Controllers\CommentController::class, 'destroy']);
 
+//follow unfollow
+Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');     
+
 
 //like system
 Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->name('like');
-Route::post('/like', [App\Http\Controllers\HomeController::class, 'likePost'])->name('like'); 
-
-//follow unfollow
-Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');     
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
