@@ -26,8 +26,7 @@ Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');
-Route::post('save-likedislike', [App\Http\Controllers\HomeController::class, 'save_likedislike'])->name('save_likedislike');
-
+// Route::post('/like', [App\Http\Controllers\HomeController::class, 'homeLike'])->name('like');     
 
 
 Route::get('/p/create', [App\Http\Controllers\PostController::class, 'create']);

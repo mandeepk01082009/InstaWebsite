@@ -47,30 +47,5 @@ class HomeController extends Controller
         return view('home',compact('user','posts'));   
     } 
 
-    function save_likedislike(Request $request){
-        $data=new LikeDislike;
-        $data->post_id=$request->post;
-        if($request->type=='like'){
-            $data->like=1;
-        }else{
-            $data->dislike=1;
-        }
-        $data->save();
-        return response()->json([
-            'bool'=>true
-        ]);
-    }
-
-    // public function pressLike(Request $request)
-    // {
-    //     $post = Post::find($request->post_id);
-    //     dd($post);
-    //     if($post->like->contains('user_id',auth()->id())){
-    //         $post->like()->where('user_id',auth()->id()->delete());                          
-    //     }else{
-    //         $post->like()->create(['user_id'=>auth()->id()]);
-    //     }
-    //     return response()->json(['like'=>$post->like()->count()]);
-    // }  
  
 }
