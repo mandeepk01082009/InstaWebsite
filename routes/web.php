@@ -23,11 +23,7 @@ Route::get('/', function () {
 
 
 Auth::routes();  
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');
-// Route::post('/like', [App\Http\Controllers\HomeController::class, 'homeLike'])->name('like');     
-
 
 Route::get('/p/create', [App\Http\Controllers\PostController::class, 'create']);
 Route::post('/p', [App\Http\Controllers\PostController::class, 'store']);

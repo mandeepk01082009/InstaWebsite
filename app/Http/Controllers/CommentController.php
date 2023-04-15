@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;   
 
 class CommentController extends Controller
 {
@@ -19,13 +19,13 @@ class CommentController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return redirect()->back()->with('message', 'Comment area is mandatory');
+                return redirect()->back()->with('message', 'Comment area is mandatory');     
             }
 
             $post = Post::where('slug', $request->post_slug)->first();
             if($post)
             {
-                Comment::create([
+                Comment::create([   
                     'post_id' => $post->id,
                     //'user_id' => auth()->user()->id(),
                     'user_id' => Auth::user()->id,
@@ -43,7 +43,7 @@ class CommentController extends Controller
         {
            return redirect()->back()->with('message','Login first to comment');
         }
-    }
+    }    
 
     // public function destroy(Request $request)
     // {

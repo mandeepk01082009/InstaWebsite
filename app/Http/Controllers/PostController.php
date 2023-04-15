@@ -123,9 +123,9 @@ if($request->has('video')) {
             $post_id = $request['postId'];
             $is_like = $request['isLike'] === 'true';
             $update = false;  
-            $post = Post::find($post_id);
+            $post = Post::find($post_id);   
             if (!$post){
-                return null;      
+                return null;         
             }
             $user = Auth::user();
             $like = $user->like()->where('post_id', $post_id)->first();   
@@ -133,7 +133,7 @@ if($request->has('video')) {
                 $already_like = $like->like;
                 $update = true;
                 if ($already_like == $is_like){
-                    $like->delete();   
+                    $like->delete();     
                     return null;    
                 }
             }else {

@@ -15,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{asset('js/like.js')}}"></script>
     <!-- <script src="{{asset('css/style.css')}}"></script> -->
-    <title>Home</title>   
+    <title>Home</title>          
 </head>
 <body class="bg-light">          
 <div class="container-fluid">              

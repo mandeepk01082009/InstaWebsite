@@ -23,7 +23,7 @@ $('.like').on('click', function(event) {
         })
 
         .done(function(){
-                event.target.innerHTML = isLike ? event.target.innerText == 'Like' ? 'You like this post' : 'Like' : event.target.innerText === 'Dislike' ? 'You don\'t like this post' : 'Dislike';
+                event.target.innerHTML = isLike ? event.target.innerText == 'Like' ? '<i class="fa fa-heart"></i>' : 'Like' : event.target.innerText === 'Dislike' ? 'You don\'t like this post' : 'Dislike';
                 if(isLike) {
                         event.target.nextElementSibling.innerText = 'Dislike';
                 }else {
