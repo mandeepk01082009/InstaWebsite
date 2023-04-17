@@ -12,9 +12,18 @@
                 <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>  
                 @endif          
             <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:400px; height:400px;">
-            <div class="mt-2">
+            <div class="mt-2">              
                 {{ $post->like()->where(['like' => '1'])->count() }}
-                <a href="#" class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like' }}</a> <!-- |     
+                
+                @if(Auth::user()->like()->where('post_id', $post->id)->first())
+               <!--  "<i class="fa fa-heart" style="max-height:20px; max-width:20px"></i>" -->
+               <a href="#" class="like">
+                <img src="{{asset('images/logo.png')}}" class="w-100 like" style="max-height:30px; max-width:30px"></a>
+                @else 
+                (Auth::user()->like()->where('post_id', $post->id)->first()->like !== 1)   
+               <a href="#" class="like"><img src="{{asset('images/R.jpeg')}}" class="w-100 like" style="max-height:30px; max-width:30px">   </a>    
+                @endif     
+                <!-- |       
                 {{ $post->like()->where(['like' => '0'])->count() }}
                 <a href="#" class="like">{{      Auth::user()->like()->where('post_id', $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 0 ? 'You dont like this post' : 'Dislike' : 'Dislike' }}</a> -->
             </div>
@@ -69,11 +78,13 @@
                 @endif
               <div class="card card-body">
                   <h6 class="card-title">Leave a comment</h6>
-                  <form action="{{ url('comments')}}" method="POST">
+                  <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
                     @csrf
                       <input type="hidden" name="post_slug" value="{{$post->slug}}">
-                      <textarea name="comment_body" class="form-control" rows="3" required></textarea>
-                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                      <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
+                      <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
+                      <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
+                      <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
                   </form>
               </div>
 
@@ -110,6 +121,11 @@
     var token = '{{ Session::token() }}';
     var urlLike = '{{ route('like')}}';
 </script>
+
+<!-- <script type="text/javascript">
+    var token = '{{ Session::token() }}';
+    var urlLike = '{{ route('comments')}}';
+</script> -->
 @endsection
 
 

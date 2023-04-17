@@ -17,7 +17,7 @@ $('.like').on('click', function(event) {
                 url: urlLike,
                 data: {isLike: isLike, postId: postId, _token:token},
                 success: function (data) {
-                        console.log(postId);     
+                        console.log(postId);        
         } 
                   
         })

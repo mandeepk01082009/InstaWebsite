@@ -33,15 +33,17 @@ Route::patch('/updatepost/{id}',[App\Http\Controllers\PostController::class, 'up
 Route::get('deletepost/{id}',[App\Http\Controllers\PostController::class, 'delete']);
 
 //Comment System 
-Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
-Route::get('delete-comment/{id}',[App\Http\Controllers\CommentController::class, 'destroy']);
+//Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
+Route::get('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments');  
+Route::post('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments'); 
+// Route::get('delete-comment/{id}',[App\Http\Controllers\CommentController::class, 'destroy']);
 
 //follow unfollow
 Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');     
 
 
 //like system
-Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->name('like');
+Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->name('like');   
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
