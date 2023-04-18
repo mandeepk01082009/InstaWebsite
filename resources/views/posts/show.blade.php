@@ -105,14 +105,14 @@
                   </div>
                   @if(Auth::check() && Auth::id() == $comment->user_id)
                   <div>
-                      <a href="/delete-comment/{{$comment->id }}" class="btn btn-success"><span class="text-dark">Delete Comment</span></a>
+                      <!-- <a href="/delete-comment/{{$comment->id }}"><i class="fa fa-trash" style="font-size:20px; color:black;"></i> </a> -->
+                      <button type="button" value="{{$comment->id}}" style="border:none; background: none;" class="deleteComment"><i class="fa fa-trash" style="font-size:20px; color:black;"></i> </button>
                   </div> 
                   @endif                 
-              </div>
+              </div>   
               @empty
               <h6>No Comments Yet.</h6>
               @endforelse 
-
                 </div>
     </div>
         </div>
@@ -121,13 +121,28 @@
     var token = '{{ Session::token() }}';
     var urlLike = '{{ route('like')}}';
 </script>
-
-<!-- <script type="text/javascript">
-    var token = '{{ Session::token() }}';
-    var urlLike = '{{ route('comments')}}';
-</script> -->
 @endsection
 
+<!-- @section('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        }); 
+    $(document).ready(function (){
+
+        $(document).on('click', '.deleteComment', function () {
+            alert("Hello ajax");
+        });
+    });
+}
+</script>
+
+@endsection
+ -->
 
 
 

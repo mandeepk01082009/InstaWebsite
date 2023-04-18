@@ -10,16 +10,49 @@
         e.preventDefault();
         var comment_body = $('#comment_body').val();
         var post_id = $('#post_id').val();
-        var user_id = $('#user_id').val();
+        var user_id = $('#user_id').val();   
         $.ajax({
             type: "POST",
             url: '/comments',
-            data: {comment_body:comment_body, post_id:post_id, user_id:userid},
+            data: {comment_body:comment_body, post_id:post_id, user_id:user_id},
             success: function(msg) {
-                a$("body").append("<div>"+msg+"</div>");
-            }
+                $("body").append("<div>"+msg+"</div>");  
+                console.log(msg.status);       
+            }   
+             // success:function(data){
+             //        $('.comment-container').append(data); 
+             //    },
         });
-    });        
+    }); 
+
+    $(document).ready(function () {
+
+        $(document).on('click', '.deleteComment', function() {
+            if(confirm('Are you sure you want to delete this comment?'))
+                {
+                    var thisClicked = $(this);
+                    var comment_id = thisClicked.val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/delete-comment",
+                        data:{
+                            'comment_id': comment_id
+                        },
+                        success: function (res){
+                            if(res.status == 200){
+                                thisClicked.closest('.comment-container').remove();
+                                alert(res.message);
+                            }
+                            else{
+                                alert(res.message);  
+                            }
+
+                        }
+                    });
+                }
+        });
+    });       
 
 
 });

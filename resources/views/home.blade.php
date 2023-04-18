@@ -14,6 +14,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{asset('js/like.js')}}"></script>
+    <script src="{{asset('js/comment.js')}}"></script>
     <!-- <script src="{{asset('css/style.css')}}"></script> -->
     <title>Home</title>          
 </head>
@@ -120,11 +121,13 @@
                 @endif
               <div class="card card-body">
                   <h6 class="card-title">Leave a comment</h6>
-                  <form action="{{ url('comments')}}" method="POST">
+                  <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
                     @csrf
                       <input type="hidden" name="post_slug" value="{{$post->slug}}">
-                      <textarea name="comment_body" class="form-control" rows="3" required></textarea>
-                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                      <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
+                      <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
+                      <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
+                      <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
                   </form>
               </div>
 
@@ -144,17 +147,16 @@
                       </p>
                   </div>
                   @if(Auth::check() && Auth::id() == $comment->user_id)
-                  <div>   
-                      <a href="/delete-comment/{{$comment->id }}" class="btn btn-success"><span class="text-dark">Delete Comment</span></a>
+                  <div> 
+                      <!-- <a href="/delete-comment/{{$comment->id }}"><i class="fa fa-trash" style="font-size:20px; color:black;"></i> </a> -->
+                      <button type="button" value="{{$comment->id}}" style="border:none; background: none;" class="deleteComment"><i class="fa fa-trash" style="font-size:20px; color:black;"></i> </button>
                   </div> 
-                  @endif                 
-              </div>
+                  @endif                      
+              </div>   
               @empty
               <h6>No Comments Yet.</h6>
               @endforelse 
-
                 </div>
-
                          
                  
                         </div>
@@ -213,11 +215,13 @@
                 @endif
               <div class="card card-body">
                   <h6 class="card-title">Leave a comment</h6>
-                  <form action="{{ url('comments')}}" method="POST">
+                  <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
                     @csrf
                       <input type="hidden" name="post_slug" value="{{$post->slug}}">
-                      <textarea name="comment_body" class="form-control" rows="3" required></textarea>
-                      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                      <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
+                      <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
+                      <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
+                      <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
                   </form>
               </div>
 
@@ -237,15 +241,15 @@
                       </p>
                   </div>
                   @if(Auth::check() && Auth::id() == $comment->user_id)
-                  <div>   
-                      <a href="/delete-comment/{{$comment->id }}" class="btn btn-success"><span class="text-dark">Delete Comment</span></a>
+                  <div>
+                      <!-- <a href="/delete-comment/{{$comment->id }}"><i class="fa fa-trash" style="font-size:20px; color:black;"></i> </a> -->
+                      <button type="button" value="{{$comment->id}}" style="border:none; background: none;" class="deleteComment"><i class="fa fa-trash" style="font-size:20px; color:black;"></i> </button>
                   </div> 
                   @endif                 
-              </div>
+              </div>   
               @empty
               <h6>No Comments Yet.</h6>
               @endforelse 
-
                 </div>
 
                          

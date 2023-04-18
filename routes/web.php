@@ -18,7 +18,7 @@ use App\Http\Controllers\PostController;
 //     return view('welcome');  
 // }); 
 Route::get('/', function () {
-    return view('layouts.app');                
+    return view('layouts.app');                  
 });  
 
 
@@ -36,7 +36,7 @@ Route::get('deletepost/{id}',[App\Http\Controllers\PostController::class, 'delet
 //Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
 Route::get('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments');  
 Route::post('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments'); 
-// Route::get('delete-comment/{id}',[App\Http\Controllers\CommentController::class, 'destroy']);
+ Route::post('delete-comment',[App\Http\Controllers\CommentController::class, 'destroy'])->name('delete-comment');
 
 //follow unfollow
 Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');     

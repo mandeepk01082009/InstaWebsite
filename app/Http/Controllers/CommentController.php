@@ -17,21 +17,21 @@ class CommentController extends Controller
     if($request->ajax()){
         $comment = new Comment();
         $comment->comment_body = $request->comment_body;
-
+        $comment->post_id = $request->post_id;
         $comment->user()->associate($request->user());
 
-         $post = Post::find($request->post_id);
+        $comment->save();
 
-        $post->comments()->save($comment);
 
         $response = array(
             'status' => 'success',
-            'msg' => 'Setting created successfully',
+            'msg' => 'Comment created successfully',
+            'data' => $comment,
         );
-        return Response::json($response);
+        return Response::json($response);   
         return 'yes';
     }else{
-        return 'no';
+        return 'no';   
     }
 }
 
@@ -70,27 +70,41 @@ class CommentController extends Controller
     //     }
     // }    
 
-    // public function destroy(Request $request)
-    // {
-    //     if (Auth::check()) {
-    //         $comment = Comment::where('id',$request->comment_id)->where('user_id',Auth::user()->id)->first();
-    //         $comment->delete();
+    public function destroy(Request $request)
+    {
+        if (Auth::check()) {
+            $comment = Comment::where('id',$request->comment_id)->where('user_id',Auth::user()->id)->first();
 
-    //         return response()->json([
-    //             'status' => 200,
-    //             'message' => 'Comment Deleted Successfully'
+            if($comment)
+            {
+                $comment->delete();
+                return response()->json([   
+                'status' => 200,
+                'message' => 'Comment Deleted Successfully'
 
-    //         ]);
-    //     }
-    //     else
-    //     {
-    //         return response()->json([
-    //             'status' => 401,
-    //             'message' => 'Login to Delete this content'
+            ]);
 
-    //         ]);
-    //     }
-    // }
+            }
+            else
+            {
+                return response()->json([   
+                'status' => 500,
+                'message' => 'Something went Wrong'
+
+            ]);
+            }
+
+            
+        }
+        else
+        {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Login to Delete this content'
+
+            ]);
+        }
+    }
     // public function destroy($id)
     //     {
     //         $comment = Comment::find($id);
