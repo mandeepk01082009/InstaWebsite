@@ -128,23 +128,22 @@
                       <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
                       <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
                       <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
-                  </form>
+                  </form>   
               </div>
 
 
               @forelse($post->comments as $comment)
-              <div class="comment-container card card-body shadow-sm mt-3">
+              <div class="comment-container card card-body shadow-sm mt-3" id="comment-container">
                   <div class="detail-area">
                       <h6 class="user-name mb-1">
-                          @if ($comment->user)
+                          @if ($comment->user)  
                               {{$comment->user->name}}
                           @endif  
                           <small class="ms-3 text-primary">Commented on: {{ $comment->created_at->format('d-m-Y') }}</small>
                       </h6>
                       <p class="user-comment mb-1">
-                          {{!! $comment->comment_body !!}}
-                          
-                      </p>
+                          {{ $comment->comment_body }}     
+                      </p>   
                   </div>
                   @if(Auth::check() && Auth::id() == $comment->user_id)
                   <div> 
@@ -163,7 +162,7 @@
                    </div>
                                 @endforeach
                             @endif
-                            </div>
+                            </div>   
 
    <!-- ======================= video in post===============-->
                             <div class="mt-2">

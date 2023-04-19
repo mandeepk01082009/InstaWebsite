@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
-    public function postComments(Request $request)
+    public function postComments(Request $request)   
 {
     if($request->ajax()){
         $comment = new Comment();
@@ -102,7 +102,7 @@ class CommentController extends Controller
                 'status' => 401,
                 'message' => 'Login to Delete this content'
 
-            ]);
+            ]);   
         }
     }
     // public function destroy($id)

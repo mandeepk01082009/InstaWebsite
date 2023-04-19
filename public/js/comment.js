@@ -6,7 +6,7 @@
         }
         }); 
 
- $('#frmComments').on('submit', function(e) {
+    $('#frmComments').on('submit', function(e) {
         e.preventDefault();
         var comment_body = $('#comment_body').val();
         var post_id = $('#post_id').val();
@@ -15,15 +15,13 @@
             type: "POST",
             url: '/comments',
             data: {comment_body:comment_body, post_id:post_id, user_id:user_id},
-            success: function(msg) {
-                $("body").append("<div>"+msg+"</div>");  
-                console.log(msg.status);       
-            }   
-             // success:function(data){
-             //        $('.comment-container').append(data); 
-             //    },
-        });
-    }); 
+            success : function(data) {
+                $('body').append("<div>"+data+"</div>");
+                window.location.reload();          
+        }                                  
+        });   
+    });  
+
 
     $(document).ready(function () {
 

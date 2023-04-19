@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostController;   
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ Route::post('comments', [App\Http\Controllers\CommentController::class,'postComm
  Route::post('delete-comment',[App\Http\Controllers\CommentController::class, 'destroy'])->name('delete-comment');
 
 //follow unfollow
-Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');     
+Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');        
 
 
 //like system
