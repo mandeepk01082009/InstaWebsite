@@ -71,7 +71,7 @@
                     {{ $post->caption}}
                 </p>
             </div>
-            <div class="comment-area mt-4">
+            <div class="comment-area mt-4" id="comment-area">
 
                 @if(session('message'))
                 <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>

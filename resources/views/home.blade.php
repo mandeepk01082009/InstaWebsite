@@ -114,7 +114,7 @@
                                 </footer>
                             </blockquote>
                         </div> -->
-                        <div class="comment-area mt-4 px-3">
+                        <div class="comment-area mt-4 px-3" id="comment-area">
 
                 @if(session('message'))
                 <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>
@@ -189,38 +189,21 @@
                             {{ $post->like()->where(['like' => '1'])->count() }}
                             <a href="#" class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like' }}</a> 
             </div>
-                        <!-- <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                                @auth
-                                
-                                    <i class="fa fa-heart heart {{$post->like->contains('user_id',auth()->id()) ? 'redHeart' : ''}}" aria-hidden="false">  {{$post->like->count()}}</i>
-                                
-                                @else
-                                <i class="fa fa-heart heart" aria-hidden="false">  {{$post->like->count()}}</i>
-                                @endauth
 
-                                <footer class="blockquote-footer mt-2">
-                                    <span>
-                                        {{\Carbon\Carbon::parse($post->created_at)->diffForHumans()}}
-                                    </span>
-                                    
-                                </footer>
-                            </blockquote>
-                        </div> -->
-                        <div class="comment-area mt-4 px-3">
+            <div class="comment-area mt-4 px-3" id="comment-area">
 
                 @if(session('message'))
                 <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>
                 @endif
-              <div class="card card-body">
-                  <h6 class="card-title">Leave a comment</h6>
-                  <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
+                <div class="card card-body">
+                    <h6 class="card-title">Leave a comment</h6>
+                    <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
                     @csrf
-                      <input type="hidden" name="post_slug" value="{{$post->slug}}">
-                      <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
-                      <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
-                      <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
-                      <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
+                        <input type="hidden" name="post_slug" value="{{$post->slug}}">
+                        <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
+                        <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
+                        <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
+                        <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
                   </form>
               </div>
 

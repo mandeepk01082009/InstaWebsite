@@ -6,7 +6,7 @@
         }
         }); 
 
-    $('#frmComments').on('submit', function(e) {
+    $('#frmComments').on('submit', function(e) {      
         e.preventDefault();
         var comment_body = $('#comment_body').val();
         var post_id = $('#post_id').val();
@@ -16,8 +16,17 @@
             url: '/comments',
             data: {comment_body:comment_body, post_id:post_id, user_id:user_id},
             success : function(data) {
-                $('body').append("<div>"+data+"</div>");
-                window.location.reload();          
+                let crediv = document.getElementById('comment-area');
+                let item = document.createElement('div');
+               // console.log(crediv);
+                item.className = "card card-body shadow-sm mt-3";
+
+                item.textContent = comment_body;    
+
+
+
+                crediv.appendChild(item);   
+               // window.location.reload();        
         }                                  
         });   
     });  
