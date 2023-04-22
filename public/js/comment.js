@@ -9,7 +9,7 @@
     $('#frmComments').on('submit', function(e) {      
         e.preventDefault();
         var comment_body = $('#comment_body').val();
-        var post_id = $('#post_id').val();
+        var post_id = $('#post_id').val();  
         var user_id = $('#user_id').val();   
         $.ajax({
             type: "POST",

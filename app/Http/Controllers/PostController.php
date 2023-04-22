@@ -40,7 +40,7 @@ $post = Post::create([
      'user_id' => auth()->id(),
      'image' => '',
      'video' => '',
-     'status' => $request->status == true ? '1': '0',
+     'status' => $request->status == true ? '1': '0',   
 ]);
 
 if($request->has('image')) {

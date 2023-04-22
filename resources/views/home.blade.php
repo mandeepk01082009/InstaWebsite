@@ -22,7 +22,7 @@
 <div class="container-fluid">              
         <div class="row" style="width: 100%;">    
             <div class="col-2 bg-white py-5" style="position: fixed; border-right: 1px solid lightgray; padding-top: 50;">
-                <div class="nav py-3">
+                <div class="nav py-5">
                     <img src="{{asset('images/Instagram_logo.png')}}"  class="w-100" style="max-height:100px; max-width:120px">
                     <ul style="list-style: none;" class="px-1 py-5">
                         <li class="nav-item px-1">
