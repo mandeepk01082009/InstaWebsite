@@ -19,8 +19,8 @@
     <title>Home</title>          
 </head>
 <body class="bg-light">          
-<div class="container-fluid">              
-        <div class="row" style="width: 100%;">    
+<div class="container-fluid">                                
+        <div class="row" style="width: 100%;">        
             <div class="col-2 bg-white py-5" style="position: fixed; border-right: 1px solid lightgray; padding-top: 50;">
                 <div class="nav py-5">
                     <img src="{{asset('images/Instagram_logo.png')}}"  class="w-100" style="max-height:100px; max-width:120px">
@@ -94,27 +94,18 @@
                         <div class="mt-2 px-3">
 
                             {{ $post->like()->where(['like' => '1'])->count() }}
-                            <a href="#" class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like' }}</a> 
+                             <a href="#" class="like">
+                            @if(Auth::user()->like()->where('post_id', $post->id)->first())
+                             ♥
+                            <!-- <img src="{{asset('images/logo.png')}}" class="w-100" style="max-height:30px; max-width:30px" /> -->
+                            @elseif (!empty(Auth::user()) && Auth::user()->like()->where('post_id', $post->id)->first() != 1) 
+                            ♡
+                            <!--  <img src="{{asset('images/R.jpeg')}}" class="w-100" style="max-height:30px; max-width:30px"/>  -->  
+                            @endif 
+                            </a>  
+                            <!-- <a href="#" class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like' }}</a>  -->
             </div>
-                        <!-- <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                                @auth
-                                
-                                    <i class="fa fa-heart heart {{$post->like->contains('user_id',auth()->id()) ? 'redHeart' : ''}}" aria-hidden="false">  {{$post->like->count()}}</i>
-                                
-                                @else
-                                <i class="fa fa-heart heart" aria-hidden="false">  {{$post->like->count()}}</i>
-                                @endauth
-
-                                <footer class="blockquote-footer mt-2">
-                                    <span>
-                                        {{\Carbon\Carbon::parse($post->created_at)->diffForHumans()}}
-                                    </span>
-                                    
-                                </footer>
-                            </blockquote>
-                        </div> -->
-                        <div class="comment-area mt-4 px-3" id="comment-area">
+            <div class="comment-area mt-4 px-3" id="comment-area">
 
                 @if(session('message'))
                 <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>
@@ -128,7 +119,7 @@
                       <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
                       <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
                       <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
-                  </form>   
+                  </form>     
               </div>
 
 
@@ -164,10 +155,10 @@
                             @endif
                             </div>   
 
-   <!-- ======================= video in post===============-->
-                            <div class="mt-2">
+                <!-- ======================= video in post===============-->
+                            <div class="mt-2">   
                                 @if ($posts->count()>0)
-                                @foreach ($posts as $post)
+                                @foreach ($posts as $post)   
                                 <div class="px-3">
                         <img src="/storage/{{ $post->user->profile->image }}" class="rounded-circle w-100" style="max-width: 40px;"> 
                     <span class="px-2"> 
@@ -275,7 +266,7 @@
 </div>
 <script type="text/javascript">
     var token = '{{ Session::token() }}';
-    var urlLike = '{{ route('like')}}';
+    var urlLike = '{{ route('like')}}';     
 </script>
 </body>
 </html>

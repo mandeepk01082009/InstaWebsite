@@ -14,18 +14,19 @@
             <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:400px; height:400px;">
             <div class="mt-2">              
                 {{ $post->like()->where(['like' => '1'])->count() }}
-                
+                <a href="#" class="like">
                 @if(Auth::user()->like()->where('post_id', $post->id)->first())
+                    ♥
                <!--  "<i class="fa fa-heart" style="max-height:20px; max-width:20px"></i>" -->
-               <a href="#" class="like">
-                <img src="{{asset('images/logo.png')}}" class="w-100 like" style="max-height:30px; max-width:30px"></a>
-                @else 
-                (Auth::user()->like()->where('post_id', $post->id)->first()->like !== 1)   
-               <a href="#" class="like"><img src="{{asset('images/R.jpeg')}}" class="w-100 like" style="max-height:30px; max-width:30px">   </a>    
-                @endif     
+                <!-- <img src="{{asset('images/logo.png')}}" class="w-100" style="max-height:30px; max-width:30px"/> -->
+                @elseif (!empty(Auth::user()) && Auth::user()->like()->where('post_id', $post->id)->first() != 1) 
+                    ♡
+              <!--  <img src="{{asset('images/R.jpeg')}}" class="w-100" style="max-height:30px; max-width:30px"/> -->   
+                @endif 
+                </a>    
                 <!-- |       
                 {{ $post->like()->where(['like' => '0'])->count() }}
-                <a href="#" class="like">{{      Auth::user()->like()->where('post_id', $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 0 ? 'You dont like this post' : 'Dislike' : 'Dislike' }}</a> -->
+                <a href="#" class="like">{{      Auth::user()->like()->where('post_id',   $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 0 ? 'You dont like this post' : 'Dislike' : 'Dislike' }}</a> -->
             </div>
             <hr>
             <video controls src="/storage/{{ $post->video }}" alt=""  style="max-width:500px; height:400px;"></video>

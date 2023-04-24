@@ -13,11 +13,11 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;                   
 
 
-class PostController extends Controller                               
+class PostController extends Controller                                    
 {
-    public function __construct()     
+    public function __construct()       
     {
-        $this->middleware('auth');           
+        $this->middleware('auth');              
     }    
 
     public function create()  
@@ -39,9 +39,23 @@ $post = Post::create([
     'caption' => $request->input('caption'),
      'user_id' => auth()->id(),
      'image' => '',
-     'video' => '',
+     'video' => '',   
      'status' => $request->status == true ? '1': '0',   
 ]);
+
+    /*if($request->has("image")){
+        //dd($request->hasFile("image"));
+        $files->$request->file("image");
+        foreach ($files as $file) {
+            $extention = $file->getClientOriginalName();
+            $filename = time(). '.' . $extention;
+            $file->move('storage/',$filename);
+            $fileNames[] = $filename;
+            $post->image = $filename; 
+            dd($fileNames);
+        }
+    }
+    $post->save();*/
 
 if($request->has('image')) {
             $file = $request->file('image');
@@ -59,7 +73,7 @@ if($request->has('video')) {
             $extention = $file->getClientOriginalName();
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
-            $post->video = $filename;       
+            $post->video = $filenam;       
     }
 
     $post->save();

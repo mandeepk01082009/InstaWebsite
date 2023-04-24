@@ -17,16 +17,14 @@ $('.like').on('click', function(event) {
                 url: urlLike,
                 data: {isLike: isLike, postId: postId, _token:token},
                 success: function (data) {
-                        console.log(postId);        
+                        console.log(postId);           
         } 
                   
         })
 
         .done(function(){
-                event.target.innerHTML = isLike ? event.target.innerText == 'Like' ? '<i class="fa fa-heart"></i>' : 'Like' : event.target.innerText === 'Dislike' ? 'You don\'t like this post' : 'Dislike';
-                if(isLike) {
-                        event.target.nextElementSibling.innerText = 'Dislike';
-                }else {
+                event.target.innerHTML = isLike ? event.target.innerText == 'Like' ? 'Like' : 'Like' : event.target.innerText === 'Dislike' ? 'You don\'t like this post' : 'Dislike';
+                if(!isLike) {
                         event.target.previousElementSibling.innerText = 'Like';
                 }
         });

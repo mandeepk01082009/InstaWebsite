@@ -8,7 +8,7 @@ use App\Models\Post;
 use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Cviebrock\EloquentSluggable\Services\SlugService;
+use Cviebrock\EloquentSluggable\Services\SlugService;   
 use Intervention\Image\Facades\Image;  
 use Illuminate\Support\Facades\Storage;    
  

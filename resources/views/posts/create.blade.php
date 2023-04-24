@@ -27,7 +27,7 @@
                         
 
                         <div class="row">
-                            <label for="image" class="col-md-4 col-form-label ">Post Image</label>
+                            <label for="image" class="col-md-4 col-form-label">Post Image</label>
                             <input type="file" name="image" id="image" class="form-control-file @error('image') is-invalid @enderror ">
 
                             @error('image')
@@ -40,7 +40,7 @@
 
                         <div class="row">
                             <label for="video" class="col-md-4 col-form-label ">Post Video</label>
-                            <input type="file" name="video" id="video" class="form-control-file @error('video') is-invalid @enderror ">
+                            <input type="file" name="video" id="video" class="form-control">
 
                             @error('video')
                                     <span class="invalid-feedback" role="alert">
