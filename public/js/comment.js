@@ -10,18 +10,23 @@
         e.preventDefault();
         var comment_body = $('#comment_body').val();
         var post_id = $('#post_id').val();  
-        var user_id = $('#user_id').val();   
+        var user_id = $('#user_id').val();
+        var uniqid = $('#uniqid').val(); 
+
+
         $.ajax({
             type: "POST",
             url: '/comments',
-            data: {comment_body:comment_body, post_id:post_id, user_id:user_id},
+            data: {comment_body:comment_body, uniqid:uniqid, post_id:post_id, user_id:user_id},
             success : function(data) {
                 let crediv = document.getElementById('comment-area');
                 let item = document.createElement('div');
-               // console.log(crediv);
+                //console.log(crediv);
+                console.log(post_id);
                 item.className = "card card-body shadow-sm mt-3";    
 
-                item.textContent = comment_body;      
+                item.textContent =  comment_body; 
+
 
 
 

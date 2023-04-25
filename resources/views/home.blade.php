@@ -96,16 +96,16 @@
                             {{ $post->like()->where(['like' => '1'])->count() }}
                              <a href="#" class="like">
                             @if(Auth::user()->like()->where('post_id', $post->id)->first())
-                             ♥
+                            &#9829;
                             <!-- <img src="{{asset('images/logo.png')}}" class="w-100" style="max-height:30px; max-width:30px" /> -->
                             @elseif (!empty(Auth::user()) && Auth::user()->like()->where('post_id', $post->id)->first() != 1) 
-                            ♡
+                            &#9825;
                             <!--  <img src="{{asset('images/R.jpeg')}}" class="w-100" style="max-height:30px; max-width:30px"/>  -->  
                             @endif 
                             </a>  
                             <!-- <a href="#" class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like' }}</a>  -->
             </div>
-            <div class="comment-area mt-4 px-3" id="comment-area">
+            <div class="comment-area mt-4 px-3" id="comment-area" data-post="$uniqid">
 
                 @if(session('message'))
                 <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>
@@ -115,6 +115,7 @@
                   <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
                     @csrf
                       <input type="hidden" name="post_slug" value="{{$post->slug}}">
+                      <input type="hidden" name="uniqid" value="{{$post->uniqid}}">
                       <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
                       <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
                       <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
@@ -124,7 +125,7 @@
 
 
               @forelse($post->comments as $comment)
-              <div class="comment-container card card-body shadow-sm mt-3" id="comment-container">
+              <div class="comment-container card card-body shadow-sm mt-3" id="comment-container" data-post=>
                   <div class="detail-area">
                       <h6 class="user-name mb-1">
                           @if ($comment->user)  
@@ -138,7 +139,6 @@
                   </div>
                   @if(Auth::check() && Auth::id() == $comment->user_id)
                   <div> 
-                      <!-- <a href="/delete-comment/{{$comment->id }}"><i class="fa fa-trash" style="font-size:20px; color:black;"></i> </a> -->
                       <button type="button" value="{{$comment->id}}" style="border:none; background: none;" class="deleteComment"><i class="fa fa-trash" style="font-size:20px; color:black;"></i> </button>
                   </div> 
                   @endif                      
@@ -181,7 +181,7 @@
                             <a href="#" class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first() ? Auth::user()->like()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like' }}</a> 
             </div>
 
-            <div class="comment-area mt-4 px-3" id="comment-area">
+            <div class="comment-area mt-4 px-3" id="comment-area" data-post="{{$post->id}}">
 
                 @if(session('message'))
                 <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>
@@ -191,6 +191,7 @@
                     <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
                     @csrf
                         <input type="hidden" name="post_slug" value="{{$post->slug}}">
+                        <input type="hidden" name="uniqid" value="{{$post->uniqid}}">
                         <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
                         <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
                         <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
@@ -236,11 +237,12 @@
             </div>
         </div>
         <div class="col-4 mt-5">
-            <div>
+            <!-- @if($id = Auth::user()->id)
+ -->            <div>
                 <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100" style="max-width: 55px;">
                 <span class="px-2"> 
                         <b>
-                            <a href="/profile/{{ $post->user->id }}"><span class="text-dark">{{ $post->user->username }}</span>
+                            <a href="/profile/{{ $user->profile->id }}"><span class="text-dark">{{ $user->profile->title}}</span>
                             </a>
                         </b>
                 </span>
@@ -259,8 +261,10 @@
                 </span>
 
             </div>
+           <!--  @endif -->
             
         </div>
+
         </div>
     
 </div>

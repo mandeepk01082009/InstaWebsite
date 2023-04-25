@@ -4,18 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;   
-use App\Models\User;
+use App\Models\User;   
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;     
+use Illuminate\Support\Facades\Validator;
+//use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Str;
+
+
 
 class CommentController extends Controller
 {
-    public function postComments(Request $request)   
+    public function postComments(Request $request)  
+
 {
-    if($request->ajax()){
+
+
+    /*if($request->ajax()){*/
+        // $id = IdGenerator::generate(['table' => 'comments', 'field' => 'uniqid', 'length' => 4, 'prefix' =>'Un-']);
+        
+        //dd($uniqid);
+         
         $comment = new Comment();
+        $uniqid = rand(1000,5000);
+        $comment->uniqid = $uniqid;
         $comment->comment_body = $request->comment_body;
         $comment->post_id = $request->post_id;
         $comment->user()->associate($request->user());
@@ -29,10 +42,11 @@ class CommentController extends Controller
             'data' => $comment,
         );
         return Response::json($response);   
-        return 'yes';
-    }else{
-        return 'no';   
-    }
+        return redirect()->back();
+   /* }*/
+    // else{
+    //     return 'no';   
+    // }
 }
 
     // public function store(Request $request)

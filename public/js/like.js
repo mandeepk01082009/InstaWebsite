@@ -23,9 +23,9 @@ $('.like').on('click', function(event) {
         })
 
         .done(function(){
-                event.target.innerHTML = isLike ? event.target.innerText == 'Like' ? 'Like' : 'Like' : event.target.innerText === 'Dislike' ? 'You don\'t like this post' : 'Dislike';
+                event.target.innerHTML = isLike ? event.target.innerText == 'Like' ? '&#9825' : '&#9829;' : event.target.innerText === 'Dislike' ? 'You don\'t like this post' : 'Dislike';
                 if(!isLike) {
-                        event.target.previousElementSibling.innerText = 'Like';
+                        event.target.previousElementSibling.innerText = '&#9825;';
                 }
         });
 });
