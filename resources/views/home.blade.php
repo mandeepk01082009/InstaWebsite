@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">     
     
 
     <!-- Scripts -->     
@@ -112,14 +112,15 @@
                 @endif
               <div class="card card-body">
                   <h6 class="card-title">Leave a comment</h6>
-                  <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
+                  <form action="{{ url('comments')}}" method="POST" class="form_class" id="serializeForm" data-post="{{$post->id}}">
                     @csrf
                       <input type="hidden" name="post_slug" value="{{$post->slug}}">
                       <input type="hidden" name="uniqid" value="{{$post->uniqid}}">
                       <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
                       <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
                       <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
-                      <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
+                       <!-- <p id="uniqueID"></p> -->
+                      <button type="submit" name="submit" class="btn btn-primary mt-3" class="submitButton">Submit</button>
                   </form>     
               </div>
 
@@ -188,14 +189,15 @@
                 @endif
                 <div class="card card-body">
                     <h6 class="card-title">Leave a comment</h6>
-                    <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
+                    <form action="{{ url('comments')}}" method="POST" id="serializeForm" data-post="{{$post->id}}" class="form_class">
                     @csrf
                         <input type="hidden" name="post_slug" value="{{$post->slug}}">
                         <input type="hidden" name="uniqid" value="{{$post->uniqid}}">
                         <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
                         <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
                         <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
-                        <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
+                        <!-- <p id="uniqueID"></p> -->
+                        <button type="submit" name="submit" class="btn btn-primary mt-3" class="submitButton">Submit</button>  
                   </form>
               </div>
 

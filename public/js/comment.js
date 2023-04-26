@@ -6,35 +6,50 @@
         }
         }); 
 
-    $('#frmComments').on('submit', function(e) {        
-        e.preventDefault();
-        var comment_body = $('#comment_body').val();
-        var post_id = $('#post_id').val();  
-        var user_id = $('#user_id').val();
-        var uniqid = $('#uniqid').val(); 
+              $('.form_class').on('submit', function(e) {     
+              e.preventDefault();
 
+                var dataString = $("#serializeForm").serialize();
+                $.ajax({
+                  type: "POST",
+                  url: "/comments",
+                  data: dataString,
+                  success: function(data)
+                           {
+                            console.log(data);
+                           }
+          
+          });
+                 
+               });
 
-        $.ajax({
-            type: "POST",
-            url: '/comments',
-            data: {comment_body:comment_body, uniqid:uniqid, post_id:post_id, user_id:user_id},
-            success : function(data) {
-                let crediv = document.getElementById('comment-area');
-                let item = document.createElement('div');
-                //console.log(crediv);
-                console.log(post_id);
-                item.className = "card card-body shadow-sm mt-3";    
+            
 
-                item.textContent =  comment_body; 
+    // $('#uniqueID').on('submit', function(e) {        
+    //     e.preventDefault();  //prevents the form from autosubmitting
+    //     var comment_body = $('#comment_body').val();
+    //     var post_id = $('#post_id').val();  
+    //     var user_id = $('#user_id').val();
+    //     var uniqid = $('#uniqid').val();   
 
+    //     $.ajax({
+    //         type: "POST",
+    //         url: '/comments',        
+    //         data: {comment_body:comment_body, uniqid:uniqid, post_id:post_id, user_id:user_id},
+    //         success : function(data) {
+    //             let d = new Date().getTime().toString();       
+    //             let crediv = document.getElementById('comment-area');
+    //             let item = document.createElement('div');
+    //             console.log(d);                  
 
+    //             item.className = "card card-body shadow-sm mt-3";    
 
+    //             item.textContent =  comment_body;   
 
-                crediv.appendChild(item)   
-               // window.location.reload();        
-        }                                  
-        });   
-    });  
+    //             crediv.appendChild(item);              
+    //     }                                  
+    //     });   
+    // });  
 
 
     $(document).ready(function () {

@@ -79,13 +79,13 @@
                 @endif
               <div class="card card-body">
                   <h6 class="card-title">Leave a comment</h6>
-                  <form action="{{ url('comments')}}" method="POST" id="frmComments" data-post="{{$post->id}}">
+                  <form action="{{ url('comments')}}" method="POST" id="serializeForm" data-post="{{$post->id}}">
                     @csrf
                       <input type="hidden" name="post_slug" value="{{$post->slug}}">
                       <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
                       <input type="hidden" name="user_id" value="{{$post->user_id}}" id="user_id">
                       <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
-                      <button type="submit" name="submit" class="btn btn-primary mt-3" id="btnComments">Submit</button>
+                      <button type="submit" name="submit" class="btn btn-primary mt-3" class="submitButton">Submit</button>
                   </form>
               </div>
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;   
 use App\Models\User;   
-use App\Models\Post;
+use App\Models\Post;   
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -14,17 +14,11 @@ use Illuminate\Support\Str;
 
 
 
-class CommentController extends Controller
+class CommentController extends Controller   
 {
     public function postComments(Request $request)  
 
 {
-
-
-    /*if($request->ajax()){*/
-        // $id = IdGenerator::generate(['table' => 'comments', 'field' => 'uniqid', 'length' => 4, 'prefix' =>'Un-']);
-        
-        //dd($uniqid);
          
         $comment = new Comment();
         $uniqid = rand(1000,5000);
@@ -32,21 +26,13 @@ class CommentController extends Controller
         $comment->comment_body = $request->comment_body;
         $comment->post_id = $request->post_id;
         $comment->user()->associate($request->user());
+   
 
-        $comment->save();
-
-
-        $response = array(
-            'status' => 'success',
-            'msg' => 'Comment created successfully',
-            'data' => $comment,
-        );
-        return Response::json($response);   
-        return redirect()->back();
-   /* }*/
-    // else{
-    //     return 'no';   
-    // }
+        if($comment->save()){
+            return response()->json(data:'success', status:'201');
+        }else{
+            return response()->json(data:'fail', status:'400');
+        }
 }
 
     // public function store(Request $request)
