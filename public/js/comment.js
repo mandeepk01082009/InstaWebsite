@@ -6,18 +6,20 @@
         }
         }); 
 
-              $('.form_class').on('submit', function(e) {     
-              e.preventDefault();
-
-                var dataString = $("#serializeForm").serialize();
+             $(document).on('submit', '.form_class', function(e){
+                e.preventDefault();
+                //var dataString = $("#serializeForm").serialize();
+                var data = $(this).serializeArray();
                 $.ajax({
                   type: "POST",
-                  url: "/comments",
-                  data: dataString,
-                  success: function(data)
-                           {
-                            console.log(data);
-                           }
+                  url: "/comments",    
+                  data: $.param(data),
+                  success: function(data)    
+                  {
+                    $(".comment-area").append("<div class= 'card card-body shadow-sm mt-3'> + dataString + </div>");
+                    //  window.location.reload();     
+                  }
+                          
           
           });
                  

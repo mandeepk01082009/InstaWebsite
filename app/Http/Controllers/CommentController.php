@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 //use Haruncpi\LaravelIdGenerator\IdGenerator;
-use Illuminate\Support\Str;
+use Illuminate\Support\Str;  
 
 
 
@@ -18,21 +18,30 @@ class CommentController extends Controller
 {
     public function postComments(Request $request)  
 
-{
-         
+{ 
         $comment = new Comment();
         $uniqid = rand(1000,5000);
         $comment->uniqid = $uniqid;
         $comment->comment_body = $request->comment_body;
         $comment->post_id = $request->post_id;
         $comment->user()->associate($request->user());
+        $comment->save();
+
+
+        $response = array(
+            'status' => 'success',
+            'msg' => 'Comment created successfully',
+            'data' => $comment,
+        );
+        return Response::json($response);   
+        return 'yes';
    
 
-        if($comment->save()){
-            return response()->json(data:'success', status:'201');
-        }else{
-            return response()->json(data:'fail', status:'400');
-        }
+        // if($comment->save()){
+        //     return response()->json(data:'success', status:'201');
+        // }else{
+        //     return response()->json(data:'fail', status:'400');
+        // }
 }
 
     // public function store(Request $request)

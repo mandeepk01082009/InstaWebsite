@@ -74,12 +74,12 @@
             </div>
             <div class="comment-area mt-4" id="comment-area">
 
-                @if(session('message'))
+                @if(session('message'))     
                 <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>
                 @endif
               <div class="card card-body">
-                  <h6 class="card-title">Leave a comment</h6>
-                  <form action="{{ url('comments')}}" method="POST" id="serializeForm" data-post="{{$post->id}}">
+                  <h6 class="card-title">Leave a comment</h6>   
+                  <form action="{{ url('comments')}}" method="POST" id="serializeForm" data-post="{{$post->id}}" class="form_class">
                     @csrf
                       <input type="hidden" name="post_slug" value="{{$post->slug}}">
                       <input type="hidden" name="post_id" value="{{$post->id}}" id="post_id">
