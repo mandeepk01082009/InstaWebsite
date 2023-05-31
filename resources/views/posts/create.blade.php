@@ -39,14 +39,14 @@
                         </div>
 
                         <div class="row">
-                            <label for="video" class="col-md-4 col-form-label ">Post Video</label>
-                            <input type="file" name="video" id="video" class="form-control">
+                            <label for="video" class="col-md-4 col-form-label">Post Video</label>
+                            <input type="file" name="video" id="video" class="form-control-file @error('video') is-invalid @enderror ">
 
                             @error('video')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror 
+                                @enderror   
                             
                         </div>
 

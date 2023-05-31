@@ -32,7 +32,7 @@ class PostController extends Controller
     'caption'=> 'required',
     'image' => 'required|image',
     'video' => 'required|mimes:mp4',
-    'status' => 'nullable'
+    'status' => 'nullable'  
 ]);
 
 $post = Post::create([
@@ -58,22 +58,19 @@ $post = Post::create([
     $post->save();*/
 
 if($request->has('image')) {
+
             $file = $request->file('image');
             $extention = $file->getClientOriginalName();
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
             $post->image = $filename;       
-    }
-
-    $post->save();    
-
-
+    }  
 if($request->has('video')) {
             $file = $request->file('video');
             $extention = $file->getClientOriginalName();
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
-            $post->video = $filenam;       
+            $post->video = $filename;       
     }
 
     $post->save();
@@ -81,8 +78,9 @@ if($request->has('video')) {
 // return response()->json(['success'=>'Files uploaded successfully.']);
 // }
  
-    return redirect('/profile/'. auth()->user()->id );         
-  }
+    return redirect('/profile/'. auth()->user()->id );   
+    
+}
 
     public function show(\App\Models\Post $post)
     {
@@ -177,6 +175,7 @@ if($request->has('video')) {
             
         }
 
-}  
+} 
+
 
         
