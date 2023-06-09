@@ -10,8 +10,18 @@
 
                 @if(session('del'))
                 <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>  
-                @endif          
-            <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:400px; height:400px;">
+                @endif 
+                @php
+                $images = json_decode($post->image) ?? [] ;
+                print_r($images);
+            @endphp
+
+            @foreach ($images as $img)
+                <img style="max-width:400; height:400px;" class="w-100"
+                    src="{{ asset('/storage/' . $img) }}">
+            @endforeach
+
+            {{-- <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:400px; height:400px;"> --}}
             <div class="mt-2">              
                 {{ $post->like()->where(['like' => '1'])->count() }}
                 <a href="#" class="like">
@@ -100,7 +110,7 @@
                           <small class="ms-3 text-primary">Commented on: {{ $comment->created_at->format('d-m-Y') }}</small>
                       </h6>
                       <p class="user-comment mb-1">
-                          {{!! $comment->comment_body !!}}
+                          {{ $comment->comment_body }}
                           
                       </p>
                   </div>

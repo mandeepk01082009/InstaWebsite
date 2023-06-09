@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Intervention\Image\Facades\Image;    
-use Illuminate\Support\Facades\Storage;                   
+use Illuminate\Support\Facades\Storage;                     
 
 
 class PostController extends Controller                                    
@@ -26,11 +26,15 @@ class PostController extends Controller
         return view('posts.create');         
     }
 
+    // $request->validate([
+    //     'files.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //   ]);
+
    public function store(Request $request)
    {
     $data = $request->validate([
     'caption'=> 'required',
-    'image' => 'required|image',
+    'image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     'video' => 'required|mimes:mp4',
     'status' => 'nullable'  
 ]);
@@ -57,28 +61,38 @@ $post = Post::create([
     }
     $post->save();*/
 
-if($request->has('image')) {
+// if($request->has('image')) {
 
-            $file = $request->file('image');
-            $extention = $file->getClientOriginalName();
-            $filename = time(). '.' . $extention;
-            $file->move('storage/',$filename);
-            $post->image = $filename;       
-    }  
-if($request->has('video')) {
+//             $file = $request->file('image');
+//             $extention = $file->getClientOriginalName();
+//             $filename = time(). '.' . $extention;
+//             $file->move('storage/',$filename);
+//             $post->image = $filename;       
+//     }
+
+$fileNames = [];
+foreach($request->file('image') as $image){
+    $extention = $image->getClientOriginalName();
+    $filename = time(). '.' . $extention;
+    $image->move('storage/',$filename);
+    $fileNames[] = $filename;
+}
+$post->image = json_encode($fileNames);
+    
+    if($request->has('video')) {
             $file = $request->file('video');
-            $extention = $file->getClientOriginalName();
+            $extention = $file->getClientOriginalName();   
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
-            $post->video = $filename;       
+            $post->video = $filename;             
     }
 
     $post->save();
 
-// return response()->json(['success'=>'Files uploaded successfully.']);
+return response()->json(['success'=>'Files uploaded successfully.']);
 // }
  
-    return redirect('/profile/'. auth()->user()->id );   
+    //return redirect('/profile/'. auth()->user()->id );   
     
 }
 
@@ -110,7 +124,7 @@ if($request->has('video')) {
     
          if($request->has('video')) {
             $file = $request->file('video');
-            $extention = $file->getClientOriginalName();
+            $extention = $file->getClientOriginalName();    
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
             $posts->video = $filename;       

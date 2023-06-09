@@ -32,7 +32,13 @@ Route::get('/editpost/{id}', [App\Http\Controllers\PostController::class, 'edit'
 Route::patch('/updatepost/{id}',[App\Http\Controllers\PostController::class, 'update']);
 Route::get('deletepost/{id}',[App\Http\Controllers\PostController::class, 'delete']);
 
-//Comment System 
+// Story
+Route::get('/s/create', [App\Http\Controllers\StoryController::class, 'create'])->name('create_story');
+Route::post('/s', [App\Http\Controllers\StoryController::class, 'store'])->name('store_story');
+Route::get('deletestory/{id}',[App\Http\Controllers\StoryController::class, 'delete'])->name('delete_story');
+
+
+// Comment System 
 //Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
 Route::get('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments');  
 Route::post('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments'); 

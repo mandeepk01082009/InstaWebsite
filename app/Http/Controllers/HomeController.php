@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Like;
+use App\Models\Story;
 use Illuminate\Support\Facades\Auth;    
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;   
@@ -44,7 +45,16 @@ class HomeController extends Controller
             ->with('user')
             ->orderBy('updated_at', 'DESC')->get();
 
-        return view('home',compact('user','posts'));   
+            $stories = Story::whereIn('user_id', function($query)
+        {       
+            $query->select('follower_id')
+                    ->from('followers')
+                    ->where('following_id', Auth::user()->id);
+        })->orWhere('user_id', Auth::user()->id)
+            ->with('user')
+            ->orderBy('updated_at', 'DESC')->get();
+
+        return view('home',compact('user','posts','stories'));   
     } 
 
  
