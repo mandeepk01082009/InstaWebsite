@@ -30,7 +30,7 @@
 <body class="bg-light">
     <div class="container-fluid">
         <div class="row" style="width: 100%;">
-            <div class="col-2 bg-white py-5"
+            <div class="col-2 bg-white "
                 style="position: fixed; border-right: 1px solid lightgray; padding-top: 50;">
                 <div class="nav py-5">
                     <img src="{{ asset('images/Instagram_logo.png') }}" class="w-100"
@@ -38,43 +38,43 @@
                     <ul style="list-style: none;" class="px-1 py-5">
                         <li class="nav-item px-1">
                             <a class="nav-link active" href="/home"
-                                style="color:black; font-size: 18px; font-weight: bold;">
-                                <i class="fa fa-home" aria-hidden="true" style="font-size:28px"></i>
+                                style="color:black; font-size: 16px; font-weight: bold;">
+                                <i class="fa fa-home" aria-hidden="true" style="font-size:22px"></i>
                                 <span class="px-1">Home</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:black; font-size: 18px;">
-                                <i class="fa fa-search" aria-hidden="true"style="font-size:28px"></i>
+                            <a class="nav-link" href="#" style="color:black; font-size: 16px;">
+                                <i class="fa fa-search" aria-hidden="true"style="font-size:22px"></i>
                                 <span class="px-1">Search</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:black; font-size: 18px;">
-                                <i class="fa fa-safari" aria-hidden="true"style="font-size:28px"></i>
+                            <a class="nav-link" href="#" style="color:black; font-size: 16px;">
+                                <i class="fa fa-safari" aria-hidden="true"style="font-size:22px"></i>
                                 <span class="px-1">Explore</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:black; font-size: 18px;">
-                                <i class="fa fa-youtube-play" aria-hidden="true"style="font-size:28px"></i>
+                            <a class="nav-link" href="#" style="color:black; font-size: 16px;">
+                                <i class="fa fa-youtube-play" aria-hidden="true"style="font-size:22px"></i>
                                 <span>Reels</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:black; font-size: 18px;">
-                                <i class="fa fa-telegram" aria-hidden="true"style="font-size:28px"></i>
+                            <a class="nav-link" href="#" style="color:black; font-size: 16px;">
+                                <i class="fa fa-telegram" aria-hidden="true"style="font-size:22px"></i>
                                 <span class="px-1">Messages</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:black; font-size: 18px;">
-                                <i class="fa fa-heart" aria-hidden="true"style="font-size:28px"></i>
+                            <a class="nav-link" href="#" style="color:black; font-size: 16px;">
+                                <i class="fa fa-heart" aria-hidden="true"style="font-size:22px"></i>
                                 <span>Notifications</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:black; font-size: 18px;">
-                                <i class="fa fa-plus-square-o" aria-hidden="true"style="font-size:28px"></i>
+                            <a class="nav-link" href="#" style="color:black; font-size: 16px;">
+                                <i class="fa fa-plus-square-o" aria-hidden="true"style="font-size:22px"></i>
                                 <span class="px-1">Create</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/profile/{{ $user->id }}"
-                                style="color:black; font-size: 18px;">
+                                style="color:black; font-size: 16px;">
                                 <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100"
                                     style="max-width: 30px;">
                                 <span class="px-1">Profile</span></a>
@@ -229,17 +229,23 @@
                                 </div>
                                 <div class="pt-2" data-post="{{ $post->id }}">
                                     <div class="col-12 pb-4">
-                                        <a href="/p/{{ $post->id }}">
+                                        <a href="/p/{{ $post->id }}">         
                                             @php
-                                                $images = json_decode($post->image) ?? [] ;
-                                                print_r($images);
-                                                // $images = explode(',' , $post->image);
-                                            @endphp
+                                                //$images = (json_decode($post->image) ?? []) && (explode('|' , $post->image));               
+                                                // foreach($images as $file){                                                          
+                                                //     echo $file;                                           
+                                                //}
+                                                // count($images);
+                                                $images = explode('|' , $post->image) ?? [] ;
+                                            @endphp                                  
 
-                                            @foreach ($images as $img)
-                                                <img style="max-width:400; height:400px;" class="w-100"
-                                                    src="{{ asset('/storage/' . $img) }}">
+                                            @foreach ($images as $file )                               
+                                                
+                                           
+                                            <img src="{{ asset('storage/' .$file) }}" class="w-100"
+                                            style="max-width:400; height:400px;">
                                             @endforeach
+                                            
 
                                             {{-- <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
                                                 style="max-width:400; height:400px;"> --}}
@@ -272,7 +278,8 @@
                                                     data-post="{{ $post->id }}">
                                                     @csrf
                                                     <input type="hidden" name="post_slug"
-                                                        value="{{ $post->slug }}">
+                                                        value="{{ $post->slug }}">      
+                                                            
                                                     <input type="hidden" name="uniqid"
                                                         value="{{ $post->uniqid }}">
                                                     <input type="hidden" name="post_id" value="{{ $post->id }}"
@@ -415,7 +422,7 @@
 
 
 
-                                    </div>
+                                    </div>     
                                 </div>
                             @endforeach
                         @endif
@@ -427,7 +434,7 @@
                 @if ($id = Auth::user()->id)
                     <div>
                         <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100"
-                            style="max-width: 70px;">
+                            style="max-width: 50px;">
                         <span class="px-2">
                             <b>
                                 <a href="/profile/{{ $user->profile->id }}"><span
