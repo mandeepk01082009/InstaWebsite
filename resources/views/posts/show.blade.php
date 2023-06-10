@@ -12,14 +12,20 @@
                 <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>  
                 @endif 
                 @php
-                $images = json_decode($post->image) ?? [] ;
-                print_r($images);
-            @endphp
+                $images = (json_decode($post->image) ?? []);               
+            @endphp 
+            @if($images)                                 
 
-            @foreach ($images as $img)
-                <img style="max-width:400; height:400px;" class="w-100"
-                    src="{{ asset('/storage/' . $img) }}">
+            @foreach ($images as $file )                               
+                
+           
+            <img src="{{ asset('storage/' .$file) }}" class="w-100"
+            style="max-width:400; height:400px;">
             @endforeach
+            @else
+            <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
+                style="max-width:400; height:400px;">
+            @endif
 
             {{-- <img src="/storage/{{ $post->image }}" alt="" class="img-fluid" style="max-width:400px; height:400px;"> --}}
             <div class="mt-2">              

@@ -51,7 +51,21 @@
         @foreach($user->posts as $post)
         <div class="col-4 pb-4">
             <a href="/p/{{$post->id}}">
-                <img src = "{{asset('storage/' . $post->image) }}" class="w-100" style="max-width:400; height:400px;"> 
+                @php
+                $images = (json_decode($post->image) ?? []);               
+            @endphp 
+            @if($images)                                 
+
+            @foreach ($images as $file )                               
+                
+           
+            <img src="{{ asset('storage/' .$file) }}" class="w-100"
+            style="max-width:400; height:400px;">
+            @endforeach
+            @else
+            <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
+                style="max-width:400; height:400px;">
+            @endif
             </a>
         </div>
         @endforeach

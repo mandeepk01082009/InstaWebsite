@@ -23,7 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{ asset('js/like.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />  
     <title>Home</title>
 </head>
 
@@ -231,13 +231,9 @@
                                     <div class="col-12 pb-4">
                                         <a href="/p/{{ $post->id }}">         
                                             @php
-                                                //$images = (json_decode($post->image) ?? []) && (explode('|' , $post->image));               
-                                                // foreach($images as $file){                                                          
-                                                //     echo $file;                                           
-                                                //}
-                                                // count($images);
-                                                $images = explode('|' , $post->image) ?? [] ;
-                                            @endphp                                  
+                                                $images = (json_decode($post->image) ?? []);               
+                                            @endphp 
+                                            @if($images)                                 
 
                                             @foreach ($images as $file )                               
                                                 
@@ -245,6 +241,10 @@
                                             <img src="{{ asset('storage/' .$file) }}" class="w-100"
                                             style="max-width:400; height:400px;">
                                             @endforeach
+                                            @else
+                                            <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
+                                                style="max-width:400; height:400px;">
+                                            @endif
                                             
 
                                             {{-- <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
