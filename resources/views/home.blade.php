@@ -16,22 +16,28 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
         integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {{-- slick  slider --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"
+        integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
+        integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />   
 
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>          
     <script src="{{ asset('js/like.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />  
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
     <title>Home</title>
 </head>
 
 <body class="bg-light">
     <div class="container-fluid">
         <div class="row" style="width: 100%;">
-            <div class="col-2 bg-white "
-                style="position: fixed; border-right: 1px solid lightgray; padding-top: 50;">
+            <div class="col-2 bg-white " style="position: fixed; border-right: 1px solid lightgray; padding-top: 50;">
                 <div class="nav py-5">
                     <img src="{{ asset('images/Instagram_logo.png') }}" class="w-100"
                         style="max-height:100px; max-width:120px">
@@ -85,41 +91,6 @@
             <div class="col-1 p-3" style="position: relative; margin-left:100px;"></div>
             <div class="col-5 p-3" style="position: relative; margin-left:100px;">
 
-                {{-- <div class="story-container">
-                    <button class="btn left-btn hide">
-                    <img src="images/arrow.png">
-                    </button>
-                    <div class="carousel-container">
-                        <ul class="carousel">
-                            <li class="slide">
-                                <div class="story-status">
-                                    <img src="images/profile.jpg" alt="" class="story">
-                                    <p>Your Story</p>
-                                </div>
-                                <div class="story-status">
-                                    <img src="images/profile.jpg" alt="" class="has-story"> 
-                                    <p>John Doe</p>  
-                                </div>
-                                <div class="story-status">
-                                    <img src="images/profile.jpg" alt="" class="has-story">
-                                    <p>Perry</p>
-                                </div>
-                                <div class="story-status">
-                                    <img src="images/profile.jpg" alt="" class="has-story">
-                                    <p>Coder</p>
-                                </div>
-                                <div class="story-status">
-                                    <img src="images/profile.jpg" alt="" class="has-story">
-                                    <p>Harry</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <button class="btn right-btn">
-                        <img src="images/right-arrow.png">    
-                    </button>
-                </div> --}}
-
 
                 <div class="status-container mt-4">
                     <div class="horizontal-scroll">
@@ -147,37 +118,6 @@
                                     {{-- </a> --}}
                                 </div>
                             @endforeach
-
-
-
-
-                            {{-- <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">    
-                            </div>
-                            <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">
-                            </div>
-                            <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">
-                            </div>
-                            <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">
-                            </div>
-                            <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">
-                            </div>
-                            <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">
-                            </div>
-                            <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">
-                            </div>
-                            <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">
-                            </div>
-                            <div class="story-circle">
-                                <img src="images/profile.jpg" alt="">
-                            </div> --}}
                         </div>
                     </div>
 
@@ -190,7 +130,7 @@
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header">         
                                 {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -216,7 +156,7 @@
                             @foreach ($posts->all() as $post)
                                 <div class="px-3">
                                     <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100"
-                                        style="max-width: 40px;">
+                                        style="max-width: 40px;">     
                                     <span class="px-2">
                                         <b>
                                             <a href="/profile/{{ $post->user->id }}"><span
@@ -229,27 +169,40 @@
                                 </div>
                                 <div class="pt-2" data-post="{{ $post->id }}">
                                     <div class="col-12 pb-4">
-                                        <a href="/p/{{ $post->id }}">         
+                                        {{-- <a href="/p/{{ $post->id }}"> --}}
                                             @php
-                                                $images = (json_decode($post->image) ?? []);               
-                                            @endphp 
-                                            @if($images)                                 
+                                                $images = json_decode($post->image) ?? [];
+                                            @endphp
+                                            @if ($images)
+                                                {{-- <div class="home-wrap"> --}}
+                                                <div class="slider">
+                                                    @foreach ($images as $file)
+                                                    <a href="/p/{{ $post->id }}">
+                                                        <div class="banner">
+                                                            <img src="{{ asset('storage/' . $file) }}" class="w-100"
+                                                                style="max-width:400; height:400px;">
+                                                        </div>
+                                                    </a>
+                                                    @endforeach
 
-                                            @foreach ($images as $file )                               
-                                                
-                                           
-                                            <img src="{{ asset('storage/' .$file) }}" class="w-100"
-                                            style="max-width:400; height:400px;">
-                                            @endforeach
+                                                </div>
+                                                {{-- </div> --}}
+
+                                                {{-- @foreach ($images as $file)
+                                                    <img src="{{ asset('storage/' . $file) }}" class="w-100"
+                                                        style="max-width:400; height:400px;">
+                                                @endforeach --}}
                                             @else
-                                            <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
-                                                style="max-width:400; height:400px;">
+                                            <a href="/p/{{ $post->id }}">
+                                                <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
+                                                    style="max-width:400; height:400px;">
+                                            </a>
                                             @endif
-                                            
+
 
                                             {{-- <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
                                                 style="max-width:400; height:400px;"> --}}
-                                        </a>
+                                        {{-- </a> --}}
                                         <div class="mt-2 px-3">
 
                                             {{ $post->like()->where(['like' => '1'])->count() }}
@@ -278,8 +231,8 @@
                                                     data-post="{{ $post->id }}">
                                                     @csrf
                                                     <input type="hidden" name="post_slug"
-                                                        value="{{ $post->slug }}">      
-                                                            
+                                                        value="{{ $post->slug }}">
+
                                                     <input type="hidden" name="uniqid"
                                                         value="{{ $post->uniqid }}">
                                                     <input type="hidden" name="post_id" value="{{ $post->id }}"
@@ -290,7 +243,7 @@
                                                     <!-- <p id="uniqueID"></p> -->
                                                     <button type="submit" name="submit"
                                                         class="btn btn-primary mt-3"
-                                                        class="submitButton">Submit</button>   
+                                                        class="submitButton">Submit</button>
                                                 </form>
                                             </div>
 
@@ -412,7 +365,7 @@
                                                                 style="border:none; background: none;"
                                                                 class="deleteComment"><i class="fa fa-trash"
                                                                     style="font-size:20px; color:black;"></i> </button>
-                                                        </div>    
+                                                        </div>
                                                     @endif
                                                 </div>
                                             @empty
@@ -422,7 +375,7 @@
 
 
 
-                                    </div>     
+                                    </div>
                                 </div>
                             @endforeach
                         @endif
@@ -434,7 +387,7 @@
                 @if ($id = Auth::user()->id)
                     <div>
                         <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100"
-                            style="max-width: 50px;">
+                            style="max-width: 70px;">
                         <span class="px-2">
                             <b>
                                 <a href="/profile/{{ $user->profile->id }}"><span
@@ -564,6 +517,19 @@
                 });
                 $("#img01", modal).prop("src", src);
                 console.log(src);
+            })
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"
+        integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+            $('.slider').slick({
+                dots: false,
+                infinite: false,
+                cssEase: 'linear',
+                arrow: true
             })
         });
     </script>

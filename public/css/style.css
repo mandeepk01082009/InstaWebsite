@@ -203,3 +203,6 @@
     align: center;
     box-sizing: border-box;
 }
+.slick-prev:before, .slick-next:before{
+    color: black;
+}

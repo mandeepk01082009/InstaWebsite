@@ -11,7 +11,7 @@
                 <div class="d-flex align-items-center pb-3">
                     <div class="h4"> {{ $user->username}}</div>
                     <!-- <button class="btn btn-primary ms-4">Follow</button> -->
-                    @if(auth()->user()->id !== $user->id)
+                    @if(auth()->user()->id !== $user->id)                
                     <!-- <a href="#" class="btn btn-primary ms-4" >Follow</a> -->
                         @if($user->followers->contains(auth()->user()->id))
                             <a href="{{route('follow', $user->id)}}"  class="btn btn-danger ms-4" >
@@ -50,23 +50,30 @@
     <div class="row pt-5">
         @foreach($user->posts as $post)
         <div class="col-4 pb-4">
-            <a href="/p/{{$post->id}}">
                 @php
                 $images = (json_decode($post->image) ?? []);               
             @endphp 
-            @if($images)                                 
+            @if($images)  
+            <div class="slider">
+                @foreach ($images as $file)
+                    <div class="banner">
+                        <img src="{{ asset('storage/' . $file) }}" class="w-100"
+                            style="max-width:400; height:400px;">
+                    </div>
+                @endforeach
 
-            @foreach ($images as $file )                               
+            </div>                               
+
+            {{-- @foreach ($images as $file )                               
                 
            
             <img src="{{ asset('storage/' .$file) }}" class="w-100"
             style="max-width:400; height:400px;">
-            @endforeach
+            @endforeach --}}  
             @else
             <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
                 style="max-width:400; height:400px;">
             @endif
-            </a>
         </div>
         @endforeach
 
@@ -82,4 +89,20 @@
 
     </div>
 </div>
+@endsection
+
+@section('scipts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"
+        integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+            $('.slider').slick({
+                dots: false,
+                infinite: false,
+                cssEase: 'linear',
+                arrow: true,
+            })
+        });
+    </script>
 @endsection
