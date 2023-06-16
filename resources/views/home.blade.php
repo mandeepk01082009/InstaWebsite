@@ -9,20 +9,13 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
-        integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- slick  slider --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"
         integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
         integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />   
+        crossorigin="anonymous" referrerpolicy="no-referrer" />              
 
 
     <!-- Scripts -->
@@ -92,7 +85,7 @@
             <div class="col-5 p-3" style="position: relative; margin-left:100px;">
 
 
-                <div class="status-container mt-4">
+                <div class="status-container mt-4">         
                     <div class="horizontal-scroll">
                         <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHorizontally(1)"><i
                                 class="fa fa-chevron-left" aria-hidden="true"></i></button>
@@ -106,7 +99,7 @@
                                             style="color:white;"></i></a>
                                 </div>
                             </div>
-                            @foreach ($stories as $story)
+                            @foreach ($stories as $story)        
                                 <div class="story-circle">
                                     {{-- <a target="_blank" href="{{ asset('storage/' . $story->image) }}"> --}}
                                     <img href="#staticBackdrop" data-bs-toggle="modal"
@@ -115,35 +108,62 @@
 
                                     {{-- <img src="{{ asset('storage/' . $story->image) }}" class="story"
                                         alt=""> --}}
-                                    {{-- </a> --}}
+                                    {{-- </a> --}}       
                                 </div>
                             @endforeach
                         </div>
                     </div>
 
                 </div>
+                {{-- C:\wamp641\www\16june\public\images\reactions_angry.png --}}
+
+ 
 
                 <!-- Button trigger modal -->
 
                 <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" data-bs-keyboard="false"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">         
                                 {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"    
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="gallery-modal"> <img class="modal-content" id="img01">
                                 </div>
-
-                            </div>
-                            {{-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
-        </div> --}}
+                                <button type="button" class="button1">Green</button>
+                            </div>  
+                          
+                          
+                            <template>
+                                <div class="position-relative shadow">
+                                    <div class="bg-white border rounded shadow-sm position-absolute">
+                                        <button class="btn bg-light">
+                                            <img src="{{ asset('images/reactions_angry.png') }}">
+                                        </button>
+                                        <button class="btn bg-light">
+                                            <img src="{{ asset('images/reactions_angry.png') }}">
+                                        </button>
+                                        <button class="btn bg-light">
+                                            <img src="{{ asset('images/reactions_angry.png') }}">
+                                        </button>
+                                        <button class="btn bg-light">
+                                            <img src="{{ asset('images/reactions_angry.png') }}">
+                                        </button>
+                                        <button class="btn bg-light">
+                                            <img src="{{ asset('images/reactions_angry.png') }}">
+                                        </button>
+                                        <button class="btn bg-light">
+                                            <img src="{{ asset('images/reactions_angry.png') }}">
+                                        </button>
+                                    </div>
+                                </div>
+                            </template>
+                           
+                           
                         </div>
                     </div>
                 </div>
@@ -155,7 +175,7 @@
                         @if ($posts->count() > 0)
                             @foreach ($posts->all() as $post)
                                 <div class="px-3">
-                                    <img src="/storage/{{ $user->profile->image }}" class="rounded-circle w-100"
+                                    <img src="/storage/{{ $post->user->profile->image }}" class="rounded-circle w-100"
                                         style="max-width: 40px;">     
                                     <span class="px-2">
                                         <b>
@@ -181,7 +201,7 @@
                                                         <div class="banner">
                                                             <img src="{{ asset('storage/' . $file) }}" class="w-100"
                                                                 style="max-width:400; height:400px;">
-                                                        </div>
+                                                        </div>          
                                                     </a>
                                                     @endforeach
 
@@ -209,15 +229,12 @@
                                             <a href="#" class="like">
                                                 @if (Auth::user()->like()->where('post_id', $post->id)->first())
                                                     &#9829;
-                                                    <!-- <img src="{{ asset('images/logo.png') }}" class="w-100" style="max-height:30px; max-width:30px" /> -->
                                                 @elseif (
                                                     !empty(Auth::user()) &&
                                                         Auth::user()->like()->where('post_id', $post->id)->first() != 1)
                                                     &#9825;
-                                                    <!--  <img src="{{ asset('images/R.jpeg') }}" class="w-100" style="max-height:30px; max-width:30px"/>  -->
                                                 @endif
                                             </a>
-                                            <!-- <a href="#" class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first()? (Auth::user()->like()->where('post_id', $post->id)->first()->like == 1? 'You like this post': 'Like'): 'Like' }}</a>  -->
                                         </div>
                                         <div class="comment-area mt-4 px-3" id="comment-area" data-post="$uniqid">
 
@@ -310,8 +327,15 @@
                                         <div class="mt-2 px-3">
 
                                             {{ $post->like()->where(['like' => '1'])->count() }}
-                                            <a href="#"
-                                                class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first()? (Auth::user()->like()->where('post_id', $post->id)->first()->like == 1? 'You like this post': 'Like'): 'Like' }}</a>
+                                            <a href="#" class="like">
+                                                @if (Auth::user()->like()->where('post_id', $post->id)->first())
+                                                    &#9829;
+                                                @elseif (
+                                                    !empty(Auth::user()) &&
+                                                        Auth::user()->like()->where('post_id', $post->id)->first() != 1)
+                                                    &#9825;
+                                                @endif
+                                            </a>
                                         </div>
 
                                         <div class="comment-area mt-4 px-3" id="comment-area"
@@ -493,7 +517,7 @@
         }
     </script> --}}
 
-    {{-- <script>
+    {{-- <script>    
         $(document).ready(function() {
             $(".story").click(function() {
                 var path = $(this).attr('src');
@@ -516,10 +540,11 @@
                     "display": "block"
                 });
                 $("#img01", modal).prop("src", src);
+                $(".shadow", modal).prop("src", src);   
                 console.log(src);
             })
         });
-    </script>
+    </script>        
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"
         integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -532,6 +557,14 @@
                 arrow: true
             })
         });
+    </script>
+    <script>
+        const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="

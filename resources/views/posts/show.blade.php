@@ -43,13 +43,11 @@
                     <a href="#" class="like">
                         @if (Auth::user()->like()->where('post_id', $post->id)->first())
                             ♥
-                            <!--  "<i class="fa fa-heart" style="max-height:20px; max-width:20px"></i>" -->
-                            <!-- <img src="{{ asset('images/logo.png') }}" class="w-100" style="max-height:30px; max-width:30px"/> -->
+
                         @elseif (
                             !empty(Auth::user()) &&
                                 Auth::user()->like()->where('post_id', $post->id)->first() != 1)
                             ♡
-                            <!--  <img src="{{ asset('images/R.jpeg') }}" class="w-100" style="max-height:30px; max-width:30px"/> -->
                         @endif
                     </a>
                     <!-- |
@@ -59,15 +57,19 @@
                 <hr>
                 <video controls src="/storage/{{ $post->video }}" alt=""
                     style="max-width:500px; height:400px;"></video>
-                <div class="mt-2">
-
-                    {{ $post->like()->where(['like' => '1'])->count() }}
-                    <a href="#"
-                        class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first()? (Auth::user()->like()->where('post_id', $post->id)->first()->like == 1? 'You like this post': 'Like'): 'Like' }}</a>
-                    <!-- |
-                                {{ $post->like()->where(['like' => '0'])->count() }}
-                                <a href="#" class="like">{{ Auth::user()->like()->where('post_id', $post->id)->first()? (Auth::user()->like()->where('post_id', $post->id)->first()->like == 0? 'You dont like this post': 'Dislike'): 'Dislike' }}</a> -->
-                </div>
+                    <div class="mt-2">
+                        {{ $post->like()->where(['like' => '1'])->count() }}
+                        <a href="#" class="like">
+                            @if (Auth::user()->like()->where('post_id', $post->id)->first())
+                                ♥
+    
+                            @elseif (
+                                !empty(Auth::user()) &&
+                                    Auth::user()->like()->where('post_id', $post->id)->first() != 1)
+                                ♡
+                            @endif
+                        </a>
+                    </div>               
             </div>
             <div class="col-6">
                 <div>
@@ -139,7 +141,7 @@
                                         {{ $comment->created_at->format('d-m-Y') }}</small>
                                 </h6>
                                 <p class="user-comment mb-1">
-                                    {{ $comment->comment_body }}
+                                    {{ $comment->comment_body }}        
 
                                 </p>
                             </div>
@@ -156,6 +158,7 @@
                         <h6>No Comments Yet.</h6>
                     @endforelse
                 </div>
+               
             </div>
         </div>
     </div>
