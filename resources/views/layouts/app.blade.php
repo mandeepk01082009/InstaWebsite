@@ -22,12 +22,12 @@
         integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />  
         {{-- Styles  --}}
-        <style>
+        {{-- <style>
             .slick-prev:before,
             .slick-next:before {
                 color: black;
             }
-        </style>
+        </style> --}}
 
 
     <!-- Scripts -->
@@ -114,10 +114,10 @@
     <script>
         $(document).ready(function() {
             $('.slider').slick({
-                dots: false,
+                dots: true,
                 infinite: false,
                 cssEase: 'linear',
-                arrow: true
+                arrow: true         
             })
         });
     </script>

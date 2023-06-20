@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">    
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,8 +23,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>          
     <script src="{{ asset('js/like.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
-    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}"/>
+    <title>Home</title>    
 </head>
 
 <body class="bg-light">
@@ -81,7 +81,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-1 p-3" style="position: relative; margin-left:100px;"></div>
+            <div class="col-1 p-3" style="position: relative; margin-left:100px;"></div>          
             <div class="col-5 p-3" style="position: relative; margin-left:100px;">
 
 
@@ -101,15 +101,26 @@
                             </div>
                             @foreach ($stories as $story)        
                                 <div class="story-circle">
-                                    {{-- <a target="_blank" href="{{ asset('storage/' . $story->image) }}"> --}}
-                                    <img href="#staticBackdrop" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop"
-                                        src="{{ asset('storage/' . $story->image) }}" class="modal_img">
+                                    @php
+                                    $images = json_decode($story->image) ?? [];
+                                @endphp
+                                @if ($images)    
+                                    {{-- <div class="home-wrap"> --}}
+                                        @foreach ($images as $file)
+                                            <div class="banner">
+                                                <img href="#staticBackdrop" data-bs-toggle="modal"                             
+                                                data-bs-target="#staticBackdrop" src="{{ asset('storage/' . $file) }}"
+                                                class="modal_img">                                     
+                                            </div>          
+                                        @endforeach                
 
-                                    {{-- <img src="{{ asset('storage/' . $story->image) }}" class="story"
-                                        alt=""> --}}
-                                    {{-- </a> --}}       
-                                </div>
+                                @else
+                                <img href="#staticBackdrop" data-bs-toggle="modal"                             
+                                data-bs-target="#staticBackdrop"      
+                                src="{{ asset('storage/' . $story->image) }}" class="modal_img"> 
+                                @endif
+                                </div>   
+                                {{-- <span class="mt-5">{{ $story->user_id }}</span> --}}             
                             @endforeach
                         </div>
                     </div>
@@ -122,20 +133,35 @@
                 <!-- Button trigger modal -->
 
                 <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" data-bs-keyboard="false"
+                {{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" data-bs-keyboard="false"
                     aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog">                  
                         <div class="modal-content">
-                            <div class="modal-header">         
+                            <div class="modal-header">             --}}
                                 {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"    
+                                {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"    
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="gallery-modal"> <img class="modal-content" id="img01">
                                 </div>
-                                <button type="button" class="button1">Green</button>
-                            </div>  
+                                <button type="button" class="button1">Green</button>  
+                            </div>   --}}
+
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" data-bs-keyboard="false"
+                            aria-hidden="true">
+                            <div class="modal-dialog">                  
+                                <div class="modal-content">
+                                    <div class="modal-header">            
+                                        {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"    
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="gallery-modal"> <img class="modal-content" id="img01">
+                                        </div>
+                                        <button type="button" class="button1">Green</button>  
+                                    </div>  
                           
                           
                             <template>
@@ -200,13 +226,13 @@
                                                     <a href="/p/{{ $post->id }}">
                                                         <div class="banner">
                                                             <img src="{{ asset('storage/' . $file) }}" class="w-100"
-                                                                style="max-width:400; height:400px;">
+                                                                style="max-width:400; height:400px;">                            
                                                         </div>          
                                                     </a>
-                                                    @endforeach
+                                                    @endforeach  
 
                                                 </div>
-                                                {{-- </div> --}}
+                                                {{-- </div> --}}                
 
                                                 {{-- @foreach ($images as $file)
                                                     <img src="{{ asset('storage/' . $file) }}" class="w-100"
@@ -336,7 +362,7 @@
                                                     &#9825;
                                                 @endif
                                             </a>
-                                        </div>
+                                        </div>   
 
                                         <div class="comment-area mt-4 px-3" id="comment-area"
                                             data-post="{{ $post->id }}">
@@ -540,7 +566,7 @@
                     "display": "block"
                 });
                 $("#img01", modal).prop("src", src);
-                $(".shadow", modal).prop("src", src);   
+                $(".shadow", modal).prop("src", src);        
                 console.log(src);
             })
         });
@@ -551,24 +577,16 @@
     <script>
         $(document).ready(function() {
             $('.slider').slick({
-                dots: false,
+                dots: true,
                 infinite: false,
                 cssEase: 'linear',
                 arrow: true
             })
         });
     </script>
-    <script>
-        const myModal = document.getElementById('myModal')
-const myInput = document.getElementById('myInput')
-
-myModal.addEventListener('shown.bs.modal', () => {
-  myInput.focus()
-})
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>                    
 
 </body>
 
