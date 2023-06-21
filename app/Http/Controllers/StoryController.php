@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\Story;
+use App\Models\Story;     
 
 use Illuminate\Http\Request;
 
-class StoryController extends Controller
+class StoryController extends Controller     
 {
     public function create()  
     {

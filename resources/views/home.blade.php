@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,16 +15,16 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
         integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />              
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>          
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{ asset('js/like.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}"/>
-    <title>Home</title>    
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
+    <title>Home</title>
 </head>
 
 <body class="bg-light">
@@ -78,14 +78,19 @@
                                     style="max-width: 30px;">
                                 <span class="px-1">Profile</span></a>
                         </li>
+                        <li class="nav-item mt-5">
+                            <a class="nav-link" href="#" style="color:black; font-size: 16px;">
+                                <i class="fa fa-bars" style="font-size:22px"></i>
+                                <span class="px-1">More</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div class="col-1 p-3" style="position: relative; margin-left:100px;"></div>          
+            <div class="col-1 p-3" style="position: relative; margin-left:100px;"></div>
             <div class="col-5 p-3" style="position: relative; margin-left:100px;">
 
 
-                <div class="status-container mt-4">         
+                <div class="status-container mt-4">
                     <div class="horizontal-scroll">
                         <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHorizontally(1)"><i
                                 class="fa fa-chevron-left" aria-hidden="true"></i></button>
@@ -99,28 +104,29 @@
                                             style="color:white;"></i></a>
                                 </div>
                             </div>
-                            @foreach ($stories as $story)        
+                            @foreach ($stories as $story)
                                 <div class="story-circle">
                                     @php
-                                    $images = json_decode($story->image) ?? [];
-                                @endphp
-                                @if ($images)    
-                                    {{-- <div class="home-wrap"> --}}
-                                        @foreach ($images as $file)
-                                            <div class="banner">
-                                                <img href="#staticBackdrop" data-bs-toggle="modal"                             
-                                                data-bs-target="#staticBackdrop" src="{{ asset('storage/' . $file) }}"
-                                                class="modal_img">                                     
-                                            </div>          
-                                        @endforeach                
-
-                                @else
-                                <img href="#staticBackdrop" data-bs-toggle="modal"                             
-                                data-bs-target="#staticBackdrop"      
-                                src="{{ asset('storage/' . $story->image) }}" class="modal_img"> 
-                                @endif
-                                </div>   
-                                {{-- <span class="mt-5">{{ $story->user_id }}</span> --}}             
+                                        $images = json_decode($story->image) ?? [];
+                                    @endphp
+                                    @if ($images)
+                                        {{-- <div class="home-wrap"> --}}
+                                        <div class="slider">                                   
+                                            @foreach ($images as $file)
+                                                <div class="banner">
+                                                    <img href="#staticBackdrop" data-bs-toggle="modal"
+                                                        data-bs-target="#staticBackdrop"
+                                                        src="{{ asset('storage/' . $file) }}" class="modal_img">
+                                                </div>    
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <img href="#staticBackdrop" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop"
+                                            src="{{ asset('storage/' . $story->image) }}" class="modal_img">
+                                    @endif
+                                </div>
+                                {{-- <span class="mt-5">{{ $story->user_id }}</span> --}}
                             @endforeach
                         </div>
                     </div>
@@ -128,7 +134,7 @@
                 </div>
                 {{-- C:\wamp641\www\16june\public\images\reactions_angry.png --}}
 
- 
+
 
                 <!-- Button trigger modal -->
 
@@ -138,8 +144,8 @@
                     <div class="modal-dialog">                  
                         <div class="modal-content">
                             <div class="modal-header">             --}}
-                                {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
-                                {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"    
+                {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
+                {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"    
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -148,22 +154,41 @@
                                 <button type="button" class="button1">Green</button>  
                             </div>   --}}
 
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" data-bs-keyboard="false"
-                            aria-hidden="true">
-                            <div class="modal-dialog">                  
-                                <div class="modal-content">
-                                    <div class="modal-header">            
-                                        {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"    
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="gallery-modal"> <img class="modal-content" id="img01">
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1"
+                    aria-labelledby="staticBackdropLabel" data-bs-keyboard="false" aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="gallery-modal">
+                                    @php
+                                        $images = json_decode($story->image) ?? [];  
+                                    @endphp
+                                    @if ($images)
+                                        <div class="slider">                       
+                                            @foreach ($images as $file)               
+                                                <div class="banner">
+                                                    <center> <img src="{{ asset('storage/' . $file) }}"
+                                                            class="modal-content img01"></center>       
+                                                </div>
+                                            @endforeach 
+
                                         </div>
-                                        <button type="button" class="button1">Green</button>  
-                                    </div>  
-                          
-                          
+                                    @else
+                                        <center><img src="{{ asset('storage/' . $story->image) }}"
+                                                class="modal-content img01">
+                                            <center>
+                                    @endif
+                                    {{-- <center><img class="modal-content img01"></center>      --}}
+                                </div>
+                                {{-- <button type="button" class="button1">Green</button>   --}}
+                            </div>
+
+
                             <template>
                                 <div class="position-relative shadow">
                                     <div class="bg-white border rounded shadow-sm position-absolute">
@@ -188,8 +213,8 @@
                                     </div>
                                 </div>
                             </template>
-                           
-                           
+
+
                         </div>
                     </div>
                 </div>
@@ -201,8 +226,8 @@
                         @if ($posts->count() > 0)
                             @foreach ($posts->all() as $post)
                                 <div class="px-3">
-                                    <img src="/storage/{{ $post->user->profile->image }}" class="rounded-circle w-100"
-                                        style="max-width: 40px;">     
+                                    <img src="/storage/{{ $post->user->profile->image }}"
+                                        class="rounded-circle w-100" style="max-width: 40px;">
                                     <span class="px-2">
                                         <b>
                                             <a href="/profile/{{ $post->user->id }}"><span
@@ -216,37 +241,37 @@
                                 <div class="pt-2" data-post="{{ $post->id }}">
                                     <div class="col-12 pb-4">
                                         {{-- <a href="/p/{{ $post->id }}"> --}}
-                                            @php
-                                                $images = json_decode($post->image) ?? [];
-                                            @endphp
-                                            @if ($images)
-                                                {{-- <div class="home-wrap"> --}}
-                                                <div class="slider">
-                                                    @foreach ($images as $file)
+                                        @php
+                                            $images = json_decode($post->image) ?? [];
+                                        @endphp
+                                        @if ($images)
+                                            {{-- <div class="home-wrap"> --}}
+                                            <div class="slider">
+                                                @foreach ($images as $file)
                                                     <a href="/p/{{ $post->id }}">
                                                         <div class="banner">
                                                             <img src="{{ asset('storage/' . $file) }}" class="w-100"
-                                                                style="max-width:400; height:400px;">                            
-                                                        </div>          
+                                                                style="max-width:400; height:400px;">
+                                                        </div>
                                                     </a>
-                                                    @endforeach  
+                                                @endforeach
 
-                                                </div>
-                                                {{-- </div> --}}                
+                                            </div>
+                                            {{-- </div> --}}
 
-                                                {{-- @foreach ($images as $file)
+                                            {{-- @foreach ($images as $file)
                                                     <img src="{{ asset('storage/' . $file) }}" class="w-100"
                                                         style="max-width:400; height:400px;">
                                                 @endforeach --}}
-                                            @else
+                                        @else
                                             <a href="/p/{{ $post->id }}">
                                                 <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
                                                     style="max-width:400; height:400px;">
                                             </a>
-                                            @endif
+                                        @endif
 
 
-                                            {{-- <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
+                                        {{-- <img src="{{ asset('storage/' . $post->image) }}" class="w-100"
                                                 style="max-width:400; height:400px;"> --}}
                                         {{-- </a> --}}
                                         <div class="mt-2 px-3">
@@ -362,7 +387,7 @@
                                                     &#9825;
                                                 @endif
                                             </a>
-                                        </div>   
+                                        </div>
 
                                         <div class="comment-area mt-4 px-3" id="comment-area"
                                             data-post="{{ $post->id }}">
@@ -565,12 +590,12 @@
                 modal.css({
                     "display": "block"
                 });
-                $("#img01", modal).prop("src", src);
-                $(".shadow", modal).prop("src", src);        
-                console.log(src);
+                $(".img01", modal).prop("src", src);
+                $(".shadow", modal).prop("src", src);           
+
             })
         });
-    </script>        
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"
         integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -586,7 +611,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>                    
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
 

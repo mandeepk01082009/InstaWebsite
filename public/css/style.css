@@ -136,12 +136,21 @@
 }
 
 .story-circle img {
-    width: 70px;
+    width: 70px;   
     height: 70px;
     border-radius: 50%;
     border: 2px solid #fff;
     transform: rotateZ(-45deg);
 }
+
+.story-circle .slider {
+    width: 70px;   
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    transform: rotateZ(-45deg);
+}
+
 
 .story-circle video {
     width: 70px;
@@ -232,3 +241,9 @@
 /* .slick-prev:before, .slick-next:before{
     color: black;
 } */
+.gallery-modal{
+    text-align: center;
+}
+.gallery-modal img{width: 500px;
+
+}
