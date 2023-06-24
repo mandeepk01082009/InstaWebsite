@@ -42,7 +42,7 @@
             </div>
             <div class="pt-4"><b>{{ $user->profile->title }}</b></div>
             <div>{{ $user->profile->description }}
-            <div><a href="#">{{ $user->profile->url }}</a></div>
+            <div><a href="#">{{ $user->profile->url }}</a></div>   
             </div>
         </div>
     </div>

@@ -18,12 +18,13 @@ use App\Http\Controllers\PostController;
 //     return view('welcome');  
 // }); 
 Route::get('/', function () {
-    return view('layouts.app');                  
+    return view('layouts.app');                       
 });  
 
 
 Auth::routes();  
 Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');
+Route::get('/story/', [App\Http\Controllers\HomeController::class, 'story'])->name('story');
 
 Route::get('/p/create', [App\Http\Controllers\PostController::class, 'create']);
 Route::post('/p', [App\Http\Controllers\PostController::class, 'store']);

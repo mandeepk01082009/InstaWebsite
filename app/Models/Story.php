@@ -15,5 +15,5 @@ class Story extends Model
     }
 
     protected $table = 'stories';
-    protected $fillable = ['user_id','image','video'];   
+    protected $fillable = ['user_id','image','video'];                  
 }

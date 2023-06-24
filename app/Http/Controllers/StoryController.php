@@ -16,7 +16,8 @@ class StoryController extends Controller
     public function store(Request $request)
    {
     $data = $request->validate([
-    'image' => 'required|image',
+    'image' => 'required',
+    'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',   
     'video' => 'required|mimes:mp4,mov,ogg | max:20000' 
 ]);
 
@@ -27,27 +28,36 @@ $story = Story::create([
 ]);
 
 
-if($request->has('image')) {
+// if($request->has('image')) {
 
-            $file = $request->file('image');
-            $extention = $file->getClientOriginalName();
-            $filename = time(). '.' . $extention;
-            $file->move('storage/',$filename);
-            $story->image = $filename;       
-    }  
+//             $file = $request->file('image');
+//             $extention = $file->getClientOriginalName();
+//             $filename = time(). '.' . $extention;
+//             $file->move('storage/',$filename);
+//             $story->image = $filename;       
+//     }
+
+$fileNames = [];
+foreach($request->file('image') as $image){
+    $extention = $image->getClientOriginalName();
+    $filename = time(). '.' . $extention;
+    $image->move('storage/',$filename);
+    $fileNames[] = $filename;
+}
+$story->image = json_encode($fileNames);    
 
 if($request->has('video')) {
             $file = $request->file('video');
-            $extention = $file->getClientOriginalName();
+            $extention = $file->getClientOriginalName();            
             $filename = time(). '.' . $extention;
-            $file->move('storage/',$filename);
-            $story->video = $filename;         
+            $file->move('storage/',$filename);             
+            $story->video = $filename;             
     }
 
     $story->save();
 
-// return response()->json(['success'=>'Files uploaded successfully.']);
-// }
+// return response()->json(['success'=>'Files uploaded successfully.']);      
+
  
     return redirect('home');      
 }

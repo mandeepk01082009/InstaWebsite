@@ -23,7 +23,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{ asset('js/like.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" /> 
+    {{-- Styles  --}}
+          <style>
+            .slick-prev:before,
+            .slick-next:before {
+                display:none
+            }
+        </style>  
+
     <title>Home</title>
 </head>
 
@@ -105,13 +113,13 @@
                                 </div>
                             </div>
                             @foreach ($stories as $story)
-                                <div class="story-circle">
-                                    @php
+                                <div class="story-circle" data-post="{{$story->id }}">
+                                    {{-- @php
                                         $images = json_decode($story->image) ?? [];
                                     @endphp
-                                    @if ($images)
-                                        {{-- <div class="home-wrap"> --}}
-                                        <div class="slider">                                   
+                                    @if ($images) --}}
+                                    {{-- <div class="home-wrap"> --}}
+                                    {{-- <div class="slider">                                   
                                             @foreach ($images as $file)
                                                 <div class="banner">
                                                     <img href="#staticBackdrop" data-bs-toggle="modal"
@@ -119,14 +127,15 @@
                                                         src="{{ asset('storage/' . $file) }}" class="modal_img">
                                                 </div>    
                                             @endforeach
-                                        </div>
-                                    @else
-                                        <img href="#staticBackdrop" data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdrop"
-                                            src="{{ asset('storage/' . $story->image) }}" class="modal_img">
-                                    @endif
+                                        </div> --}}
+                                    {{-- @else --}}
+
+                                    <img href="#staticBackdrop" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop"
+                                        src="/storage/{{ $story->user->profile->image }}" class="modal_img">     
+
                                 </div>
-                                {{-- <span class="mt-5">{{ $story->user_id }}</span> --}}
+                                {{-- <span class="mt-5">{{ $story->user_id }}</span> --}}       
                             @endforeach
                         </div>
                     </div>
@@ -164,32 +173,35 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="gallery-modal">
-                                    @php
-                                        $images = json_decode($story->image) ?? [];  
-                                    @endphp
-                                    @if ($images)
-                                        <div class="slider">                       
-                                            @foreach ($images as $file)               
-                                                <div class="banner">
-                                                    <center> <img src="{{ asset('storage/' . $file) }}"
-                                                            class="modal-content img01"></center>       
-                                                </div>
-                                            @endforeach 
+                                @foreach ($stories as $story)
+                                    <div class="gallery-modal">
+                                        @php
+                                            $profile = $story->user->profile->image;
+                                            $images = json_decode($story->image) ?? [];
+                                        @endphp
+                                        @if ($images && $profile)
+                                            <div class="slider">                                
+                                                @foreach ($images as $file)     
+                                                    <div class="banner">
+                                                        <center> <img src="{{ asset('storage/' . $file) }}"
+                                                                class="modal-content img01"></center>                                       
+                                                    </div>
+                                                @endforeach        
 
-                                        </div>
-                                    @else
-                                        <center><img src="{{ asset('storage/' . $story->image) }}"
-                                                class="modal-content img01">
-                                            <center>
-                                    @endif
-                                    {{-- <center><img class="modal-content img01"></center>      --}}
-                                </div>
+                                            </div>
+                                        @else
+                                            <center><img src="{{ asset('storage/' . $story->image) }}"
+                                                    class="modal-content img01">      
+                                                <center>
+                                        @endif
+                                        {{-- <center><img class="modal-content img01"></center>      --}}
+                                    </div>
+                                @endforeach
                                 {{-- <button type="button" class="button1">Green</button>   --}}
                             </div>
 
 
-                            <template>
+                            {{-- <template>
                                 <div class="position-relative shadow">
                                     <div class="bg-white border rounded shadow-sm position-absolute">
                                         <button class="btn bg-light">
@@ -212,7 +224,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </template>
+                            </template> --}}      
 
 
                         </div>
@@ -496,22 +508,7 @@
         var token = '{{ Session::token() }}';
         var urlLike = '{{ route('like') }}';
     </script>
-    {{-- <script>
-        let currentScrollPosition = 0;
-        let scrollAmount = 320;
 
-        const sCont = document.querySelector(".story-container");
-        const hScroll = document.querySelector(".horizontal-scroll");
-
-        let maxScroll = -sCont.offsetWidth + hScroll.offsetWidth;
-
-        function scrollHorizontally(val){
-            currentScrollPosition += (val * scrollAmount);
-
-            sCont.style.left = currentScrollPosition + "px"; 
-        }
-
-    </script> --}}
     <script>
         let currentScrollPosition = 0;
         let scrollAmount = 320;
@@ -586,12 +583,12 @@
         $(function() {
             let modal = $('#staticBackdrop')
             $(".modal_img").on("click", function() {
-                var src = $(this).attr("src");
+                var src = $(".gallery-modal").attr("src");
                 modal.css({
                     "display": "block"
                 });
                 $(".img01", modal).prop("src", src);
-                $(".shadow", modal).prop("src", src);           
+                $(".shadow", modal).prop("src", src);
 
             })
         });
@@ -609,9 +606,37 @@
             })
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
-        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).on('click', '.modal_img', function(e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+           
+
+            //  var data = $(this).serializeArray();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  
+                }
+            });
+
+            $.ajax({      
+                type: 'GET', //THIS NEEDS TO BE GET
+                url: '{{ route( 'story') }}', 
+                data: '',
+                success: function(response) {
+                    alert(response);
+                    //$("#data").append(data);          
+                }
+                // error: function() {
+                //     console.log(data);                                                
+                // }
+            });
+
+
+        });
+    </script>
 
 </body>
 

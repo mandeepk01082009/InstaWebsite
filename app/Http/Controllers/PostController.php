@@ -34,8 +34,9 @@ class PostController extends Controller
    {
     $data = $request->validate([
     'caption'=> 'required',
-    'image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    'video' => 'required|mimes:mp4',
+    'image' => 'required',
+    'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',      
+    'video' => 'required|mimes:mp4',    
     'status' => 'nullable'  
 ]);
 

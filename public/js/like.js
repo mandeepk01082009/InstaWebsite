@@ -7,7 +7,7 @@ $(document).ready(function(){
         }
         });         
 
-$('.like').on('click', function(event) {     
+$('.like').on('click', function(event) {            
         event.preventDefault();
         //console.log(event.target.parentNode.parentNode.parentNode.dataset['post']);
         var postId = event.target.parentNode.parentNode.parentNode.dataset['post'];
@@ -17,7 +17,7 @@ $('.like').on('click', function(event) {
                 url: urlLike,
                 data: {isLike: isLike, postId: postId, _token:token},
                 success: function (data) {
-                        console.log(postId);           
+                        console.log(postId);                                        
         } 
                   
         })
