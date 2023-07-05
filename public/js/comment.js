@@ -8,7 +8,7 @@
 
      $(document).on('submit', '.form_class', function(e) {
          e.preventDefault();
-         var data = $(this).serializeArray();
+         var data = $(this).serializeArray();    
          $.ajax({
              type: "POST",
              url: "/comments",
@@ -55,12 +55,12 @@
      $(document).ready(function() {
 
          $(document).on('click', '.deleteComment', function() {
-             if (confirm('Are you sure you want to delete this comment?')) {
+             if (confirm('Are you sure you want to delete this comment?')) {   
                  var thisClicked = $(this);
                  var comment_id = thisClicked.val();
 
                  $.ajax({
-                     type: "POST",
+                     type: "POST",  
                      url: "/delete-comment",
                      data: {
                          'comment_id': comment_id
@@ -70,7 +70,7 @@
                              thisClicked.closest('.comment-container').remove();
                              alert(res.message);
                          } else {
-                             alert(res.message);
+                             alert(res.message);   
                          }
 
                      }

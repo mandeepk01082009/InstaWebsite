@@ -6,13 +6,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Like;
-use App\Models\Story;
+use App\Models\Story;  
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;    
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;   
 use Intervention\Image\Facades\Image;  
-use Illuminate\Support\Facades\Storage;    
+use Illuminate\Support\Facades\Storage;      
  
 
 
@@ -53,7 +53,7 @@ class HomeController extends Controller
                     ->where('following_id', Auth::user()->id);
         })->orWhere('user_id', Auth::user()->id)
             ->with('user')
-            ->orderBy('updated_at', 'DESC')->get();
+            ->orderBy('updated_at', 'DESC')->get();    
             //dd($user->story);  
 
     //    $stories = Story::orderBy('id','desc')->get();                                                              
@@ -69,21 +69,15 @@ class HomeController extends Controller
 // }
 
 
-     public function story(User $user){
-        $user = Auth::user();
-       // $user_id = User::select('id')->where('title', $title)->first();
-    //    $userId = Profile::where('title', $user)->get()->user_id; // I am expecting user id here like "1"
-    //     dd($userId);
-        //$user = User::find(2);
-
-        $stories = Story::orderBy('id','desc')->get();
-
-        $stories = Story::whereBelongsTo($user)->orderBy('updated_at', 'DESC')->get();                     
-
-       
-        // return response()->json(["stories" => $stories, "user_id" => $user_id]);   
+     public function story(Request $request)   
+     {
+        $id = $request['id']; 
+        $story = Story::where('user_id', $id)->get();    
+       // return reponse()->json(['img_url'=>asset('images/profile.png'),"story" => $story]);          
+      
         
-        return response()->json(["stories" => $stories]);  
+       return response()->json(["story" => $story]);                                                    
+        //return Response::json(['data' => 'data'], 200);     
                                         
 
      }

@@ -112,7 +112,7 @@ class CommentController extends Controller
                 'message' => 'Login to Delete this content'
 
             ]);   
-        }
+        }   
     }
     // public function destroy($id)
     //     {

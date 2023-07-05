@@ -105,7 +105,7 @@ return response()->json(['success'=>'Files uploaded successfully.']);
     public function edit($id)
         {
             $posts = Post::find($id);
-            return view('posts.postupdate')->with('posts',$posts);
+            return view('posts.postupdate')->with('posts',$posts);    
 
         }
 
@@ -117,21 +117,21 @@ return response()->json(['success'=>'Files uploaded successfully.']);
 
         if($request->has('image')) {
             $file = $request->file('image');
-            $extention = $file->getClientOriginalName();
+            $extention = $file->getClientOriginalName();     
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
-            $posts->image = $filename;
+            $posts->image = $filename;     
     }
     
          if($request->has('video')) {
             $file = $request->file('video');
-            $extention = $file->getClientOriginalName();    
+            $extention = $file->getClientOriginalName();            
             $filename = time(). '.' . $extention;
             $file->move('storage/',$filename);
             $posts->video = $filename;       
     }
 
-    $posts->update();
+    $posts->update();     
 
     return redirect('/profile/'. auth()->user()->id );
 
@@ -141,7 +141,7 @@ return response()->json(['success'=>'Files uploaded successfully.']);
         {
             $posts = Post::find($id);
             $posts->delete();
-            return redirect('/profile/'. auth()->user()->id );   
+            return redirect('/profile/'. auth()->user()->id );     
     
         }
 
@@ -161,7 +161,7 @@ return response()->json(['success'=>'Files uploaded successfully.']);
                 $update = true;
                 if ($already_like == $is_like){
                     $like->delete();     
-                    return null;    
+                    return null;        
                 }
             }else {
                 $like = new Like();

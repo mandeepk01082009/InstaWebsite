@@ -10,13 +10,13 @@
 
                 <div class="row">
                     <h1>Edit Post</h1>
-                </div>
+                </div>   
                 <input type="hidden" name="id" id="id" value="{{$posts->id}}">
                    <div class="form-group row">
                             <label for="caption"  class="col-md-4 col-form-label ">Caption</label>
 
                                 <textarea id="caption" type="text" class="form-control" name="caption"  placeholder="Caption">{{ $posts->caption }}</textarea>
-                    </div>
+                    </div>   
 
                     
                         <div class="row">

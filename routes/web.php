@@ -24,13 +24,15 @@ Route::get('/', function () {
 
 Auth::routes();  
 Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');
-Route::get('/story/', [App\Http\Controllers\HomeController::class, 'story'])->name('story');
+Route::get('/story', [App\Http\Controllers\HomeController::class, 'story'])->name('story');  
 
-Route::get('/p/create', [App\Http\Controllers\PostController::class, 'create']);
+Route::post('/saveToken', [FcmController::class, 'saveToken'])->name('saveToken');
+
+Route::get('/p/create', [App\Http\Controllers\PostController::class, 'create']);  
 Route::post('/p', [App\Http\Controllers\PostController::class, 'store']);
 Route::get('/p/{post}', [App\Http\Controllers\PostController::class, 'show']);
 Route::get('/editpost/{id}', [App\Http\Controllers\PostController::class, 'edit']);
-Route::patch('/updatepost/{id}',[App\Http\Controllers\PostController::class, 'update']);
+Route::patch('/updatepost/{id}',[App\Http\Controllers\PostController::class, 'update']);  
 Route::get('deletepost/{id}',[App\Http\Controllers\PostController::class, 'delete']);
 
 // Story
@@ -41,7 +43,7 @@ Route::get('deletestory/{id}',[App\Http\Controllers\StoryController::class, 'del
 
 // Comment System 
 //Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
-Route::get('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments');  
+Route::get('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments');     
 Route::post('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments'); 
  Route::post('delete-comment',[App\Http\Controllers\CommentController::class, 'destroy'])->name('delete-comment');
 

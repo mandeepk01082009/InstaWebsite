@@ -20,17 +20,18 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="{{ asset('js/like.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" /> 
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
     {{-- Styles  --}}
-          <style>
-            .slick-prev:before,
-            .slick-next:before {
-                display:none
-            }
-        </style>  
+    <style>
+        .slick-prev:before,
+        .slick-next:before {
+            display: none
+        }
+    </style>
 
     <title>Home</title>
 </head>
@@ -113,7 +114,7 @@
                                 </div>
                             </div>
                             @foreach ($stories as $story)
-                                <div class="story-circle" data-post="{{$story->id }}">
+                                <div class="story-circle">
                                     {{-- @php
                                         $images = json_decode($story->image) ?? [];
                                     @endphp
@@ -130,12 +131,15 @@
                                         </div> --}}
                                     {{-- @else --}}
 
-                                    <img href="#staticBackdrop" data-bs-toggle="modal"
+                                    {{-- <img href="#staticBackdrop" 
                                         data-bs-target="#staticBackdrop"
-                                        src="/storage/{{ $story->user->profile->image }}" class="modal_img">     
+                                        src="/storage/{{ $story->user->profile->image }}" data-post="{{$story->id}} }}"class="modal_img">      --}}
 
+                                    <img href="#staticBackdrop" data-bs-toggle="modal"
+                                        src="/storage/{{ $story->user->profile->image }}" id="{{ $story->user_id }}"
+                                        class="modal_img">
                                 </div>
-                                {{-- <span class="mt-5">{{ $story->user_id }}</span> --}}       
+                                {{-- <span class="mt-5">{{ $story->user_id }}</span> --}}
                             @endforeach
                         </div>
                     </div>
@@ -144,24 +148,6 @@
                 {{-- C:\wamp641\www\16june\public\images\reactions_angry.png --}}
 
 
-
-                <!-- Button trigger modal -->
-
-                <!-- Modal -->
-                {{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" data-bs-keyboard="false"
-                    aria-hidden="true">
-                    <div class="modal-dialog">                  
-                        <div class="modal-content">
-                            <div class="modal-header">             --}}
-                {{-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1> --}}
-                {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"    
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="gallery-modal"> <img class="modal-content" id="img01">
-                                </div>
-                                <button type="button" class="button1">Green</button>  
-                            </div>   --}}
 
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1"
                     aria-labelledby="staticBackdropLabel" data-bs-keyboard="false" aria-hidden="true">
@@ -173,27 +159,28 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                @foreach ($stories as $story)
+                                @foreach ($story as $s)
                                     <div class="gallery-modal">
-                                        @php
+                                        <center><img class="modal-content img01"></center>
+                                        {{-- @php
                                             $profile = $story->user->profile->image;
                                             $images = json_decode($story->image) ?? [];
                                         @endphp
                                         @if ($images && $profile)
-                                            <div class="slider">                                
-                                                @foreach ($images as $file)     
+                                            <div class="slider">
+                                                @foreach ($images as $file)
                                                     <div class="banner">
                                                         <center> <img src="{{ asset('storage/' . $file) }}"
-                                                                class="modal-content img01"></center>                                       
+                                                                class="modal-content img01"></center>
                                                     </div>
-                                                @endforeach        
+                                                @endforeach
 
                                             </div>
                                         @else
                                             <center><img src="{{ asset('storage/' . $story->image) }}"
-                                                    class="modal-content img01">      
+                                                    class="modal-content img01">
                                                 <center>
-                                        @endif
+                                        @endif --}}
                                         {{-- <center><img class="modal-content img01"></center>      --}}
                                     </div>
                                 @endforeach
@@ -224,7 +211,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </template> --}}      
+                            </template> --}}
 
 
                         </div>
@@ -579,7 +566,7 @@
             })
         })
     </script> --}}
-    <script>
+    {{-- <script>
         $(function() {
             let modal = $('#staticBackdrop')
             $(".modal_img").on("click", function() {
@@ -592,7 +579,7 @@
 
             })
         });
-    </script>
+    </script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"
         integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -611,30 +598,41 @@
         $(document).on('click', '.modal_img', function(e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
+            var id = $(this).attr("id");
 
-           
-
-            //  var data = $(this).serializeArray();
-            $.ajaxSetup({
+            $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  
-                }
-            });
+                },
+                url: "{{ route('story') }}",
+                data: {
+                    "id": id
+                },
 
-            $.ajax({      
-                type: 'GET', //THIS NEEDS TO BE GET
-                url: '{{ route( 'story') }}', 
-                data: '',
+                type: 'GET',
+                dataType: 'json',
                 success: function(response) {
-                    alert(response);
-                    //$("#data").append(data);          
+                    console.log(response);
+                    const cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+
+                    let text = "";
+                    for (let i = 0; i < cars.length; i++) {
+                        text += cars[i] + "<br>";
+                    }
+
+                    //document.getElementById("demo").innerHTML = text;
+                    console.log(cars);
+
+                    // myClass = "card card-body shadow-sm mt-3";
+                    //  $(".gallery-modal").append($("<div>" + response + "</div>").addClass(myClass));
+                    // $(".gallery-modal").append($("<div>" + response.image + "</div>"));                       
+                    //$('gallery-modal').prop("src","{{ asset('photos/') }}"+'/'+VST_PHOTO);   
+
+
+
                 }
-                // error: function() {
-                //     console.log(data);                                                
-                // }
+
             });
-
-
         });
     </script>
 

@@ -9,9 +9,9 @@ $(document).ready(function(){
 
 $('.like').on('click', function(event) {            
         event.preventDefault();
-        //console.log(event.target.parentNode.parentNode.parentNode.dataset['post']);
+        //console.log(event.target.parentNode.parentNode.parentNode.dataset['post']);              
         var postId = event.target.parentNode.parentNode.parentNode.dataset['post'];
-        var isLike = event.target.previousElementSibling == null ;
+        var isLike = event.target.previousElementSibling == null ;   
         $.ajax({
                 method: 'POST',   
                 url: urlLike,
