@@ -597,9 +597,7 @@
         $(document).on('click', '.modal_img', function(e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
-            var id = $(this).attr("id"); //{{ asset('storage/' . $story->image) }}
-            newImg = "<img src='{{ asset('storage/' . $story->image) }} + id +' >";
-            var image = "image";
+            var id = $(this).attr("id");
 
 
             $.ajax({
@@ -615,23 +613,28 @@
                 dataType: 'json',
                 success: function(response) {
                     console.log(response);
-                    
-                    $.each(result, function(k, v) {
-                        //display the key and value pair
-                        alert(k + ' is ' + v);
-                    });
+                     console.log(response.story[0].id  );
+
+                    //                     var arr = [
+                    //   {"id":1,"name":"admin","password":"admin","role":"Admin"},
+                    //   {"id":2,"name":"user","password":"user","role":"User"},
+                    //   {"id":3,"name":"superadmin","password":"superadmin","role":"superadmin"}
+                    // ]
+
+                    // arr.forEach(function(obj) {
+                    //   console.log('name: ' + obj.name);
+                    //   console.log('password: ' + obj.password);   
+                    // })
+
+                    //response.weather[0].main
+
+
+
                     //console.log("newImg");
                     // $('.gallery-modal').append('<img src='storage/" + response.image + "'/>');
 
                     if (response) {
                         resultObj = eval(response);
-                        var result = $.parseJSON(resultObj);
-                        $.each(result, function(k, v) {
-                        //display the key and value pair
-                        console.log(k + ' is ' + v);
-                    });
-                        console.log(id);
-                        console.log(response.id);
                         $.each(response, function(key, value) {
                             $("#gallery-modal").html('<div>' + value.id + '</div>');
                             var img = '<img src="storage/' + value.image +
