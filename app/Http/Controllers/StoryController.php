@@ -43,7 +43,7 @@ $fileNames = [];
 foreach($request->file('image') as $image){
     $extention = $image->getClientOriginalName();
     $filename = time(). '.' . $extention;
-    $image->move('storage/',$filename);
+    $image->move('storage/',$filename);    
     $fileNames[] = $filename;
 }
 $story->image = json_encode($fileNames);    

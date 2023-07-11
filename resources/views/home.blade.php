@@ -159,10 +159,10 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                @foreach ($story as $s)
-                                    <div class="gallery-modal">
-                                        <center><img class="modal-content img01"></center>
-                                        {{-- @php
+                                <div class="gallery-modal" id="gallery-modal">
+
+                                    {{-- <center><img class="modal-content img01"></center> --}}
+                                    {{-- @php
                                             $profile = $story->user->profile->image;
                                             $images = json_decode($story->image) ?? [];
                                         @endphp
@@ -173,7 +173,7 @@
                                                         <center> <img src="{{ asset('storage/' . $file) }}"
                                                                 class="modal-content img01"></center>
                                                     </div>
-                                                @endforeach
+                                                @endforeach        
 
                                             </div>
                                         @else
@@ -181,9 +181,8 @@
                                                     class="modal-content img01">
                                                 <center>
                                         @endif --}}
-                                        {{-- <center><img class="modal-content img01"></center>      --}}
-                                    </div>
-                                @endforeach
+                                    {{-- <center><img class="modal-content img01"></center>      --}}
+                                </div>
                                 {{-- <button type="button" class="button1">Green</button>   --}}
                             </div>
 
@@ -598,11 +597,14 @@
         $(document).on('click', '.modal_img', function(e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
-            var id = $(this).attr("id");
+            var id = $(this).attr("id"); //{{ asset('storage/' . $story->image) }}
+            newImg = "<img src='{{ asset('storage/' . $story->image) }} + id +' >";
+            var image = "image";
+
 
             $.ajax({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 url: "{{ route('story') }}",
                 data: {
@@ -613,22 +615,44 @@
                 dataType: 'json',
                 success: function(response) {
                     console.log(response);
-                    const cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+                    
+                    $.each(result, function(k, v) {
+                        //display the key and value pair
+                        alert(k + ' is ' + v);
+                    });
+                    //console.log("newImg");
+                    // $('.gallery-modal').append('<img src='storage/" + response.image + "'/>');
 
-                    let text = "";
-                    for (let i = 0; i < cars.length; i++) {
-                        text += cars[i] + "<br>";
+                    if (response) {
+                        resultObj = eval(response);
+                        var result = $.parseJSON(resultObj);
+                        $.each(result, function(k, v) {
+                        //display the key and value pair
+                        console.log(k + ' is ' + v);
+                    });
+                        console.log(id);
+                        console.log(response.id);
+                        $.each(response, function(key, value) {
+                            $("#gallery-modal").html('<div>' + value.id + '</div>');
+                            var img = '<img src="storage/' + value.image +
+                                '" width="100" height="100" >';
+                            $('#gallery-modal').html(
+                                '<img src="{{ asset(Storage::url('')) }}/' + value.image +
+                                '"  />');
+                        })
+
+                        //$('#gallery-modal').html('<img src="{{ asset(Storage::url('')) }}/'+value.image+'"  />');
+
+
+
+                        //                     var img = '<img src="{{ asset(Storage::url('uploadedImages')) }}/'+data+'" width="100" height="100" id="insertedImages">';
+                        //      $("#insertedImages").html(img);  
+                        //      alert("Uploaded OK!")            
+                        //   },
+
+
+
                     }
-
-                    //document.getElementById("demo").innerHTML = text;
-                    console.log(cars);
-
-                    // myClass = "card card-body shadow-sm mt-3";
-                    //  $(".gallery-modal").append($("<div>" + response + "</div>").addClass(myClass));
-                    // $(".gallery-modal").append($("<div>" + response.image + "</div>"));                       
-                    //$('gallery-modal').prop("src","{{ asset('photos/') }}"+'/'+VST_PHOTO);   
-
-
 
                 }
 

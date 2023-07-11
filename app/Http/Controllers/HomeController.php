@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;   
 use Intervention\Image\Facades\Image;  
-use Illuminate\Support\Facades\Storage;      
+use Illuminate\Support\Facades\Storage;         
  
 
 
@@ -72,15 +72,13 @@ class HomeController extends Controller
      public function story(Request $request)   
      {
         $id = $request['id']; 
-        $story = Story::where('user_id', $id)->get();    
-       // return reponse()->json(['img_url'=>asset('images/profile.png'),"story" => $story]);          
-      
-        
-       return response()->json(["story" => $story]);                                                    
-        //return Response::json(['data' => 'data'], 200);     
+        $story = Story::where('user_id', $id)->get();   
+      //  $story = Story::where('user_id', $id)->pluck('image'); 
+       return response()->json(["story" => $story]);                                                      
+    //     //return Response::json(['data' => 'data'], 200);     
                                         
 
      }
 
  
-}
+ }
