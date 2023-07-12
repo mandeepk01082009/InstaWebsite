@@ -613,49 +613,53 @@
                 dataType: 'json',
                 success: function(response) {
                     console.log(response);
-                     console.log(response.story[0].id  );
-
-                    //                     var arr = [
-                    //   {"id":1,"name":"admin","password":"admin","role":"Admin"},
-                    //   {"id":2,"name":"user","password":"user","role":"User"},
-                    //   {"id":3,"name":"superadmin","password":"superadmin","role":"superadmin"}
-                    // ]
-
-                    // arr.forEach(function(obj) {
-                    //   console.log('name: ' + obj.name);
-                    //   console.log('password: ' + obj.password);   
-                    // })
-
-                    //response.weather[0].main
+                    console.log(response.story[0].video);
 
 
 
-                    //console.log("newImg");
-                    // $('.gallery-modal').append('<img src='storage/" + response.image + "'/>');
+                    // $.each(response.story, function (i) {
+                    //     $.each(response.story[0], function (key, val) {
+                    //         console.log(key + val);   
+                    //     });
+                    // });  // var img = '<img src="storage/' + value.image +
+                            //     '" width="100" height="100" >';
 
-                    if (response) {
+                    if (response.story[0].image != null)   {
                         resultObj = eval(response);
-                        $.each(response, function(key, value) {
-                            $("#gallery-modal").html('<div>' + value.id + '</div>');
-                            var img = '<img src="storage/' + value.image +
-                                '" width="100" height="100" >';
+
+                        $.each(response.story, function(key, value) {
                             $('#gallery-modal').html(
                                 '<img src="{{ asset(Storage::url('')) }}/' + value.image +
-                                '"  />');
+                                '" style="max-height:500px; max-width:40%"/>'
+                            );
+                            $('#gallery-modal').append(     
+                                '<video controls src="{{ asset(Storage::url('')) }}/' +
+                                value.video +
+                                '" style="max-height:500px; max-width:40%"/></video>'   
+                            );
                         })
+                    }    else
+                    {
+                        document.write(empty);
+                    }
+
+
+                        $(document).ready(function() {
+                            $('#gallery-modal').slick({
+                                dots: true,
+                                infinite: true,
+                                arrow: true,
+                                cssEase: 'linear',
+                                speed:100,
+                                autoplay: true,
+                                autoplaySpeed: 15000,
+               
+                            })
+                        });
 
                         //$('#gallery-modal').html('<img src="{{ asset(Storage::url('')) }}/'+value.image+'"  />');
 
-
-
-                        //                     var img = '<img src="{{ asset(Storage::url('uploadedImages')) }}/'+data+'" width="100" height="100" id="insertedImages">';
-                        //      $("#insertedImages").html(img);  
-                        //      alert("Uploaded OK!")            
-                        //   },
-
-
-
-                    }
+                    
 
                 }
 
