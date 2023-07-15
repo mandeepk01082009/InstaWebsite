@@ -21,6 +21,16 @@
                                 </div>
                             @endif
                         </div> --}}
+
+                        {{-- <div class="form-group row">
+                            <input type="hidden" name="user_id" id="user_id" class="form-control">
+
+                            @if ($errors->has('user_id'))
+                                <span class="text-danger">{{ $errors->first('user_id') }}</span>
+                            @endif
+
+                        </div> --}}
+
                         <div class="form-group row">
 
 
@@ -37,7 +47,7 @@
 
 
 
-                        <div class="row">
+                        <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label">Post Image</label>
                             <input type="file" name="image[]" class="form-control" multiple="multiple">
 
@@ -47,7 +57,7 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="form-group row">
                             <label for="video" class="col-md-4 col-form-label">Post Video</label>
                             <input type="file" name="video" id="video" class="form-control">
 
@@ -58,7 +68,7 @@
                         </div>
 
                         <h3 class="mt-3">Status</h3>
-                        <div class="row ">
+                        <div class="form-group row">
                             <div class="mb-3">
                                 <label for="status">Status</label>
                                 <input type="checkbox" name="status">

@@ -15,5 +15,10 @@ class Story extends Model
     }
 
     protected $table = 'stories';
-    protected $fillable = ['user_id','image','video'];                  
+    protected $fillable = ['user_id','image','video']; 
+    
+    public function like()
+    {
+        return $this->hasMany(StoryLikes::class, 'story_id', 'id');
+    }
 }

@@ -90,15 +90,16 @@ $post->image = json_encode($fileNames);
 
     $post->save();
 
-return response()->json(['success'=>'Files uploaded successfully.']);
+//return response()->json(['success'=>'Files uploaded successfully.']);
 // }
  
-    //return redirect('/profile/'. auth()->user()->id );   
+    return redirect('/profile/'. auth()->user()->id );   
     
 }
 
     public function show(\App\Models\Post $post)
     {
+        //return response()->json($post, 200);
         return view('posts.show', compact('post'));
     }
 

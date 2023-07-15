@@ -23,13 +23,13 @@
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="{{ asset('js/like.js') }}"></script>
-    <script src="{{ asset('js/comment.js') }}"></script>
+    <script src="{{ asset('js/comment.js') }}"></script>    
     <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
     {{-- Styles  --}}
     <style>
         .slick-prev:before,
         .slick-next:before {
-            display: none
+            display: none   
         }
     </style>
 
@@ -159,7 +159,9 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="gallery-modal" id="gallery-modal">
+                                <div class="gallery-modal" id="gallery-modal">    
+
+                                   
 
                                     {{-- <center><img class="modal-content img01"></center> --}}
                                     {{-- @php
@@ -624,23 +626,29 @@
                     // });  // var img = '<img src="storage/' + value.image +
                             //     '" width="100" height="100" >';
 
+                            
+
                     if (response.story[0].image != null)   {
-                        resultObj = eval(response);
+                        resultObj = eval(response);          
 
                         $.each(response.story, function(key, value) {
                             $('#gallery-modal').html(
                                 '<img src="{{ asset(Storage::url('')) }}/' + value.image +
-                                '" style="max-height:500px; max-width:40%"/>'
+                                '" style="max-height:500px; max-width:40%;"/>'
                             );
                             $('#gallery-modal').append(     
                                 '<video controls src="{{ asset(Storage::url('')) }}/' +
                                 value.video +
                                 '" style="max-height:500px; max-width:40%"/></video>'   
-                            );
-                        })
-                    }    else
+                            ); 
+                            // $('#gallery-modal').append(
+                            //     '<a href="#"><img src="{{asset('images/reactions-love.png')}}" alt="logo" class="img-size-50 mt-5 img-circle" " style="max-height:50px; max-width:50px;"></a>'
+                            // ); 
+
+                        })     
+                    }    else                                                                      
                     {
-                        document.write(empty);
+                        document.write(empty);                                                         
                     }
 
 

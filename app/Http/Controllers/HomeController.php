@@ -54,6 +54,7 @@ class HomeController extends Controller
         })->orWhere('user_id', Auth::user()->id)
             ->with('user')
             ->orderBy('updated_at', 'DESC')->get();    
+            
             //dd($user->story);  
 
     //    $stories = Story::orderBy('id','desc')->get();                                                              
@@ -75,7 +76,7 @@ class HomeController extends Controller
         $story = Story::where('user_id', $id)->get();   
       //  $story = Story::where('user_id', $id)->pluck('image'); 
        return response()->json(["story" => $story]);                                                      
-    //     //return Response::json(['data' => 'data'], 200);     
+    //     //return Response::json(['data' => 'data'], 200);          
                                         
 
      }
