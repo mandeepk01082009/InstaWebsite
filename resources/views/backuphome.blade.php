@@ -24,13 +24,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="{{ asset('js/like.js') }}"></script>
     <script src="{{ asset('js/storylike.js') }}"></script>
-    <script src="{{ asset('js/comment.js') }}"></script>
+    <script src="{{ asset('js/comment.js') }}"></script>    
     <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
-    {{-- Styles  --}}
+    {{-- Styles  --}}                              
     <style>
         .slick-prev:before,
         .slick-next:before {
-            display: none
+            display: none   
         }
     </style>
 
@@ -138,7 +138,7 @@
 
                                     <img href="#staticBackdrop" data-bs-toggle="modal"
                                         src="/storage/{{ $story->user->profile->image }}" id="{{ $story->user_id }}"
-                                        class="modal_img">
+                                        class="modal_img">               
                                 </div>
                                 {{-- <span class="mt-5">{{ $story->user_id }}</span> --}}
                             @endforeach
@@ -160,9 +160,9 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="gallery-modal" id="gallery-modal">
+                                <div class="gallery-modal" id="gallery-modal">    
 
-
+                                   
 
                                     {{-- <center><img class="modal-content img01"></center> --}}
                                     {{-- @php
@@ -194,90 +194,23 @@
                                     <button class="btn4">👏</button>
                                     <button class="btn5">🔥</button>
                                     <button class="btn6">🥳</button>
-                                    <button class="btn7">💯</button>
-
-                                    {{-- <div class="comment-area mt-4">
-                                        <div class="card card-body">
-                                            <h6 class="card-title">Leave a comment</h6>
-                                            <form action="{{ url('stcomments') }}" method="POST" id="serializeForm"
-                                            data-post="{{ $story->id }}" class="comment_form">  
-                                            @csrf
-                                            <input type="hidden" name="story_id" value="{{ $story->id }}"
-                                                id="story_id">
-                                            <input type="hidden" name="user_id" value="{{ $story->user_id }}"
-                                                id="user_id">
-                                                <textarea name="comment_body" class="form-control" rows="3" required></textarea>
-                                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                                            </form>
-                                        </div>
-
-
-                                    </div> --}}
-
-                                    {{-- <div class="comment-area mt-4" id="comment-area">
-
-                                        @if (session('message'))
-                                            <h6 class="alert alert-warning mb-3">{{ session('message') }}</h6>
-                                        @endif
-                                        <div class="card card-body">
-                                            <h6 class="card-title">Leave a comment</h6>
-                                            <form action="{{ url('stcomments') }}" method="POST" id="serializeForm"
-                                                data-post="{{ $story->id }}" class="form_class">
-                                                @csrf
-                                                <input type="hidden" name="story_id" value="{{ $story->id }}"
-                                                    id="post_id">
-                                                <input type="hidden" name="user_id" value="{{ $story->user_id }}"
-                                                    id="user_id">
-                                                <textarea name="comment_body" class="form-control" rows="3" id="comment_body" required></textarea>
-                                                <button type="submit" name="submit" class="btn btn-primary mt-3"
-                                                    class="submitButton">Submit</button>
-                                            </form>
-                                        </div>
-
-
-                                        @forelse($story->comments as $comment)  
-                                            <div class="comment-container card card-body shadow-sm mt-3">
-                                                <div class="detail-area">
-                                                    <h6 class="user-name mb-1">
-                                                        @if ($comment->user)
-                                                            {{ $comment->user->name }}
-                                                        @endif
-                                                        <small class="ms-3 text-primary">Commented on:
-                                                            {{ $comment->created_at->format('d-m-Y') }}</small>
-                                                    </h6>
-                                                    <p class="user-comment mb-1">
-                                                        {{ $comment->comment_body }}
-
-                                                    </p>
-                                                </div>
-                                               
-                                            </div>
-                                        @empty
-                                            <h6>No Comments Yet.</h6>
-                                        @endforelse
-                                    </div> --}}
-
-                                    <div class="mt-2">
-
-                                        <a href="#" class="slike" data-post="{{ $story->id }}">
-                                            @if (Auth::user()->StoryLike()->where('story_id', $story->id)->first())
-                                                ❤️
-                                            @elseif (
-                                                !empty(Auth::user()) &&
-                                                    Auth::user()->StoryLike()->where('story_id', $story->id)->first() != 1)
-                                                &#9825;
-                                            @endif
-                                        </a>
-
-                                    </div>
-
+                                    <button class="btn7">💯</button>      
                                     {{-- <button <a href="#">><span>😂</span> <span class="mx-3">😮</span> <span class="mx-3">😍</span> <span class="mx-3">😢</span><br>
                                     <span class="mt-2">👏</span> <span class="mx-3 mt-2">🔥</span> <span class="mx-3 mt-2">🥳</span>  <span class="mx-3 mt-2">💯</span> </button> --}}
+                                 </div> 
+                                         <a href="#" class="slike" data-post="{{ $story->id }}">
+                                        @if (Auth::user()->StoryLike()->where('story_id', $story->id)->first())
+                                            ♥
+                
+                                        @elseif (
+                                            !empty(Auth::user()) &&      
+                                                Auth::user()->StoryLike()->where('story_id', $story->id)->first() != 1)
+                                           ❤️
+                                        @endif
+                                    </a>
+                                   
                                 </div>
-
-
-
-
+                                <hr>
                                 {{-- <button type="button" class="button1">Green</button>   --}}
                             </div>
 
@@ -435,11 +368,11 @@
                                                 </div>
                                             @empty
                                                 <h6>No Comments Yet.</h6>
-                                            @endforelse
+                                            @endforelse             
                                         </div>
 
 
-                                    </div>
+                                    </div>  
                                 </div>
                             @endforeach
                         @endif
@@ -590,10 +523,10 @@
         var urlLike = '{{ route('like') }}';
     </script>
 
-    <script type="text/javascript">
-        var tokeni = '{{ Session::token() }}';
-        var urlStory = '{{ route('storyLike') }}';
-    </script>
+<script type="text/javascript">
+    var tokeni = '{{ Session::token() }}';
+    var urlStory = '{{ route('storyLike') }}';   
+</script>
 
     <script>
         let currentScrollPosition = 0;
@@ -722,49 +655,50 @@
                     //         console.log(key + val);   
                     //     });
                     // });  // var img = '<img src="storage/' + value.image +
-                    //     '" width="100" height="100" >';
+                            //     '" width="100" height="100" >';
 
+                            
 
-
-                    if (response.story[0].image != null) {
-                        resultObj = eval(response);
+                    if (response.story[0].image != null)   {
+                        resultObj = eval(response);          
 
                         $.each(response.story, function(key, value) {
                             $('#gallery-modal').html(
                                 '<img src="{{ asset(Storage::url('')) }}/' + value.image +
                                 '" style="max-height:900px; max-width:40%;"/>'
                             );
-                            $('#gallery-modal').append(
+                            $('#gallery-modal').append(     
                                 '<video controls src="{{ asset(Storage::url('')) }}/' +
                                 value.video +
-                                '" style="max-height:500px; max-width:40%"/></video>'
-                            );
+                                '" style="max-height:500px; max-width:40%"/></video>'   
+                            ); 
                             // $('#gallery-modal').append(
-                            //     '<a href="#"><img src="{{ asset('images/reactions-love.png') }}" alt="logo" class="img-size-50 mt-5 img-circle" " style="max-height:50px; max-width:50px;"></a>'
+                            //     '<a href="#"><img src="{{asset('images/reactions-love.png')}}" alt="logo" class="img-size-50 mt-5 img-circle" " style="max-height:50px; max-width:50px;"></a>'
                             // ); 
 
-                        })
-                    } else {
-                        document.write(empty);
+                        })     
+                    }    else                                                                      
+                    {
+                        document.write(empty);                                                         
                     }
 
 
-                    $(document).ready(function() {
-                        $('#gallery-modal').slick({
-                            dots: true,
-                            infinite: true,
-                            arrow: true,
-                            cssEase: 'linear',
-                            speed: 100,
-                            autoplay: true,
-                            autoplaySpeed: 15000,
+                        $(document).ready(function() {
+                            $('#gallery-modal').slick({
+                                dots: true,
+                                infinite: true,
+                                arrow: true,
+                                cssEase: 'linear',
+                                speed:100,
+                                autoplay: true,
+                                autoplaySpeed: 15000,
+               
+                            })
+                        });
 
-                        })
-                    });
+                        //$('#gallery-modal').html('<img src="{{ asset(Storage::url('')) }}/'+value.image+'"  />');
 
-                    //$('#gallery-modal').html('<img src="{{ asset(Storage::url('')) }}/'+value.image+'"  />');
-
-
+                    
 
                 }
 

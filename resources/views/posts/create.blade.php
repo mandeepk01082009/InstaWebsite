@@ -29,9 +29,10 @@
                                 <span class="text-danger">{{ $errors->first('user_id') }}</span>
                             @endif
 
-                        </div> --}}
+                        </div> --}}    
 
-                        <div class="form-group row">
+                        <div class="form-group row">    
+                            
 
 
                             <label for="caption">Post Caption</label>

@@ -14,9 +14,9 @@
              url: "/comments",
              data: $.param(data),     
              success: function(response) {
-                 myClass = "card card-body shadow-sm mt-3";
+                 myClass = "card card-body shadow-sm mt-3";  
                  $(".comment-area").append($("<div>" + response.data.comment_body + "</div>").addClass(myClass));
-             }
+             }  
 
 
          });

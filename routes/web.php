@@ -47,12 +47,16 @@ Route::get('comments', [App\Http\Controllers\CommentController::class,'postComme
 Route::post('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments'); 
  Route::post('delete-comment',[App\Http\Controllers\CommentController::class, 'destroy'])->name('delete-comment');
 
+ Route::get('stcomments', [App\Http\Controllers\StcommentController::class,'postComments'])->name('stcomments');     
+ Route::post('stcomments', [App\Http\Controllers\StcommentController::class,'postComments'])->name('stcomments'); 
+
 //follow unfollow
 Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');        
 
 
 //like system
-Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->name('like');   
+Route::post('/like', [App\Http\Controllers\PostController::class, 'postLike'])->name('like');  
+Route::post('/storyLike', [App\Http\Controllers\StoryController::class, 'storyLike'])->name('storyLike');  
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Story;
 use App\Models\Comment;
 //use Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 
@@ -13,7 +14,7 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    function getData()
+    function getData()   
     {
         return["name"=>"anil","email"=>"anil@gmail.com","address"=>"delhi"];   
     }
@@ -28,7 +29,7 @@ class ApiController extends Controller
     public function getUsers()
     {
         $user = User::all();
-        return response()->json($user);    
+        return response()->json($user);      
     }
 
     public function getStory()
@@ -85,14 +86,14 @@ class ApiController extends Controller
         }
         else
         {
-            return $result;
+            return $result;  
         }
     }
 
     public function delete($id)
     {    
         $comment = Comment::find($id);
-        $result = $comment->delete();
+        $result = $comment->delete();  
         if($result)
         {
             return ["result"=>" Record has been deleted with id => ".$id];
@@ -108,7 +109,7 @@ class ApiController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'post_id' => 'required|min:2|max:4',
+            'post_id' => 'required',
             'user_id' => 'required',
             'comment_body' => 'required',
         ]);
@@ -140,9 +141,145 @@ class ApiController extends Controller
        
     }
 
+    // public function upload(Request $request)
+    // {
+    //     $result = $request->file('file')->store('apiFiles');                                     
+    //     return ["result" => $result]; 
+    //     return ["result" => "success"];         
+    // }
+
     public function upload(Request $request)
-    {
-        $result = $request->file('file')->store('apiDocs');                                   
-        return ["result" => $result];       
+   {
+    $data = $request->validate([
+    'caption'=> 'required',
+    'image' => 'required',
+    'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',      
+    'video' => 'required|mimes:mp4',    
+    'status' => 'nullable'      
+]);
+
+$post = Post::create([
+    'caption' => $request->input('caption'),
+    'user_id' => $request->user_id,
+     'image' => '',
+     'video' => '',   
+     'status' => $request->status == true ? '1': '0',   
+]);
+
+// if($request->has('image')) {
+
+//             $file = $request->file('image');
+//             $extention = $file->getClientOriginalName();
+//             $filename = time(). '.' . $extention;
+//             $file->move('storage/',$filename);
+//             $post->image = $filename;       
+//     }
+
+$fileNames = [];
+foreach($request->file('image') as $image){
+    $extention = $image->getClientOriginalName();
+    $filename = time(). '.' . $extention;
+    $image->move('storage/',$filename);
+    $fileNames[] = $filename;
+}
+$post->image = json_encode($fileNames);
+    
+    if($request->has('video')) {
+            $file = $request->file('video');
+            $extention = $file->getClientOriginalName();   
+            $filename = time(). '.' . $extention;
+            $file->move('storage/',$filename);
+            $post->video = $filename;             
     }
+
+    $post->save();
+
+return response()->json([
+    "success" => true,
+    "message" => "Post has been uploaded successfully."
+]);
+ }
+
+ public function register(Request $request) 
+ { 
+     $validator = Validator::make($request->all(), [ 
+         'name' => 'required',
+         'email' => 'required|email|unique:users',
+         'username' => 'required',
+         'password' => 'required',
+         'password_confirmation' => 'required|same:password',     
+     ]);
+     if ($validator->fails()) { 
+          return response()->json(['error'=>$validator->errors()], 401);            
+}
+$input = $request->all(); 
+     $input['password'] = bcrypt($input['password']); 
+     $user = User::create($input); 
+     $success['token'] =  $user->createToken('MyApp')->plainTextToken;             
+     $success['name'] =  $user->name;
+
+$response = [
+    "success" => true,
+    "data" => $success,
+    "message" => "User register successfully."   
+];
+
+return Response::json($response,200);     
+
+ }
+
+ public function login(Request $request){
+   
+ if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+    $user = Auth::user();
+
+    $success['token'] =  $user->createToken('MyApp')->plainTextToken;             
+    $success['name'] =  $user->name;
+
+$response = [
+   "success" => true,
+   "data" => $success,
+   "message" => "User login successfully."   
+];
+
+return Response::json($response,200); 
+
+
+ } else{
+    $response = [
+        "success" => false,
+        "message" => "Unauthorised"   
+     ];
+
+    return response()->json($response);
+
+    }
+
+ }
+
+ public function user(Request $request){
+
+    $response = [
+        "success" => true,
+        "data" => $request->user(),
+        "message" => "User successfully fetched."   
+     ];
+     
+     return Response::json($response,200); 
+
+ }
+
+ public function logout(Request $request){   
+    $request->user()->currentAccessToken()->delete();
+    $response = [
+        "success" => true,
+        "message" => "User successfully logged out."      
+     ];
+     
+     return Response::json($response,200);        
+
+
+ }
+ 
+
 }

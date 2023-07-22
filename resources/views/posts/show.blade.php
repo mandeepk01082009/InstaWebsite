@@ -21,7 +21,7 @@
                     <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>
                 @endif
                 @php
-                    $images = json_decode($post->image) ?? [];
+                    $images = json_decode($post->image) ?? [];    
                 @endphp
                 @if ($images)
                     <div class="slider">

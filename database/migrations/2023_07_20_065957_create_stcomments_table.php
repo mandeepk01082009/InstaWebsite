@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('storylikes', function (Blueprint $table) {
+        Schema::create('stcomments', function (Blueprint $table) {
             $table->id();
-            $table->integer('story_id');
-            $table->integer('user_id');
-            $table->boolean('like');
-            $table->timestamps();      
-        }); 
+            $table->unsignedBigInteger('story_id');
+            $table->unsignedBigInteger('user_id');
+            $table->text('comment_body');
+            $table->timestamps();  
+        });
     }
 
     /**
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('storylikes');
+        Schema::dropIfExists('stcomments');
     }
 };

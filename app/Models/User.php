@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 
 
-class User extends Authenticatable 
+class User extends Authenticatable implements JWTSubject 
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -74,6 +75,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Comment');
     }
 
+    public function stcomments()
+    {
+        return $this->hasMany('App\Models\Stcomment');        
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class);
@@ -84,9 +90,9 @@ class User extends Authenticatable
         return $this->hasMany(Like::class, 'user_id', 'id');
     }
 
-    public function StoryLike()
+    public function storyLike()
     {
-        return $this->hasMany(StoryLikes::class, 'user_id', 'id');  
+        return $this->hasMany('App\Models\StoryLikes');  
     }
 
     //  public function like()
@@ -99,8 +105,18 @@ class User extends Authenticatable
     }
 
     public function followers(){
-        return $this->belongsToMany(User::class, 'followers', 'follower_id','following_id',);          
-    }  
+        return $this->belongsToMany(User::class, 'followers', 'follower_id','following_id');          
+    }
+    
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()  
+    {
+        return [];  
+    }
 
     
 }

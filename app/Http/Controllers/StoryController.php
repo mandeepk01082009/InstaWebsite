@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Story;  
-use App\Models\Home;     
+use App\Models\Home;
+use App\Models\StoryLikes; 
+use Auth;    
 
 
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class StoryController extends Controller
         return view('story.create');         
     }
 
-    public function store(Request $request)
+    public function store(Request $request)  
    {
     $data = $request->validate([
     'image' => 'required',
@@ -68,9 +70,42 @@ public function delete($id)
 {
     $story = Story::find($id);
     $story->delete();
-    return redirect('home');   
+    return redirect('home');             
 
 }
+
+public function storyLike(Request $request)   
+        {
+            $story_id = $request['storyId'];
+            $is_like = $request['isLike'] === 'true';
+            $update = false;  
+            $story = Story::find($story_id);   
+            if (!$story){
+                return null;         
+            }
+            $user = Auth::user();
+            $like = $user->storyLike()->where('story_id', $story_id)->first();   
+            if($like){
+                $already_like = $like->like;
+                $update = true;     
+                if ($already_like == $is_like){
+                    $like->delete();     
+                    return null;        
+                }
+            }else {
+                $like = new StoryLikes();
+            }
+            $like->like = $is_like;
+            $like->user_id = $user->id;
+            $like->story_id = $story->id;
+            if ($update) {
+                $like->update();                 
+            } else {
+                $like->save();   
+                
+            }
+            return null;   
+        }
     
 
 

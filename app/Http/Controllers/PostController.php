@@ -48,20 +48,6 @@ $post = Post::create([
      'status' => $request->status == true ? '1': '0',   
 ]);
 
-    /*if($request->has("image")){
-        //dd($request->hasFile("image"));
-        $files->$request->file("image");
-        foreach ($files as $file) {
-            $extention = $file->getClientOriginalName();
-            $filename = time(). '.' . $extention;
-            $file->move('storage/',$filename);
-            $fileNames[] = $filename;
-            $post->image = $filename; 
-            dd($fileNames);
-        }
-    }
-    $post->save();*/
-
 // if($request->has('image')) {
 
 //             $file = $request->file('image');
@@ -142,16 +128,16 @@ $post->image = json_encode($fileNames);
         {
             $posts = Post::find($id);
             $posts->delete();
-            return redirect('/profile/'. auth()->user()->id );     
+            return redirect('/profile/'. auth()->user()->id );                           
     
         }
-
+  
         public function postLike(Request $request)
         {
             $post_id = $request['postId'];
             $is_like = $request['isLike'] === 'true';
             $update = false;  
-            $post = Post::find($post_id);   
+            $post = Post::find($post_id);     
             if (!$post){
                 return null;         
             }
@@ -160,7 +146,7 @@ $post->image = json_encode($fileNames);
             if($like){
                 $already_like = $like->like;
                 $update = true;
-                if ($already_like == $is_like){
+                if ($already_like == $is_like){     
                     $like->delete();     
                     return null;        
                 }

@@ -247,3 +247,19 @@
 .gallery-modal img{width: 500px;
 
 }
+.emoji{
+    text-decoration-line: hidden;
+}
+.gallery-modal{
+    position: relative;
+}
+.second{
+    position: absolute;
+    z-index: 9;
+    margin-top: -9rem;
+    left: 620px;  
+}
+
+.second button{
+    border-color: white;   
+}

@@ -8,14 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class StoryLikes extends Model
 {
     use HasFactory;
+
+    protected $table = 'storylikes';
     
     protected $fillable = [
-        'user_id','like','story_id',
+        'user_id','story_id','like'  
     ];
 
     public function user()   
      {
-      return $this->belongsTO(User::class, 'user_id','id');                       
+      return $this->belongsTO(User::class, 'user_id','id');                                     
      }
 
     public function story()        
