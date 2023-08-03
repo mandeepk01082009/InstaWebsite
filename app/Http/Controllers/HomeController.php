@@ -62,7 +62,7 @@ class HomeController extends Controller
        
     //    $stories = Story::whereBelongsTo($user)->orderBy('updated_at', 'DESC')->get(); 
 
-        return view('home',compact('user','posts','stories'));                                      
+        return view('home',compact('user','posts','stories'));                                        
     } 
 
 //     public function getUserPortfolio($user) // fix it as $user only

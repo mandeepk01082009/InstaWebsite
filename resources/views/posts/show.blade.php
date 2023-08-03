@@ -30,7 +30,7 @@
                                 <img src="{{ asset('storage/' . $file) }}" class="w-100"
                                     style="max-width:400; height:400px;">
                             </div>
-                        @endforeach
+                        @endforeach            
 
                     </div>
                 @else
@@ -73,7 +73,7 @@
             </div>
             <div class="col-6">
                 <div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center">   
                         <div class="px-3">
                             <img src="/storage/{{ $post->user->profile->image }}" class="rounded-circle w-100"
                                 style="max-width: 40px;">
@@ -92,7 +92,7 @@
                                             Post</span></a>
 
                                     <a href="/deletepost/{{ $post->id }}" class="px-3"><span class="text-dark">Delete
-                                            Post</span></a>
+                                            Post</span></a>   
                                 @endif
                             </div>
                         </div>

@@ -19,10 +19,9 @@
                     </div>   
 
                     
-                        <div class="row">
+                        <div class="row">  
                             <label for="image" class="col-md-4 col-form-label custom-file-label ">Image</label>
-                            <input type="file" name="image" id="image" class="custom-file-input" value="{{$posts->image}}">
-                            
+                            <input type="file" name="image" id="image" class="custom-file-input" value="{{$posts->image}}">   
                         </div>
 
                         <div class="row">

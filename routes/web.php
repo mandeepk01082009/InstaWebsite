@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 
 Auth::routes();  
-Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');
+Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');        
 Route::get('/story', [App\Http\Controllers\HomeController::class, 'story'])->name('story');  
 
 Route::post('/saveToken', [FcmController::class, 'saveToken'])->name('saveToken');
@@ -45,10 +45,10 @@ Route::get('deletestory/{id}',[App\Http\Controllers\StoryController::class, 'del
 //Route::post('comments',[App\Http\Controllers\CommentController::class, 'store']);
 Route::get('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments');     
 Route::post('comments', [App\Http\Controllers\CommentController::class,'postComments'])->name('comments'); 
- Route::post('delete-comment',[App\Http\Controllers\CommentController::class, 'destroy'])->name('delete-comment');
+Route::post('delete-comment',[App\Http\Controllers\CommentController::class, 'destroy'])->name('delete-comment');
 
- Route::get('stcomments', [App\Http\Controllers\StcommentController::class,'postComments'])->name('stcomments');     
- Route::post('stcomments', [App\Http\Controllers\StcommentController::class,'postComments'])->name('stcomments'); 
+Route::get('stcomments', [App\Http\Controllers\StcommentController::class,'postComments'])->name('stcomments');     
+Route::post('stcomments', [App\Http\Controllers\StcommentController::class,'postComments'])->name('stcomments'); 
 
 //follow unfollow
 Route::get('user/{following_id}/follow',[App\Http\Controllers\PostController::class, 'follow'])->name('follow');        

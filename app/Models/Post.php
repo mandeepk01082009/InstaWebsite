@@ -32,7 +32,7 @@ class Post extends Model
     }
 
     protected $table = 'posts';
-    protected $fillable = ['user_id','caption','image','video','status'];
+    protected $fillable = ['user_id','caption','image','video','status'];  
 
     public function comments()
     {
