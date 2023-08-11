@@ -16,11 +16,11 @@ class Like extends Model
 
     public function user()   
      {
-      return $this->belongsTO(User::class, 'user_id','id');
+      return $this->belongsTO(User::class, 'user_id','id');   
      }
 
-    public function post()
-     {
+    public function post()           
+     {                             
       return $this->belongsTO(Post::class, 'post_id','id');
      }
 

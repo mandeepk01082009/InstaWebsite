@@ -21,4 +21,10 @@ class Story extends Model
     {
         return $this->hasMany(StoryLikes::class, 'story_id', 'id');    
     }
+
+    public function reaction()
+    {
+        return $this->hasMany(Reaction::class, 'story_id', 'id');
+    }  
+
 }

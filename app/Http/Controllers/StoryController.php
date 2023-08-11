@@ -5,6 +5,8 @@ use App\Models\User;
 use App\Models\Story;  
 use App\Models\Home;
 use App\Models\StoryLikes; 
+use App\Models\Reaction; 
+use Illuminate\Support\Facades\DB;
 use Auth;    
 
 
@@ -77,7 +79,7 @@ public function delete($id)
 public function storyLike(Request $request)   
         {
             $story_id = $request['storyId'];
-            $is_like = $request['isLike'] === 'true';
+            $is_like = $request['isLike'] === 'true';  
             $update = false;  
             $story = Story::find($story_id);   
             if (!$story){
@@ -106,7 +108,55 @@ public function storyLike(Request $request)
             }
             return null;   
         }
+
+    public function react(Request $request)       
+    { 
+        $story_id = $request['story_id'];  
+        $user_id = $request['user_id'];  
+        $react = $request['react'];        
+        DB::table('reactions')->insert(array("story_id"=>$story_id,"user_id"=>$user_id,"reaction"=>$react)); 
+        return response()->json(['success'=>'true']);         
+    }
+     // $data = array("story_id"=>$story_id,"user_id"=>$user_id,"react"=>$react);
+        // DB::table('reactions')->insert($data);  
+
+    //dd($react); 
+        //$quert=DB::insert('insert into reactions (story_id,user_id,react)',[$story_id,$user_id,$react]);  
+        //$statement = "INSERT INTO reations('story_id','user_id','react' ) VALUES ('".$story_id."', '".$user_id."', ".$react.");";
+        // if ($request->ajax()) {           
+        //     $result = Reaction::insert($request->all());       
+    
+        //     if ($result) {
+        //         return response()->json(['success'=>'true']);
+        //     } else {
+        //         return response()->json(['success'=>'false']);
+        //     }            
+        // }        
+    //     $react = new Reaction();  
+    //     $react->story_id = $request->story_id;  
+    //     $react->user()->associate($request->user());      
+    //     $react->save();     
+
+
+    //     $response = array(
+    //         'status' => 'success',
+    //         'msg' => 'React on story successfully',  
+    //         'data' => $react,
+    //     );
+    //     return Response::json($response);   
+    //     return 'yes';   
+    // }
+
+    // $input = Request::all();
+    // $user = Auth::user();
+    // $user->first_name = $input->first_name;
+    // $user->save();
+    // return response()->json(['user_saved' => $user ]);
+
+    }    
+   
+                                    
     
 
 
-}
+

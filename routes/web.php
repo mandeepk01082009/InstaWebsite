@@ -14,15 +14,15 @@ use App\Http\Controllers\PostController;
 |
 */
 
-// Route::get('/', function () {   
+// Route::get('/', function () {            
 //     return view('welcome');  
 // }); 
-Route::get('/', function () {
-    return view('layouts.app');                       
+Route::get('/', function () {               
+    return view('layouts.app');                                                                   
 });  
 
 
-Auth::routes();  
+Auth::routes();      
 Route::get('/home/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.show');        
 Route::get('/story', [App\Http\Controllers\HomeController::class, 'story'])->name('story');  
 
@@ -39,6 +39,7 @@ Route::get('deletepost/{id}',[App\Http\Controllers\PostController::class, 'delet
 Route::get('/s/create', [App\Http\Controllers\StoryController::class, 'create'])->name('create_story');
 Route::post('/s', [App\Http\Controllers\StoryController::class, 'store'])->name('store_story');
 Route::get('deletestory/{id}',[App\Http\Controllers\StoryController::class, 'delete'])->name('delete_story');
+Route::post('/react', [App\Http\Controllers\StoryController::class, 'react'])->name('react');  
 
 
 // Comment System 

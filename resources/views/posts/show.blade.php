@@ -17,7 +17,7 @@
                     <h6 class="alert alert-success mb-3">{{ session('mess') }}</h6>
                 @endif
 
-                @if (session('del'))
+                @if (session('del'))   
                     <h6 class="alert alert-success mb-3">{{ session('del') }}</h6>
                 @endif
                 @php

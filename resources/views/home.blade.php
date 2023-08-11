@@ -24,6 +24,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="{{ asset('js/like.js') }}"></script>
     <script src="{{ asset('js/storylike.js') }}"></script>
+    <script src="{{ asset('js/reaction.js') }}"></script>
     <script src="{{ asset('js/comment.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
     {{-- Styles  --}}
@@ -128,7 +129,7 @@
                                                         data-bs-target="#staticBackdrop"
                                                         src="{{ asset('storage/' . $file) }}" class="modal_img">
                                                 </div>    
-                                            @endforeach
+                                            @endforeach                      
                                         </div> --}}
                                     {{-- @else --}}
 
@@ -187,14 +188,51 @@
                                     {{-- <center><img class="modal-content img01"></center>      --}}
                                 </div>
                                 <div class="second">
-                                    <button class="btnm">😂</button>
-                                    <button class="btn1">😮</button>
-                                    <button class="btn2">😍</button>
+
+                                    {{-- {{ $post->like()->where(['like' => '1'])->count() }}
+                                    <a href="#" class="like">
+                                        @if (Auth::user()->reaction()->where('story_id', $story->id)->first())
+                                            &#9829;
+                                        @elseif (              
+                                            !empty(Auth::user()) &&                  
+                                                Auth::user()->like()->where('post_id', $post->id)->first() != 1)
+                                            &#9825;   
+                                        @endif       
+                                    </a>    --}}                 
+                                    @foreach ($stories as $story)
+                                        <button type="button" value="{{ $story->id }}"
+                                            data-id="{{ $user->id }}" style="border:none; background: none;"
+                                            class="react">😂</button>
+                                        {{-- <button class="btnm" data-post="{{ $story->id }}"></button> --}}
+                                        <button type="button" value="{{ $story->id }}"
+                                            data-id="{{ $user->id }}" style="border:none; background: none;"
+                                            class="react">😮</button>
+                                        <button type="button" value="{{ $story->id }}"
+                                            data-id="{{ $user->id }}" style="border:none; background: none;"
+                                            class="react">😍</button>
+                                        <button type="button" value="{{ $story->id }}"
+                                            data-id="{{ $user->id }}" style="border:none; background: none;"
+                                            class="react">😢</button><br>
+                                        <button type="button" value="{{ $story->id }}"
+                                            data-id="{{ $user->id }}" style="border:none; background: none;"
+                                            class="react">👏</button>
+                                        <button type="button" value="{{ $story->id }}"
+                                            data-id="{{ $user->id }}" style="border:none; background: none;"
+                                            class="react">🔥</button>
+                                        <button type="button" value="{{ $story->id }}"
+                                            data-id="{{ $user->id }}" style="border:none; background: none;"
+                                            class="react">🥳</button>
+                                        <button type="button" value="{{ $story->id }}"
+                                            data-id="{{ $user->id }}" style="border:none; background: none;"
+                                            class="react">💯</button>
+                                    @endforeach
+                                    {{-- <button class="btn1">😮</button>       
+                                    <button class="btn2">😍</button>              
                                     <button class="btn3">😢</button><br>
                                     <button class="btn4">👏</button>
                                     <button class="btn5">🔥</button>
-                                    <button class="btn6">🥳</button>
-                                    <button class="btn7">💯</button>
+                                    <button class="btn6">🥳</button>                                     
+                                    <button class="btn7">💯</button> --}}
 
                                     {{-- <div class="comment-area mt-4">
                                         <div class="card card-body">
@@ -246,7 +284,7 @@
                                                             {{ $comment->created_at->format('d-m-Y') }}</small>
                                                     </h6>
                                                     <p class="user-comment mb-1">
-                                                        {{ $comment->comment_body }}
+                                                        {{ $comment->comment_body }}   
 
                                                     </p>
                                                 </div>

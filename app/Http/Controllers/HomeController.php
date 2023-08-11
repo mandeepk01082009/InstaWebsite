@@ -38,6 +38,7 @@ class HomeController extends Controller
         $user = Auth::user();
         // $posts = Post::latest()->get();    
         //  return view('home',compact('user','posts'));  
+        $story_id = Story::all();
         $posts = Post::whereIn('user_id', function($query)
         {       
             $query->select('follower_id')
@@ -62,7 +63,7 @@ class HomeController extends Controller
        
     //    $stories = Story::whereBelongsTo($user)->orderBy('updated_at', 'DESC')->get(); 
 
-        return view('home',compact('user','posts','stories'));                                        
+        return view('home',compact('user','posts','stories','story_id'));                                           
     } 
 
 //     public function getUserPortfolio($user) // fix it as $user only
@@ -77,10 +78,10 @@ class HomeController extends Controller
         $story = Story::where('user_id', $id)->get();   
       //  $story = Story::where('user_id', $id)->pluck('image'); 
        return response()->json(["story" => $story]);                                                      
-    //     //return Response::json(['data' => 'data'], 200);          
-                                        
+         //return Response::json(['data' => 'data'], 200);   
+    return view('home',compact('story'));     
 
-     }
+    }
 
  
  }

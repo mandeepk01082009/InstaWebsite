@@ -24,7 +24,7 @@ class CommentController extends Controller
         $comment->uniqid = $uniqid;
         $comment->comment_body = $request->comment_body;
         $comment->post_id = $request->post_id;
-        $comment->user()->associate($request->user());
+        $comment->user()->associate($request->user());      
         $comment->save();
 
 
